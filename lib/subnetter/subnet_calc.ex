@@ -12,12 +12,34 @@ defmodule SubnetCalc do
     original_ip_address_list = String.split(original_ip_address, ".")
     original_subnet_mask_list = String.split(original_subnet_mask, ".")
 
+    [
+      original_ip_address_first_octet,
+      original_ip_address_second_octet,
+      original_ip_address_third_octet,
+      original_ip_address_fourth_octet
+    ] = original_ip_address_list
+
+    [
+      original_subnet_mask_first_octet,
+      original_subnet_mask_second_octet,
+      original_subnet_mask_third_octet,
+      original_subnet_mask_fourth_octet
+    ] = original_subnet_mask_list
+
     %{
       ip_struct
       | original_ip_address: original_ip_address,
-        original_subnet_mask: original_subnet_mask,
         original_ip_address_list: original_ip_address_list,
-        original_subnet_mask_list: original_subnet_mask_list
+        original_ip_address_first_octet: original_ip_address_first_octet,
+        original_ip_address_second_octet: original_ip_address_second_octet,
+        original_ip_address_third_octet: original_ip_address_third_octet,
+        original_ip_address_fourth_octet: original_ip_address_fourth_octet,
+        original_subnet_mask: original_subnet_mask,
+        original_subnet_mask_list: original_subnet_mask_list,
+        original_subnet_mask_first_octet: original_subnet_mask_first_octet,
+        original_subnet_mask_second_octet: original_subnet_mask_second_octet,
+        original_subnet_mask_third_octet: original_subnet_mask_third_octet,
+        original_subnet_mask_fourth_octet: original_subnet_mask_fourth_octet
     }
   end
 

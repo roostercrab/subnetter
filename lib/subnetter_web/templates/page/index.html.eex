@@ -13,7 +13,7 @@
   <div class="column">
     <p><h1 align="left"><%= @original_ip_address %></h1></p>
     <p><h1 align="left"><%= @original_subnet_mask %></h1></p>
-    
+
     <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
     <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
     <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
@@ -30,5 +30,10 @@
     <p><h1 align="left"><%= @network_portion_of_ip %></h1></p>
     <p><h1 align="left"><%= @zeroes_for_subnet_address %></h1></p>
     <p><h1 align="left"><%= @ones_for_broadcast_address %></h1></p>
+
+    <p><h1 align="left"><%= @original_ip_address_first_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_address_second_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_address_third_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_address_fourth_octet %></h1></p>
   </div>
 </div>
