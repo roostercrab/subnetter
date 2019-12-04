@@ -1,4 +1,4 @@
-defmodule Subnetter do
+defmodule SubnetCalc do
   @moduledoc """
   Documentation for Subnetter.
   """
