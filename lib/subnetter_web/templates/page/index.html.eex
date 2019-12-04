@@ -1,0 +1,20 @@
+<%= form_tag("/", method: :post) %>
+    <input type="text" placeholder="IP Address" name="original_ip_address">
+    <input type="text" placeholder="Subnet Mask" name="original_subnet_mask">
+    <input type="submit" value="Submit">
+  </form>
+
+<p><%= @original_ip_address %></p>
+<p><%= @original_subnet_mask %></p>
+<p><%= @original_ip_address_list %></p>
+<p><%= @original_subnet_mask_list %></p>
+<p><%= @original_ip_binary_list %></p>
+<p><%= @original_mask_binary_list %></p>
+<p><%= @binary_subnet_address %></p>
+<p><%= @dotted_decimal_subnet_address %></p>
+<p><%= @binary_broadcast_address %></p>
+<p><%= @dotted_decimal_broadcast_address %></p>
+<p><%= @number_of_ones_in_mask %></p>
+<p><%= @network_portion_of_ip %></p>
+<p><%= @zeroes_for_subnet_address %></p>
+<p><%= @ones_for_broadcast_address %></p>
