@@ -11,29 +11,54 @@
   </div>
 
   <div class="column">
+
     <p><h1 align="left"><%= @original_ip_address %></h1></p>
     <p><h1 align="left"><%= @original_subnet_mask %></h1></p>
-
     <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
-    <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
-    <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
-    <p><h1 align="left"><%= @original_ip_address_list %></h1></p>
-
-    <p><h1 align="left"><%= @original_ip_binary_list %></h1></p>
-    <p><h1 align="left"><%= @original_subnet_mask_list %></h1></p>
-    <p><h1 align="left"><%= @original_mask_binary_list %></h1></p>
-    <p><h1 align="left"><%= @binary_subnet_address %></h1></p>
-    <p><h1 align="left"><%= @dotted_decimal_subnet_address %></h1></p>
-    <p><h1 align="left"><%= @binary_broadcast_address %></h1></p>
-    <p><h1 align="left"><%= @dotted_decimal_broadcast_address %></h1></p>
-    <p><h1 align="left"><%= @number_of_ones_in_mask %></h1></p>
-    <p><h1 align="left"><%= @network_portion_of_ip %></h1></p>
-    <p><h1 align="left"><%= @zeroes_for_subnet_address %></h1></p>
-    <p><h1 align="left"><%= @ones_for_broadcast_address %></h1></p>
-
     <p><h1 align="left"><%= @original_ip_address_first_octet %></h1></p>
     <p><h1 align="left"><%= @original_ip_address_second_octet %></h1></p>
     <p><h1 align="left"><%= @original_ip_address_third_octet %></h1></p>
     <p><h1 align="left"><%= @original_ip_address_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @original_subnet_mask_list %></h1></p>
+    <p><h1 align="left"><%= @original_subnet_mask_first_octet %></h1></p>
+    <p><h1 align="left"><%= @original_subnet_mask_second_octet %></h1></p>
+    <p><h1 align="left"><%= @original_subnet_mask_third_octet %></h1></p>
+    <p><h1 align="left"><%= @original_subnet_mask_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_binary_list %></h1></p>
+    <p><h1 align="left"><%= @original_ip_binary_first_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_binary_second_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_binary_third_octet %></h1></p>
+    <p><h1 align="left"><%= @original_ip_binary_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @original_mask_binary_list %></h1></p>
+    <p><h1 align="left"><%= @original_mask_binary_first_octet %></h1></p>
+    <p><h1 align="left"><%= @original_mask_binary_second_octet %></h1></p>
+    <p><h1 align="left"><%= @original_mask_binary_third_octet %></h1></p>
+    <p><h1 align="left"><%= @original_mask_binary_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_subnet_address %></h1></p>
+    <p><h1 align="left"><%= @binary_subnet_address_list %></h1></p>
+    <p><h1 align="left"><%= @binary_subnet_address_first_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_subnet_address_second_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_subnet_address_third_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_subnet_address_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_subnet_address %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_subnet_address_first_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_subnet_address_second_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_subnet_address_third_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_subnet_address_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_broadcast_address %></h1></p>
+    <p><h1 align="left"><%= @binary_broadcast_address_list %></h1></p>
+    <p><h1 align="left"><%= @binary_broadcast_address_first_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_broadcast_address_second_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_broadcast_address_third_octet %></h1></p>
+    <p><h1 align="left"><%= @binary_broadcast_address_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_broadcast_address %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_broadcast_address_first_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_broadcast_address_second_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_broadcast_address_third_octet %></h1></p>
+    <p><h1 align="left"><%= @dotted_decimal_broadcast_address_fourth_octet %></h1></p>
+    <p><h1 align="left"><%= @number_of_ones_in_mask %></h1></p>
+    <p><h1 align="left"><%= @network_portion_of_ip %></h1></p>
+    <p><h1 align="left"><%= @zeroes_for_subnet_address %></h1></p>
+    <p><h1 align="left"><%= @ones_for_broadcast_address %></h1></p>
   </div>
 </div>

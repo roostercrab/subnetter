@@ -148,15 +148,9 @@ defmodule SubnetCalc do
     ones_for_broadcast_address = List.duplicate("1", 32 - number_of_ones_in_mask)
 
     binary_subnet_address = "#{network_portion_of_ip}#{zeroes_for_subnet_address}"
-    #binary_subnet_octet = String.to_integer(binary_subnet_address, 2)
-    #binary_string_subnet_address = Integer.to_string(binary_subnet_address, 10)
-    #binary_subnet_address_list = Enum.chunk_every(binary_string_subnet_address, 8)
     binary_subnet_address_list = binary_string_to_octet(binary_subnet_address)
-    
+
     binary_broadcast_address = "#{network_portion_of_ip}#{ones_for_broadcast_address}"
-    #binary_broadcast_octet = String.to_integer(binary_broadcast_address, 2)
-    #binary_string_broadcast_address = Integer.to_string(binary_broadcast_address, 10)
-    #binary_broadcast_address_list = Enum.chunk_every(binary_string_broadcast_address, 8)
     binary_broadcast_address_list = binary_string_to_octet(binary_broadcast_address)
 
     [
@@ -224,7 +218,6 @@ defmodule SubnetCalc do
         ones_for_broadcast_address: ones_for_broadcast_address
     }
   end
-
 
   defp binary_string_to_octet(binary_string) do
     for <<chunk::binary-size(8) <- binary_string>> do
