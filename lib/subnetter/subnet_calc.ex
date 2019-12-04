@@ -124,7 +124,8 @@ defmodule SubnetCalc do
 
   defp binary_string_to_dotted_decimal(binary_string) do
     for <<chunk::binary-size(8) <- binary_string>> do
-      String.to_integer(chunk, 2)
+      octet = String.to_integer(chunk, 2)
+      string = Integer.to_string(octet)
     end
   end
 end
