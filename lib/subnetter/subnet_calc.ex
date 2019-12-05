@@ -167,22 +167,26 @@ defmodule SubnetCalc do
       binary_broadcast_address_fourth_octet
     ] = binary_broadcast_address_list
 
-    dotted_decimal_subnet_address = binary_string_to_dotted_decimal(binary_subnet_address)
-    dotted_decimal_broadcast_address = binary_string_to_dotted_decimal(binary_broadcast_address)
+    dotted_decimal_subnet_address_list = binary_string_to_dotted_decimal(binary_subnet_address)
+    dotted_decimal_broadcast_address_list = binary_string_to_dotted_decimal(binary_broadcast_address)
 
     [
       dotted_decimal_subnet_address_first_octet,
       dotted_decimal_subnet_address_second_octet,
       dotted_decimal_subnet_address_third_octet,
       dotted_decimal_subnet_address_fourth_octet
-    ] = dotted_decimal_subnet_address
+    ] = dotted_decimal_subnet_address_list
+
+    dotted_decimal_subnet_address = "#{dotted_decimal_subnet_address_first_octet}.#{dotted_decimal_subnet_address_second_octet}.#{dotted_decimal_subnet_address_third_octet}.#{dotted_decimal_subnet_address_fourth_octet}"
 
     [
       dotted_decimal_broadcast_address_first_octet,
       dotted_decimal_broadcast_address_second_octet,
       dotted_decimal_broadcast_address_third_octet,
       dotted_decimal_broadcast_address_fourth_octet
-    ] = dotted_decimal_broadcast_address
+    ] = dotted_decimal_broadcast_address_list
+
+    dotted_decimal_broadcast_address = "#{dotted_decimal_broadcast_address_first_octet}.#{dotted_decimal_broadcast_address_second_octet}.#{dotted_decimal_broadcast_address_third_octet}.#{dotted_decimal_broadcast_address_fourth_octet}"
 
     %{
       ip_struct
@@ -193,6 +197,7 @@ defmodule SubnetCalc do
         binary_subnet_address_third_octet: binary_subnet_address_third_octet,
         binary_subnet_address_fourth_octet: binary_subnet_address_fourth_octet,
         dotted_decimal_subnet_address: dotted_decimal_subnet_address,
+        dotted_decimal_subnet_address_list: dotted_decimal_subnet_address,
         dotted_decimal_subnet_address_first_octet: dotted_decimal_subnet_address_first_octet,
         dotted_decimal_subnet_address_second_octet: dotted_decimal_subnet_address_second_octet,
         dotted_decimal_subnet_address_third_octet: dotted_decimal_subnet_address_third_octet,
@@ -204,6 +209,7 @@ defmodule SubnetCalc do
         binary_broadcast_address_third_octet: binary_broadcast_address_third_octet,
         binary_broadcast_address_fourth_octet: binary_broadcast_address_fourth_octet,
         dotted_decimal_broadcast_address: dotted_decimal_broadcast_address,
+        dotted_decimal_broadcast_address_list: dotted_decimal_broadcast_address,
         dotted_decimal_broadcast_address_first_octet:
           dotted_decimal_broadcast_address_first_octet,
         dotted_decimal_broadcast_address_second_octet:
