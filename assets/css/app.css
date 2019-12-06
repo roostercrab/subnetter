@@ -718,3 +718,7 @@ header nav a {
 .broadcast {
     color: orange;
 }
+
+.mask {
+    color: red;
+}
