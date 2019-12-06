@@ -144,10 +144,11 @@ defmodule SubnetCalc do
       |> Enum.count(&(&1 == "1"))
 
     network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
-    zeroes_for_subnet_address = List.duplicate("0", 32 - number_of_ones_in_mask)
+    zeroes_for_subnet_address_and_mask = List.duplicate("0", 32 - number_of_ones_in_mask)
     ones_for_broadcast_address = List.duplicate("1", 32 - number_of_ones_in_mask)
+    ones_for_subnet_mask = List.duplicate("1", number_of_ones_in_mask)
 
-    binary_subnet_address = "#{network_portion_of_ip}#{zeroes_for_subnet_address}"
+    binary_subnet_address = "#{network_portion_of_ip}#{zeroes_for_subnet_address_and_mask}"
     binary_subnet_address_list = binary_string_to_octet(binary_subnet_address)
 
     binary_broadcast_address = "#{network_portion_of_ip}#{ones_for_broadcast_address}"
@@ -168,7 +169,9 @@ defmodule SubnetCalc do
     ] = binary_broadcast_address_list
 
     dotted_decimal_subnet_address_list = binary_string_to_dotted_decimal(binary_subnet_address)
-    dotted_decimal_broadcast_address_list = binary_string_to_dotted_decimal(binary_broadcast_address)
+
+    dotted_decimal_broadcast_address_list =
+      binary_string_to_dotted_decimal(binary_broadcast_address)
 
     [
       dotted_decimal_subnet_address_first_octet,
@@ -177,7 +180,10 @@ defmodule SubnetCalc do
       dotted_decimal_subnet_address_fourth_octet
     ] = dotted_decimal_subnet_address_list
 
-    dotted_decimal_subnet_address = "#{dotted_decimal_subnet_address_first_octet}.#{dotted_decimal_subnet_address_second_octet}.#{dotted_decimal_subnet_address_third_octet}.#{dotted_decimal_subnet_address_fourth_octet}"
+    dotted_decimal_subnet_address =
+      "#{dotted_decimal_subnet_address_first_octet}.#{dotted_decimal_subnet_address_second_octet}.#{
+        dotted_decimal_subnet_address_third_octet
+      }.#{dotted_decimal_subnet_address_fourth_octet}"
 
     [
       dotted_decimal_broadcast_address_first_octet,
@@ -186,7 +192,12 @@ defmodule SubnetCalc do
       dotted_decimal_broadcast_address_fourth_octet
     ] = dotted_decimal_broadcast_address_list
 
-    dotted_decimal_broadcast_address = "#{dotted_decimal_broadcast_address_first_octet}.#{dotted_decimal_broadcast_address_second_octet}.#{dotted_decimal_broadcast_address_third_octet}.#{dotted_decimal_broadcast_address_fourth_octet}"
+    dotted_decimal_broadcast_address =
+      "#{dotted_decimal_broadcast_address_first_octet}.#{
+        dotted_decimal_broadcast_address_second_octet
+      }.#{dotted_decimal_broadcast_address_third_octet}.#{
+        dotted_decimal_broadcast_address_fourth_octet
+      }"
 
     %{
       ip_struct
@@ -220,7 +231,8 @@ defmodule SubnetCalc do
           dotted_decimal_broadcast_address_fourth_octet,
         number_of_ones_in_mask: number_of_ones_in_mask,
         network_portion_of_ip: network_portion_of_ip,
-        zeroes_for_subnet_address: zeroes_for_subnet_address,
+        ones_for_subnet_mask: ones_for_subnet_mask,
+        zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
         ones_for_broadcast_address: ones_for_broadcast_address
     }
   end

@@ -711,6 +711,10 @@ header nav a {
     justify-self: center;
 }
 
+.ip {
+    color: darkgreen;
+}
+
 .subnet {
     color: blue;
 }
@@ -719,6 +723,12 @@ header nav a {
     color: orange;
 }
 
-.mask {
+.mask_ones {
     color: red;
+    background-color: darkred;
+}
+
+.mask_zeroes {
+    color: grey;
+    background-color: black;
 }

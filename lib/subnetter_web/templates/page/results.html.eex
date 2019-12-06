@@ -28,9 +28,9 @@
 
     <div class="calculated_binary">
         <p><h3><%= @original_ip_binary_list %></h3></p>
-        <p><h3><%= @original_mask_binary_list %></h3></p>
-        <p><h3><%= @network_portion_of_ip %><span class="subnet"><%= @zeroes_for_subnet_address %></span></h3></p>
-        <p><h3><%= @network_portion_of_ip %><span class="broadcast"><%= @ones_for_broadcast_address %></span></h3></p>
+        <p><h3><span class="mask_ones"><%= @ones_for_subnet_mask %></span><span class="mask_zeroes"><%= @zeroes_for_subnet_address_and_mask %></span></h3></p>
+        <p><h3><span class="ip"><%= @network_portion_of_ip %></span><span class="subnet"><%= @zeroes_for_subnet_address_and_mask %></span></h3></p>
+        <p><h3><span class="ip"><%= @network_portion_of_ip %></span><span class="broadcast"><%= @ones_for_broadcast_address %></span></h3></p>
     </div>
 
     <div class="title_octets">
@@ -45,8 +45,8 @@
     </div>
 
     <div class="first_octet">
-        <p><h3 align=center><%= @original_ip_address_first_octet %></h3ali></p>
-        <p><h3 align=center><%= @original_ip_binary_first_octet %></h3=></p>
+        <p><h3 align=center><%= @original_ip_address_first_octet %></h3></p>
+        <p><h3 align=center><%= @original_ip_binary_first_octet %></h3></p>
         <p><h3 align=center><%= @original_subnet_mask_first_octet %></h3></p>
         <p><h3 align=center><%= @original_mask_binary_first_octet %></h3></p>
         <p><h3 align=center><%= @dotted_decimal_subnet_address_first_octet %></h3></p>

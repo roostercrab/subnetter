@@ -47,6 +47,7 @@ defmodule IPStruct do
             dotted_decimal_broadcast_address_fourth_octet: nil,
             number_of_ones_in_mask: nil,
             network_portion_of_ip: nil,
-            zeroes_for_subnet_address: nil,
+            ones_for_subnet_mask: nil,
+            zeroes_for_subnet_address_and_mask: nil,
             ones_for_broadcast_address: nil
 end
