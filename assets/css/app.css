@@ -712,23 +712,37 @@ header nav a {
 }
 
 .ip {
-    color: darkgreen;
+    color: black;
+    background-color: green;
+
 }
 
 .subnet {
-    color: blue;
+    color: white;
+    background-color: darkblue;
 }
 
 .broadcast {
-    color: orange;
+    color: white;
+    background-color: darkorange;
 }
 
 .mask_ones {
-    color: red;
-    background-color: darkred;
+    color: brown;
+    background-color: red;
 }
 
 .mask_zeroes {
     color: grey;
+    background-color: black;
+}
+
+.mask_ones_block {
+    color: red;
+    background-color: red;
+}
+
+.mask_zeroes_block {
+    color: black;
     background-color: black;
 }
