@@ -29,8 +29,8 @@
     <div class="calculated_binary">
         <p><h3><%= @original_ip_binary_list %></h3></p>
         <p><h3><%= @original_mask_binary_list %></h3></p>
-        <p><h3><%= @network_portion_of_ip %><%= @zeroes_for_subnet_address %></h3></p>
-        <p><h3><%= @network_portion_of_ip %><%= @ones_for_broadcast_address %></h3></p>
+        <p><h3><%= @network_portion_of_ip %><span class="subnet"><%= @zeroes_for_subnet_address %></span></h3></p>
+        <p><h3><%= @network_portion_of_ip %><span class="broadcast"><%= @ones_for_broadcast_address %></span></h3></p>
     </div>
 
     <div class="title_octets">

@@ -710,3 +710,11 @@ header nav a {
 .fourth_octet {
     justify-self: center;
 }
+
+.subnet {
+    color: blue;
+}
+
+.broadcast {
+    color: orange;
+}
