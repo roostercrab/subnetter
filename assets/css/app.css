@@ -665,7 +665,7 @@ header nav a {
 .grid {
     display: grid;
     grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr;
-    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
     grid-template-areas: 
     "title_dotted_decimal calculated_dotted_decimal calculated_dotted_decimal  calculated_dotted_decimal calculated_dotted_decimal"
     "title_binary calculated_binary calculated_binary calculated_binary calculated_binary"
