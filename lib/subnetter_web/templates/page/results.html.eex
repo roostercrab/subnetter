@@ -18,14 +18,6 @@
         <p><h3><%= @dotted_decimal_broadcast_address %></h3></p>
     </div>
 
-
-    <div class="title_binary">
-        <p><h3 align=right>IP|</h3></p>
-        <p><h3 align=right>Mask|</h3></p>
-        <p><h3 align=right>Subnet|</h3></p>
-        <p><h3 align=right>Broadcast|</h3></p>
-    </div>
-
     <div class="calculated_binary">
         <p><h3><span class="ip"><%= @bin_str_network_portion_of_ip %></span><span class="host"><%= @bin_str_host_portion_of_ip %></h3></p>
         <p><h3><span class="mask_ones"><%= @ones_for_subnet_mask %></span><span class="mask_zeroes"><%= @zeroes_for_subnet_address_and_mask %></span></h3></p>
