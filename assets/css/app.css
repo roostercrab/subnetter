@@ -717,6 +717,12 @@ header nav a {
 
 }
 
+.host {
+    color: green;
+    background-color: black;
+
+}
+
 .subnet {
     color: white;
     background-color: darkblue;
@@ -728,21 +734,11 @@ header nav a {
 }
 
 .mask_ones {
-    color: brown;
-    background-color: red;
+    color: red;
+    background-color: rgb(226, 7, 7);
 }
 
 .mask_zeroes {
-    color: grey;
-    background-color: black;
-}
-
-.mask_ones_block {
-    color: red;
-    background-color: red;
-}
-
-.mask_zeroes_block {
-    color: black;
+    color: rgb(56, 56, 56);
     background-color: black;
 }
