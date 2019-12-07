@@ -143,15 +143,19 @@ defmodule SubnetCalc do
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
-    network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
+    bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
+    bin_host_portion_of_ip = String.slice(combined_bin_ip, ((number_of_ones_in_mask - 32)..31))
     zeroes_for_subnet_address_and_mask = List.duplicate("0", 32 - number_of_ones_in_mask)
     ones_for_broadcast_address = List.duplicate("1", 32 - number_of_ones_in_mask)
     ones_for_subnet_mask = List.duplicate("1", number_of_ones_in_mask)
 
-    binary_subnet_address = "#{network_portion_of_ip}#{zeroes_for_subnet_address_and_mask}"
+    bin_str_network_portion_of_ip = "#{bin_network_portion_of_ip}"
+    bin_str_host_portion_of_ip = "#{bin_host_portion_of_ip}"
+
+    binary_subnet_address = "#{bin_network_portion_of_ip}#{zeroes_for_subnet_address_and_mask}"
     binary_subnet_address_list = binary_string_to_octet(binary_subnet_address)
 
-    binary_broadcast_address = "#{network_portion_of_ip}#{ones_for_broadcast_address}"
+    binary_broadcast_address = "#{bin_network_portion_of_ip}#{ones_for_broadcast_address}"
     binary_broadcast_address_list = binary_string_to_octet(binary_broadcast_address)
 
     [
@@ -230,7 +234,10 @@ defmodule SubnetCalc do
         dotted_decimal_broadcast_address_fourth_octet:
           dotted_decimal_broadcast_address_fourth_octet,
         number_of_ones_in_mask: number_of_ones_in_mask,
-        network_portion_of_ip: network_portion_of_ip,
+        bin_network_portion_of_ip: bin_network_portion_of_ip,
+        bin_str_network_portion_of_ip: bin_str_network_portion_of_ip,
+        bin_str_host_portion_of_ip: bin_str_host_portion_of_ip,
+        bin_host_portion_of_ip: bin_host_portion_of_ip,
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
         ones_for_broadcast_address: ones_for_broadcast_address

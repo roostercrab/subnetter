@@ -665,19 +665,17 @@ header nav a {
 .grid {
     display: grid;
     grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr;
-    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
     grid-template-areas: 
-    "title_dotted_decimal calculated_dotted_decimal calculated_dotted_decimal  calculated_dotted_decimal calculated_dotted_decimal"
-    "title_binary calculated_binary calculated_binary calculated_binary calculated_binary"
+    "title calculated_dotted_decimal calculated_binary calculated_binary calculated_binary "
     "title_octets first_octet second_octet third_octet fourth_octet";
 }
 
-.title_dotted_decimal {
+.title {
     justify-self: end;
 }
 
 .calculated_dotted_decimal {
-    grid-column: span 4;
     justify-self: start;
 }
 
@@ -686,7 +684,7 @@ header nav a {
 }
 
 .calculated_binary {
-    grid-column: span 4;
+    grid-column: span 3;
     justify-self: start;
 }
 
@@ -717,6 +715,12 @@ header nav a {
 
 }
 
+.host {
+    color: green;
+    background-color: black;
+
+}
+
 .subnet {
     color: white;
     background-color: darkblue;
@@ -728,21 +732,11 @@ header nav a {
 }
 
 .mask_ones {
-    color: brown;
-    background-color: red;
+    color: red;
+    background-color: rgb(226, 7, 7);
 }
 
 .mask_zeroes {
-    color: grey;
-    background-color: black;
-}
-
-.mask_ones_block {
-    color: red;
-    background-color: red;
-}
-
-.mask_zeroes_block {
-    color: black;
+    color: rgb(56, 56, 56);
     background-color: black;
 }
