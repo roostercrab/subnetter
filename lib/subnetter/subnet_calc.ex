@@ -146,20 +146,10 @@ defmodule SubnetCalc do
     magic_octet = div(number_of_ones_in_mask, 8)
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
-    # 11111111
-    # 11111110
-    # 11111100
-    # 11111000
-    # 11110000
-    # 11100000
-    # 11000000
-    # 10000000
-    # 00000000
-
-    first_octet_color = "ip"
-    # second_octet_color
-    # third_octet_color
-    # fourth_octet_color
+    first_octet_color = color_decider("#{first_mask_octet_binary}")
+    second_octet_color = color_decider("#{second_mask_octet_binary}")
+    third_octet_color = color_decider("#{third_mask_octet_binary}")
+    fourth_octet_color = color_decider("#{fourth_mask_octet_binary}")
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
     bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
@@ -262,9 +252,9 @@ defmodule SubnetCalc do
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
         ones_for_broadcast_address: ones_for_broadcast_address,
         first_octet_color: first_octet_color,
-        # second_octet_color: second_octet_color,
-        # third_octet_color: third_octet_color,
-        # fourth_octet_color: fourth_octet_color
+        second_octet_color: second_octet_color,
+        third_octet_color: third_octet_color,
+        fourth_octet_color: fourth_octet_color
     }
   end
 
@@ -279,5 +269,18 @@ defmodule SubnetCalc do
       octet = String.to_integer(chunk, 2)
       Integer.to_string(octet)
     end
+  end
+
+  defp color_decider(binary_octet) do
+
+    cond do
+      "11111111" ->
+        "ip"
+      "00000000" ->
+        "subnet"
+      true ->
+        "magic"
+    end
+    
   end
 end
