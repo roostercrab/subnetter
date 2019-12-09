@@ -54,5 +54,9 @@ defmodule IPStruct do
             bin_str_host_portion_of_ip: nil,
             ones_for_subnet_mask: nil,
             zeroes_for_subnet_address_and_mask: nil,
-            ones_for_broadcast_address: nil
+            ones_for_broadcast_address: nil,
+            first_octet_color: nil,
+            second_octet_color: nil,
+            third_octet_color: nil,
+            fourth_octet_color: nil
 end

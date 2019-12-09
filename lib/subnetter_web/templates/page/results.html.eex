@@ -37,7 +37,7 @@
     </div>
 
     <div class="first_octet">
-        <p><h3 align=center><%= @original_ip_address_first_octet %></h3></p>
+        <p><h3 align=center style=color:<%= @color %> ><span class=<%= @first_octet_color %> ><%= @original_ip_address_first_octet %></h3></p>
         <p><h3 align=center><%= @original_ip_binary_first_octet %></h3></p>
         <p><h3 align=center><%= @original_subnet_mask_first_octet %></h3></p>
         <p><h3 align=center><%= @original_mask_binary_first_octet %></h3></p>
