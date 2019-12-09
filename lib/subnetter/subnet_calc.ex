@@ -146,6 +146,16 @@ defmodule SubnetCalc do
     magic_octet = div(number_of_ones_in_mask, 8)
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
+    11111111
+    11111110
+    11111100
+    11111000
+    11110000
+    11100000
+    11000000
+    10000000
+    00000000
+
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
     bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
     zeroes_for_subnet_address_and_mask = List.duplicate("0", 32 - number_of_ones_in_mask)
