@@ -272,15 +272,13 @@ defmodule SubnetCalc do
   end
 
   defp color_decider(binary_octet) do
-
-    cond do
+    case binary_octet do
       "11111111" ->
         "ip"
       "00000000" ->
         "subnet"
-      true ->
+      _ ->
         "magic"
-    end
-    
+    end   
   end
 end
