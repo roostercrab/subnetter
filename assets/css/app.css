@@ -742,5 +742,6 @@ header nav a {
 }
 
 .magic {
-    color: purple
+    color: white;
+    background-color: purple;
 }

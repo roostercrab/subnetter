@@ -146,10 +146,15 @@ defmodule SubnetCalc do
     magic_octet = div(number_of_ones_in_mask, 8)
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
-    first_octet_color = color_decider("#{first_mask_octet_binary}")
-    second_octet_color = color_decider("#{second_mask_octet_binary}")
-    third_octet_color = color_decider("#{third_mask_octet_binary}")
-    fourth_octet_color = color_decider("#{fourth_mask_octet_binary}")
+    first_address_octet_color = address_color_decider("#{first_mask_octet_binary}")
+    second_address_octet_color = address_color_decider("#{second_mask_octet_binary}")
+    third_address_octet_color = address_color_decider("#{third_mask_octet_binary}")
+    fourth_address_octet_color = address_color_decider("#{fourth_mask_octet_binary}")
+
+    first_mask_octet_color = mask_color_decider("#{first_mask_octet_binary}")
+    second_mask_octet_color = mask_color_decider("#{second_mask_octet_binary}")
+    third_mask_octet_color = mask_color_decider("#{third_mask_octet_binary}")
+    fourth_mask_octet_color = mask_color_decider("#{fourth_mask_octet_binary}")
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
     bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
@@ -251,10 +256,14 @@ defmodule SubnetCalc do
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
         ones_for_broadcast_address: ones_for_broadcast_address,
-        first_octet_color: first_octet_color,
-        second_octet_color: second_octet_color,
-        third_octet_color: third_octet_color,
-        fourth_octet_color: fourth_octet_color
+        first_address_octet_color: first_address_octet_color,
+        second_address_octet_color: second_address_octet_color,
+        third_address_octet_color: third_address_octet_color,
+        fourth_address_octet_color: fourth_address_octet_color,
+        first_mask_octet_color: first_mask_octet_color,
+        second_mask_octet_color: second_mask_octet_color,
+        third_mask_octet_color: third_mask_octet_color,
+        fourth_mask_octet_color: fourth_mask_octet_color
     }
   end
 
@@ -271,14 +280,29 @@ defmodule SubnetCalc do
     end
   end
 
-  defp color_decider(binary_octet) do
+  defp address_color_decider(binary_octet) do
     case binary_octet do
       "11111111" ->
         "ip"
+
       "00000000" ->
         "subnet"
+
       _ ->
         "magic"
-    end   
+    end
+  end
+
+  defp mask_color_decider(binary_octet) do
+    case binary_octet do
+      "11111111" ->
+        "mask_ones"
+
+      "00000000" ->
+        "mask_zeroes"
+
+      _ ->
+        "magic"
+    end
   end
 end

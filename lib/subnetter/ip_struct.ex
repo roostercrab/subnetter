@@ -55,8 +55,12 @@ defmodule IPStruct do
             ones_for_subnet_mask: nil,
             zeroes_for_subnet_address_and_mask: nil,
             ones_for_broadcast_address: nil,
-            first_octet_color: nil,
-            second_octet_color: nil,
-            third_octet_color: nil,
-            fourth_octet_color: nil
+            first_address_octet_color: nil,
+            second_address_octet_color: nil,
+            third_address_octet_color: nil,
+            fourth_address_octet_color: nil,
+            first_mask_octet_color: nil,
+            second_mask_octet_color: nil,
+            third_mask_octet_color: nil,
+            fourth_mask_octet_color: nil
 end
