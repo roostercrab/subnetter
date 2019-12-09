@@ -156,10 +156,10 @@ defmodule SubnetCalc do
     # 10000000
     # 00000000
 
-    first_octet_color
-    second_octet_color
-    third_octet_color
-    fourth_octet_color
+    first_octet_color = "ip"
+    # second_octet_color
+    # third_octet_color
+    # fourth_octet_color
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
     bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
@@ -262,9 +262,9 @@ defmodule SubnetCalc do
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
         ones_for_broadcast_address: ones_for_broadcast_address,
         first_octet_color: first_octet_color,
-        second_octet_color: second_octet_color,
-        third_octet_color: third_octet_color,
-        fourth_octet_color: fourth_octet_color
+        # second_octet_color: second_octet_color,
+        # third_octet_color: third_octet_color,
+        # fourth_octet_color: fourth_octet_color
     }
   end
 
