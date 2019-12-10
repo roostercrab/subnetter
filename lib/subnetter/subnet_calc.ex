@@ -143,8 +143,21 @@ defmodule SubnetCalc do
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
+    magic_octet = div(number_of_ones_in_mask, 8)
+    number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
+
+    first_address_octet_color = address_color_decider("#{first_mask_octet_binary}")
+    second_address_octet_color = address_color_decider("#{second_mask_octet_binary}")
+    third_address_octet_color = address_color_decider("#{third_mask_octet_binary}")
+    fourth_address_octet_color = address_color_decider("#{fourth_mask_octet_binary}")
+
+    first_mask_octet_color = mask_color_decider("#{first_mask_octet_binary}")
+    second_mask_octet_color = mask_color_decider("#{second_mask_octet_binary}")
+    third_mask_octet_color = mask_color_decider("#{third_mask_octet_binary}")
+    fourth_mask_octet_color = mask_color_decider("#{fourth_mask_octet_binary}")
+
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
-    bin_host_portion_of_ip = String.slice(combined_bin_ip, ((number_of_ones_in_mask - 32)..31))
+    bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
     zeroes_for_subnet_address_and_mask = List.duplicate("0", 32 - number_of_ones_in_mask)
     ones_for_broadcast_address = List.duplicate("1", 32 - number_of_ones_in_mask)
     ones_for_subnet_mask = List.duplicate("1", number_of_ones_in_mask)
@@ -234,13 +247,23 @@ defmodule SubnetCalc do
         dotted_decimal_broadcast_address_fourth_octet:
           dotted_decimal_broadcast_address_fourth_octet,
         number_of_ones_in_mask: number_of_ones_in_mask,
+        magic_octet: magic_octet,
+        number_of_bits_into_magic_octet: number_of_bits_into_magic_octet,
         bin_network_portion_of_ip: bin_network_portion_of_ip,
         bin_str_network_portion_of_ip: bin_str_network_portion_of_ip,
         bin_str_host_portion_of_ip: bin_str_host_portion_of_ip,
         bin_host_portion_of_ip: bin_host_portion_of_ip,
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
-        ones_for_broadcast_address: ones_for_broadcast_address
+        ones_for_broadcast_address: ones_for_broadcast_address,
+        first_address_octet_color: first_address_octet_color,
+        second_address_octet_color: second_address_octet_color,
+        third_address_octet_color: third_address_octet_color,
+        fourth_address_octet_color: fourth_address_octet_color,
+        first_mask_octet_color: first_mask_octet_color,
+        second_mask_octet_color: second_mask_octet_color,
+        third_mask_octet_color: third_mask_octet_color,
+        fourth_mask_octet_color: fourth_mask_octet_color
     }
   end
 
@@ -254,6 +277,32 @@ defmodule SubnetCalc do
     for <<chunk::binary-size(8) <- binary_string>> do
       octet = String.to_integer(chunk, 2)
       Integer.to_string(octet)
+    end
+  end
+
+  defp address_color_decider(binary_octet) do
+    case binary_octet do
+      "11111111" ->
+        "ip"
+
+      "00000000" ->
+        "subnet"
+
+      _ ->
+        "magic"
+    end
+  end
+
+  defp mask_color_decider(binary_octet) do
+    case binary_octet do
+      "11111111" ->
+        "mask_ones"
+
+      "00000000" ->
+        "mask_zeroes"
+
+      _ ->
+        "magic"
     end
   end
 end
