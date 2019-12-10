@@ -360,8 +360,8 @@ defmodule SubnetCalc do
                     fourth_host_octet_color = "host"
                     fourth_subnet_octet_color = "subnet"
                     fourth_broadcast_octet_color = "broadcast"
-                    fourth_mask_ones_octet_color = "mask_ones"
-                    fourth_mask_zeroes_octet_color = "mask_zeroes"
+                    fourth_mask_ones_octet_color = "magic"
+                    fourth_mask_zeroes_octet_color = "magic"
 
                     {first_address_octet_color, second_address_octet_color,
                      third_address_octet_color, fourth_address_octet_color,
@@ -390,10 +390,10 @@ defmodule SubnetCalc do
                 third_broadcast_octet_color = "broadcast"
                 fourth_broadcast_octet_color = "broadcast"
 
-                third_mask_ones_octet_color = "mask_ones"
-                fourth_mask_ones_octet_color = "mask_ones"
+                third_mask_ones_octet_color = "magic"
+                fourth_mask_ones_octet_color = "mask_zeroes"
 
-                third_mask_zeroes_octet_color = "mask_zeroes"
+                third_mask_zeroes_octet_color = "magic"
                 fourth_mask_zeroes_octet_color = "mask_zeroes"
 
                 {first_address_octet_color, second_address_octet_color, third_address_octet_color,
