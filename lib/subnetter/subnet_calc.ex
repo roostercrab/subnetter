@@ -297,7 +297,6 @@ defmodule SubnetCalc do
         first_host_octet_color = ""
         first_subnet_octet_color = ""
         first_broadcast_octet_color = ""
-        first_mask_ones_octet_color = ""
         first_mask_zeroes_octet_color = ""
 
         case second_mask_octet_binary do
@@ -307,7 +306,6 @@ defmodule SubnetCalc do
             second_host_octet_color = ""
             second_subnet_octet_color = ""
             second_broadcast_octet_color = ""
-            second_mask_ones_octet_color = ""
             second_mask_zeroes_octet_color = ""
 
             case third_mask_octet_binary do
@@ -317,7 +315,6 @@ defmodule SubnetCalc do
                 third_host_octet_color = ""
                 third_subnet_octet_color = ""
                 third_broadcast_octet_color = ""
-                third_mask_ones_octet_color = ""
                 third_mask_zeroes_octet_color = ""
 
                 case fourth_mask_octet_binary do
@@ -327,7 +324,6 @@ defmodule SubnetCalc do
                     fourth_host_octet_color = ""
                     fourth_subnet_octet_color = ""
                     fourth_broadcast_octet_color = ""
-                    fourth_mask_ones_octet_color = ""
                     fourth_mask_zeroes_octet_color = ""
 
                     {first_address_octet_color, second_address_octet_color,

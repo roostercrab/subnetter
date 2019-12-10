@@ -84,10 +84,10 @@
             <h3 align=center><span class=<%= @first_address_octet_color %>><%= @original_ip_binary_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_mask_octet_color %>><%= @original_subnet_mask_first_octet %></h3>
+            <h3 align=center><span class=<%= @first_mask_ones_octet_color %>><%= @original_subnet_mask_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_mask_octet_color %>><%= @original_mask_binary_first_octet %></h3>
+            <h3 align=center><span class=<%= @first_mask_ones_octet_color %>><%= @original_mask_binary_first_octet %></h3>
         </p>
         <p>
             <h3 align=center><span class=<%= @first_address_octet_color %>><%= @dotted_decimal_subnet_address_first_octet %></h3>
@@ -111,10 +111,10 @@
             <h3 align=center><span class=<%= @second_address_octet_color %>><%= @original_ip_binary_second_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @second_mask_octet_color %>><%= @original_subnet_mask_second_octet %></h3>
+            <h3 align=center><span class=<%= @second_mask_ones_octet_color %>><%= @original_subnet_mask_second_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @second_mask_octet_color %>><%= @original_mask_binary_second_octet %></h3>
+            <h3 align=center><span class=<%= @second_mask_ones_octet_color %>><%= @original_mask_binary_second_octet %></h3>
         </p>
         <p>
             <h3 align=center><span class=<%= @second_address_octet_color %>><%= @dotted_decimal_subnet_address_second_octet %></h3>
@@ -138,10 +138,10 @@
             <h3 align=center><span class=<%= @third_address_octet_color %>><%= @original_ip_binary_third_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @third_mask_octet_color %>><%= @original_subnet_mask_third_octet %></h3>
+            <h3 align=center><span class=<%= @third_mask_ones_octet_color %>><%= @original_subnet_mask_third_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @third_mask_octet_color %>><%= @original_mask_binary_third_octet %></h3>
+            <h3 align=center><span class=<%= @third_mask_ones_octet_color %>><%= @original_mask_binary_third_octet %></h3>
         </p>
         <p>
             <h3 align=center><span class=<%= @third_address_octet_color %>><%= @dotted_decimal_subnet_address_third_octet %></h3>
@@ -165,10 +165,10 @@
             <h3 align=center><span class=<%= @fourth_address_octet_color %>><%= @original_ip_binary_fourth_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @fourth_mask_octet_color %>><%= @original_subnet_mask_fourth_octet %></h3>
+            <h3 align=center><span class=<%= @fourth_mask_ones_octet_color %>><%= @original_subnet_mask_fourth_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @fourth_mask_octet_color %>><%= @original_mask_binary_fourth_octet %></h3>
+            <h3 align=center><span class=<%= @fourth_mask_ones_octet_color %>><%= @original_mask_binary_fourth_octet %></h3>
         </p>
         <p>
             <h3 align=center><span class=<%= @fourth_address_octet_color %>><%= @dotted_decimal_subnet_address_fourth_octet %></h3>
