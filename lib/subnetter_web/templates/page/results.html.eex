@@ -78,28 +78,28 @@
 
     <div class="first_octet">
         <p>
-            <h3 align=center><span class=<%= "" %>><span class=<%= @first_address_octet_color %>><%= @original_ip_address_first_octet %></h3>
+            <h3 align=center><%= @first_address_octet_color %>><%= @original_ip_address_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_address_octet_color %>><%= @original_ip_binary_first_octet %><%= @split_ip_binary_first_octet %></h3>
+            <h3 align=center><%= @first_address_octet_color %><%= @original_ip_binary_first_octet %><%= @split_ip_binary_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_mask_ones_octet_color %>><%= @original_subnet_mask_first_octet %></h3>
+            <h3 align=center><%= @first_mask_ones_octet_color %><%= @original_subnet_mask_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_mask_ones_octet_color %>><%= @original_mask_binary_first_octet %><%= @split_mask_binary_first_octet %></h3>
+            <h3 align=center><%= @first_mask_ones_octet_color %><%= @original_mask_binary_first_octet %><%= @first_mask_zeroes_octet_color %><%= @split_mask_binary_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_address_octet_color %>><%= @dotted_decimal_subnet_address_first_octet %></h3>
+            <h3 align=center><%= @first_subnet_octet_color %><%= @dotted_decimal_subnet_address_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_address_octet_color %>><%= @binary_subnet_address_first_octet %><%= @split_binary_subnet_address_first_octet %></h3>
+            <h3 align=center><%= @first_subnet_octet_color %><%= @binary_subnet_address_first_octet %><%= @first_subnet_subnet_color %><%= @split_binary_subnet_address_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_address_octet_color %>><span class=<%= @first_broadcast_octet_color %>><%= @dotted_decimal_broadcast_address_first_octet %></h3>
+            <h3 align=center><%= @first_broadcast_octet_color %><%= @dotted_decimal_broadcast_address_first_octet %></h3>
         </p>
         <p>
-            <h3 align=center><span class=<%= @first_address_octet_color %>><%= @binary_broadcast_address_first_octet %><span class=<%= @first_broadcast_octet_color %>><%= @split_binary_broadcast_address_first_octet %></h3>
+            <h3 align=center><%= @first_address_octet_color %><%= @binary_broadcast_address_first_octet %><%= @first_broadcast_octet_color %>><%= @split_binary_broadcast_address_first_octet %></h3>
         </p>
     </div>
 

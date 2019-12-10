@@ -57,6 +57,10 @@ defmodule IPStruct do
             second_address_octet_color: nil,
             third_address_octet_color: nil,
             fourth_address_octet_color: nil,
+            first_host_octet_color: nil,
+            second_host_octet_color: nil,
+            third_host_octet_color: nil,
+            fourth_host_octet_color: nil,
             first_subnet_octet_color: nil,
             second_subnet_octet_color: nil,
             third_subnet_octet_color: nil,
@@ -72,5 +76,5 @@ defmodule IPStruct do
             first_mask_zeroes_octet_color: nil,
             second_mask_zeroes_octet_color: nil,
             third_mask_zeroes_octet_color: nil,
-            fourth_mask_zeroes_octet_color: nil,
+            fourth_mask_zeroes_octet_color: nil
 end

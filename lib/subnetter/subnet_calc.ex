@@ -284,8 +284,6 @@ defmodule SubnetCalc do
          third_mask_octet_binary,
          fourth_mask_octet_binary
        ) do
-
-    <%= raw "<span class=<%= @first_broadcast_octet_color %>>" %>
     case first_mask_octet_binary do
       "11111111" ->
         first_address_octet_color = "ip"
@@ -370,3 +368,29 @@ defmodule SubnetCalc do
       |> Enum.count(&(&1 == "1"))
   end
 end
+
+
+<%= raw "<span class=<%= @first_address_octet_color %>>" %>
+<%= raw "<span class=<%= @first_subnet_octet_color %>>" %>
+<%= raw "<span class=<%= @first_broadcast_octet_color %>>" %>
+<%= raw "<span class=<%= @first_mask_ones_octet_color %>>" %>
+<%= raw "<span class=<%= @first_mask_zeroes_octet_color %>>" %>
+
+<%= raw "<span class=<%= @second_address_octet_color %>>" %>
+<%= raw "<span class=<%= @second_subnet_octet_color %>>" %>
+<%= raw "<span class=<%= @second_broadcast_octet_color %>>" %>
+<%= raw "<span class=<%= @second_mask_ones_octet_color %>>" %>
+<%= raw "<span class=<%= @second_mask_zeroes_octet_color %>>" %>
+
+<%= raw "<span class=<%= @third_address_octet_color %>>" %>
+<%= raw "<span class=<%= @third_subnet_octet_color %>>" %>
+<%= raw "<span class=<%= @third_broadcast_octet_color %>>" %>
+<%= raw "<span class=<%= @third_mask_ones_octet_color %>>" %>
+<%= raw "<span class=<%= @third_mask_zeroes_octet_color %>>" %>
+
+<%= raw "<span class=<%= @fourth_address_octet_color %>>" %>
+<%= raw "<span class=<%= @fourth_subnet_octet_color %>>" %>
+<%= raw "<span class=<%= @fourth_broadcast_octet_color %>>" %>
+<%= raw "<span class=<%= @fourth_mask_ones_octet_color %>>" %>
+<%= raw "<span class=<%= @fourth_mask_zeroes_octet_color %>>" %>
+
