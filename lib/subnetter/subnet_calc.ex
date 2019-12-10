@@ -310,22 +310,7 @@ defmodule SubnetCalc do
                      fourth_mask_octet_color}
 
                   _ ->
-                    third_address_octet_color = "magic"
                     fourth_address_octet_color = "host"
-                    third_mask_octet_color = "magic"
-                    fourth_mask_octet_color = "mask_zeroes"
-
-                    {first_address_octet_color, second_address_octet_color,
-                     third_address_octet_color, fourth_address_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
-
-                  _ ->
-                    second_address_octet_color = "magic"
-                    third_address_octet_color = "host"
-                    fourth_address_octet_color = "host"
-                    second_mask_octet_color = "magic"
-                    third_mask_octet_color = "mask_zeroes"
                     fourth_mask_octet_color = "mask_zeroes"
 
                     {first_address_octet_color, second_address_octet_color,
@@ -335,20 +320,42 @@ defmodule SubnetCalc do
                 end
 
               _ ->
-                first_address_octet_color = "magic"
-                second_address_octet_color = "host"
-                third_address_octet_color = "host"
+                third_address_octet_color = "magic"
                 fourth_address_octet_color = "host"
-                first_mask_octet_color = "magic"
-                second_mask_octet_color = "mask_zeroes"
-                third_mask_octet_color = "mask_zeroes"
+                third_mask_octet_color = "magic"
                 fourth_mask_octet_color = "mask_zeroes"
 
                 {first_address_octet_color, second_address_octet_color, third_address_octet_color,
                  fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
                  third_mask_octet_color, fourth_mask_octet_color}
             end
+
+          _ ->
+            second_address_octet_color = "magic"
+            third_address_octet_color = "host"
+            fourth_address_octet_color = "host"
+            second_mask_octet_color = "magic"
+            third_mask_octet_color = "mask_zeroes"
+            fourth_mask_octet_color = "mask_zeroes"
+
+            {first_address_octet_color, second_address_octet_color, third_address_octet_color,
+             fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
+             third_mask_octet_color, fourth_mask_octet_color}
         end
+
+      _ ->
+        first_address_octet_color = "magic"
+        second_address_octet_color = "host"
+        third_address_octet_color = "host"
+        fourth_address_octet_color = "host"
+        first_mask_octet_color = "magic"
+        second_mask_octet_color = "mask_zeroes"
+        third_mask_octet_color = "mask_zeroes"
+        fourth_mask_octet_color = "mask_zeroes"
+
+        {first_address_octet_color, second_address_octet_color, third_address_octet_color,
+         fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
+         third_mask_octet_color, fourth_mask_octet_color}
     end
   end
 end
