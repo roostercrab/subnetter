@@ -42,41 +42,27 @@
         <p>
             <h3>
                 <span class="ip">
-                    <%= @bin_str_network_portion_of_ip %>
-                </span>
-                <span class="host">
-                    <%= @bin_str_host_portion_of_ip %>
+                    <%= @bin_str_network_portion_of_ip %></span><span class="host"><%= @bin_str_host_portion_of_ip %>
                 </span>
             </h3>
         </p>
         <p>
             <h3>
                 <span class="mask_ones">
-                    <%= @ones_for_subnet_mask %>
-                </span>
-                <span class="mask_zeroes">
-                    <%= @zeroes_for_subnet_address_and_mask %>
-                </span>
+                    <%= @ones_for_subnet_mask %></span><span class="mask_zeroes"><%= @zeroes_for_subnet_address_and_mask %></span>
             </h3>
         </p>
         <p>
             <h3>
                 <span class="ip">
-                    <%= @bin_network_portion_of_ip %>
-                </span>
-                <span class="subnet">
-                    <%= @zeroes_for_subnet_address_and_mask %>
-                </span>
+                    <%= @bin_network_portion_of_ip %></span><span class="subnet"><%= @zeroes_for_subnet_address_and_mask %>
+
             </h3>
         </p>
         <p>
             <h3>
-                <span class="ip">
-                    <%= @bin_network_portion_of_ip %>
-                </span>
-                <span class="broadcast">
-                    <%= @ones_for_broadcast_address %>
-                </span>
+                <span class="ip"><%= @bin_network_portion_of_ip %></span><span class="broadcast"><%= @ones_for_broadcast_address %>
+               
             </h3>
         </p>
     </div>
@@ -125,14 +111,14 @@
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @first_mask_ones_octet_color %>>
+                <span class=<%= @first_mask_octet_color %>>
                     <%= @original_subnet_mask_first_octet %>
                 </span>
             </h3>
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @first_mask_ones_octet_color %>>
+                <span class=<%= @first_mask_octet_color %>>
                     <%= @original_mask_binary_first_octet %>
                 </span>
             </h3>
@@ -184,14 +170,14 @@
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @second_mask_ones_octet_color %>>
+                <span class=<%= @second_mask_octet_color %>>
                     <%= @original_subnet_mask_second_octet %>
                 </span>
             </h3>
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @second_mask_ones_octet_color %>>
+                <span class=<%= @second_mask_octet_color %>>
                     <%= @original_mask_binary_second_octet %>
                 </span>
             </h3>
@@ -243,14 +229,14 @@
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @third_mask_ones_octet_color %>>
+                <span class=<%= @third_mask_octet_color %>>
                     <%= @original_subnet_mask_third_octet %>
                 </span>
             </h3>
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @third_mask_ones_octet_color %>>
+                <span class=<%= @third_mask_octet_color %>>
                     <%= @original_mask_binary_third_octet %>
                 </span>
             </h3>
@@ -284,7 +270,7 @@
             </h3>
         </p>
     </div>
-    
+
     <div class="fourth_octet">
         <p>
             <h3 align=center>
@@ -302,14 +288,14 @@
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @fourth_mask_ones_octet_color %>>
+                <span class=<%= @fourth_mask_octet_color %>>
                     <%= @original_subnet_mask_fourth_octet %>
                 </span>
             </h3>
         </p>
         <p>
             <h3 align=center>
-                <span class=<%= @fourth_mask_ones_octet_color %>>
+                <span class=<%= @fourth_mask_octet_color %>>
                     <%= @original_mask_binary_fourth_octet %>
                 </span>
             </h3>

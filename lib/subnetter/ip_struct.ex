@@ -85,12 +85,8 @@ defmodule IPStruct do
             second_broadcast_octet_color: nil,
             third_broadcast_octet_color: nil,
             fourth_broadcast_octet_color: nil,
-            first_mask_ones_octet_color: nil,
-            second_mask_ones_octet_color: nil,
-            third_mask_ones_octet_color: nil,
-            fourth_mask_ones_octet_color: nil,
-            first_mask_zeroes_octet_color: nil,
-            second_mask_zeroes_octet_color: nil,
-            third_mask_zeroes_octet_color: nil,
-            fourth_mask_zeroes_octet_color: nil
+            first_mask_octet_color: nil,
+            second_mask_octet_color: nil,
+            third_mask_octet_color: nil,
+            fourth_mask_octet_color: nil
 end
