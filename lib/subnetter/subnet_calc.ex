@@ -152,8 +152,8 @@ defmodule SubnetCalc do
       )
 
     {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-     fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
-     third_mask_octet_color, fourth_mask_octet_color} = colorized_octets
+     fourth_address_octet_color, first_mask_ones_octet_color, second_mask_ones_octet_color,
+     third_mask_ones_octet_color, fourth_mask_ones_octet_color} = colorized_octets
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
 
@@ -258,10 +258,10 @@ defmodule SubnetCalc do
         second_address_octet_color: second_address_octet_color,
         third_address_octet_color: third_address_octet_color,
         fourth_address_octet_color: fourth_address_octet_color,
-        first_mask_octet_color: first_mask_octet_color,
-        second_mask_octet_color: second_mask_octet_color,
-        third_mask_octet_color: third_mask_octet_color,
-        fourth_mask_octet_color: fourth_mask_octet_color
+        first_mask_ones_octet_color: first_mask_ones_octet_color,
+        second_mask_ones_octet_color: second_mask_ones_octet_color,
+        third_mask_ones_octet_color: third_mask_ones_octet_color,
+        fourth_mask_ones_octet_color: fourth_mask_ones_octet_color
     }
   end
 
@@ -284,63 +284,67 @@ defmodule SubnetCalc do
          third_mask_octet_binary,
          fourth_mask_octet_binary
        ) do
+
+    <%= raw "<span class=<%= @first_broadcast_octet_color %>>" %>
     case first_mask_octet_binary do
       "11111111" ->
         first_address_octet_color = "ip"
-        first_mask_octet_color = "mask_ones"
+        first_mask_ones_octet_color = "mask_ones"
 
         case second_mask_octet_binary do
           "11111111" ->
             second_address_octet_color = "ip"
-            second_mask_octet_color = "mask_ones"
+            second_mask_ones_octet_color = "mask_ones"
 
             case third_mask_octet_binary do
               "11111111" ->
                 third_address_octet_color = "ip"
-                third_mask_octet_color = "mask_ones"
+                third_mask_ones_octet_color = "mask_ones"
 
                 case fourth_mask_octet_binary do
                   "11111111" ->
                     fourth_address_octet_color = "ip"
-                    fourth_mask_octet_color = "mask_ones"
+                    fourth_mask_ones_octet_color = "mask_ones"
 
                     {first_address_octet_color, second_address_octet_color,
                      third_address_octet_color, fourth_address_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
+                     first_mask_ones_octet_color, second_mask_ones_octet_color,
+                     third_mask_ones_octet_color, fourth_mask_ones_octet_color}
 
                   _ ->
                     fourth_address_octet_color = "host"
-                    fourth_mask_octet_color = "mask_zeroes"
+                    fourth_mask_ones_octet_color = "mask_zeroes"
 
                     {first_address_octet_color, second_address_octet_color,
                      third_address_octet_color, fourth_address_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
+                     first_mask_ones_octet_color, second_mask_ones_octet_color,
+                     third_mask_ones_octet_color, fourth_mask_ones_octet_color}
                 end
 
               _ ->
                 third_address_octet_color = "magic"
                 fourth_address_octet_color = "host"
-                third_mask_octet_color = "magic"
-                fourth_mask_octet_color = "mask_zeroes"
+                third_mask_ones_octet_color = "magic"
+                fourth_mask_ones_octet_color = "mask_zeroes"
 
                 {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-                 fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
-                 third_mask_octet_color, fourth_mask_octet_color}
+                 fourth_address_octet_color, first_mask_ones_octet_color,
+                 second_mask_ones_octet_color, third_mask_ones_octet_color,
+                 fourth_mask_ones_octet_color}
             end
 
           _ ->
             second_address_octet_color = "magic"
             third_address_octet_color = "host"
             fourth_address_octet_color = "host"
-            second_mask_octet_color = "magic"
-            third_mask_octet_color = "mask_zeroes"
-            fourth_mask_octet_color = "mask_zeroes"
+            second_mask_ones_octet_color = "magic"
+            third_mask_ones_octet_color = "mask_zeroes"
+            fourth_mask_ones_octet_color = "mask_zeroes"
 
             {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-             fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
-             third_mask_octet_color, fourth_mask_octet_color}
+             fourth_address_octet_color, first_mask_ones_octet_color,
+             second_mask_ones_octet_color, third_mask_ones_octet_color,
+             fourth_mask_ones_octet_color}
         end
 
       _ ->
@@ -348,24 +352,21 @@ defmodule SubnetCalc do
         second_address_octet_color = "host"
         third_address_octet_color = "host"
         fourth_address_octet_color = "host"
-        first_mask_octet_color = "magic"
-        second_mask_octet_color = "mask_zeroes"
-        third_mask_octet_color = "mask_zeroes"
-        fourth_mask_octet_color = "mask_zeroes"
+        first_mask_ones_octet_color = "magic"
+        second_mask_ones_octet_color = "mask_zeroes"
+        third_mask_ones_octet_color = "mask_zeroes"
+        fourth_mask_ones_octet_color = "mask_zeroes"
 
         {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-         fourth_address_octet_color, first_mask_octet_color, second_mask_octet_color,
-         third_mask_octet_color, fourth_mask_octet_color}
+         fourth_address_octet_color, first_mask_ones_octet_color, second_mask_ones_octet_color,
+         third_mask_ones_octet_color, fourth_mask_ones_octet_color}
     end
   end
 
-  defp divide_magic_octet(binary_mask, magic_octet) do
+  defp divide_magic_octet(mask_octet_binary) do
     number_of_ones_in_magic_octet =
-      binary_mask
+      mask_octet_binary
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
-    front_of_magic_octet = String.slice(magic_octet, 0, number_of_ones_in_magic_octet - 1)
-    back_of_magic_octet = String.slice(magic_octet, 0, (number_of_ones_in_magic_octet - 8)..7)
-    {front_of_magic_octet, back_of_magic_octet}
   end
 end
