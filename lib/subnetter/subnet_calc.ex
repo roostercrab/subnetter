@@ -356,7 +356,7 @@ defmodule SubnetCalc do
 
                   _ ->
                     # If the fourth octet is the magic octet
-                    fourth_address_octet_color = "magic"
+                    fourth_address_octet_color = "host"
                     fourth_host_octet_color = "host"
                     fourth_subnet_octet_color = "subnet"
                     fourth_broadcast_octet_color = "broadcast"
