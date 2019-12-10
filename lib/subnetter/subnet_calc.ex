@@ -143,20 +143,24 @@ defmodule SubnetCalc do
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
-    magic_octet = div(number_of_ones_in_mask, 8)
-    number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
+    colorized_octets =
+      colorizer(
+        first_mask_octet_binary,
+        second_mask_octet_binary,
+        third_mask_octet_binary,
+        fourth_mask_octet_binary
+      )
 
-    first_address_octet_color = address_color_decider("#{first_mask_octet_binary}")
-    second_address_octet_color = address_color_decider("#{second_mask_octet_binary}")
-    third_address_octet_color = address_color_decider("#{third_mask_octet_binary}")
-    fourth_address_octet_color = address_color_decider("#{fourth_mask_octet_binary}")
-
-    first_mask_octet_color = mask_color_decider("#{first_mask_octet_binary}")
-    second_mask_octet_color = mask_color_decider("#{second_mask_octet_binary}")
-    third_mask_octet_color = mask_color_decider("#{third_mask_octet_binary}")
-    fourth_mask_octet_color = mask_color_decider("#{fourth_mask_octet_binary}")
+    {first_address_octet_color, second_address_octet_color, third_address_octet_color,
+     fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
+     third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
+     second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
+     first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
+     fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
+     third_mask_octet_color, fourth_mask_octet_color} = colorized_octets
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
+
     bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
     zeroes_for_subnet_address_and_mask = List.duplicate("0", 32 - number_of_ones_in_mask)
     ones_for_broadcast_address = List.duplicate("1", 32 - number_of_ones_in_mask)
@@ -247,8 +251,6 @@ defmodule SubnetCalc do
         dotted_decimal_broadcast_address_fourth_octet:
           dotted_decimal_broadcast_address_fourth_octet,
         number_of_ones_in_mask: number_of_ones_in_mask,
-        magic_octet: magic_octet,
-        number_of_bits_into_magic_octet: number_of_bits_into_magic_octet,
         bin_network_portion_of_ip: bin_network_portion_of_ip,
         bin_str_network_portion_of_ip: bin_str_network_portion_of_ip,
         bin_str_host_portion_of_ip: bin_str_host_portion_of_ip,
@@ -263,7 +265,19 @@ defmodule SubnetCalc do
         first_mask_octet_color: first_mask_octet_color,
         second_mask_octet_color: second_mask_octet_color,
         third_mask_octet_color: third_mask_octet_color,
-        fourth_mask_octet_color: fourth_mask_octet_color
+        fourth_mask_octet_color: fourth_mask_octet_color,
+        first_host_octet_color: first_host_octet_color,
+        second_host_octet_color: second_host_octet_color,
+        third_host_octet_color: third_host_octet_color,
+        fourth_host_octet_color: fourth_host_octet_color,
+        first_subnet_octet_color: first_subnet_octet_color,
+        second_subnet_octet_color: second_subnet_octet_color,
+        third_subnet_octet_color: third_subnet_octet_color,
+        fourth_subnet_octet_color: fourth_subnet_octet_color,
+        first_broadcast_octet_color: first_broadcast_octet_color,
+        second_broadcast_octet_color: second_broadcast_octet_color,
+        third_broadcast_octet_color: third_broadcast_octet_color,
+        fourth_broadcast_octet_color: fourth_broadcast_octet_color
     }
   end
 
@@ -280,29 +294,172 @@ defmodule SubnetCalc do
     end
   end
 
-  defp address_color_decider(binary_octet) do
-    case binary_octet do
+  defp colorizer(
+         first_mask_octet_binary,
+         second_mask_octet_binary,
+         third_mask_octet_binary,
+         fourth_mask_octet_binary
+       ) do
+    case first_mask_octet_binary do
       "11111111" ->
-        "ip"
+        first_address_octet_color = "ip"
+        first_mask_octet_color = "mask_ones"
+        first_host_octet_color = "ip"
+        first_subnet_octet_color = "ip"
+        first_broadcast_octet_color = "ip"
 
-      "00000000" ->
-        "subnet"
+        case second_mask_octet_binary do
+          "11111111" ->
+            second_address_octet_color = "ip"
+            second_mask_octet_color = "mask_ones"
+            second_host_octet_color = "ip"
+            second_subnet_octet_color = "ip"
+            second_broadcast_octet_color = "ip"
+
+            case third_mask_octet_binary do
+              "11111111" ->
+                third_address_octet_color = "ip"
+                third_mask_octet_color = "mask_ones"
+                third_host_octet_color = "ip"
+                third_subnet_octet_color = "ip"
+                third_broadcast_octet_color = "ip"
+
+                case fourth_mask_octet_binary do
+                  "11111111" ->
+                    fourth_address_octet_color = "ip"
+                    fourth_mask_octet_color = "mask_ones"
+                    fourth_host_octet_color = "ip"
+                    fourth_subnet_octet_color = "ip"
+                    fourth_broadcast_octet_color = "ip"
+
+                    {first_address_octet_color, second_address_octet_color,
+                     third_address_octet_color, fourth_address_octet_color,
+                     first_host_octet_color, second_host_octet_color, third_host_octet_color,
+                     fourth_host_octet_color, first_subnet_octet_color, second_subnet_octet_color,
+                     third_subnet_octet_color, fourth_subnet_octet_color,
+                     first_broadcast_octet_color, second_broadcast_octet_color,
+                     third_broadcast_octet_color, fourth_broadcast_octet_color,
+                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
+                     fourth_mask_octet_color}
+
+                  _ ->
+                    # If the fourth octet is the magic octet
+                    fourth_address_octet_color = "host"
+                    fourth_host_octet_color = "host"
+                    fourth_subnet_octet_color = "subnet"
+                    fourth_broadcast_octet_color = "broadcast"
+                    fourth_mask_octet_color = "magic"
+
+                    {first_address_octet_color, second_address_octet_color,
+                     third_address_octet_color, fourth_address_octet_color,
+                     first_host_octet_color, second_host_octet_color, third_host_octet_color,
+                     fourth_host_octet_color, first_subnet_octet_color, second_subnet_octet_color,
+                     third_subnet_octet_color, fourth_subnet_octet_color,
+                     first_broadcast_octet_color, second_broadcast_octet_color,
+                     third_broadcast_octet_color, fourth_broadcast_octet_color,
+                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
+                     fourth_mask_octet_color}
+                end
+
+              _ ->
+                # If the third octet is the magic octet
+                third_address_octet_color = "magic"
+                fourth_address_octet_color = "host"
+
+                third_host_octet_color = "host"
+                fourth_host_octet_color = "host"
+
+                third_subnet_octet_color = "subnet"
+                fourth_subnet_octet_color = "subnet"
+
+                third_broadcast_octet_color = "broadcast"
+                fourth_broadcast_octet_color = "broadcast"
+
+                third_mask_octet_color = "magic"
+                fourth_mask_octet_color = "mask_zeroes"
+
+                {first_address_octet_color, second_address_octet_color, third_address_octet_color,
+                 fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
+                 third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
+                 second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
+                 first_broadcast_octet_color, second_broadcast_octet_color,
+                 third_broadcast_octet_color, fourth_broadcast_octet_color,
+                 first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
+                 fourth_mask_octet_color}
+            end
+
+          _ ->
+            # If the second octet is the magic octet
+            second_address_octet_color = "magic"
+            third_address_octet_color = "host"
+            fourth_address_octet_color = "host"
+
+            second_host_octet_color = "host"
+            third_host_octet_color = "host"
+            fourth_host_octet_color = "host"
+
+            second_subnet_octet_color = "subnet"
+            third_subnet_octet_color = "subnet"
+            fourth_subnet_octet_color = "subnet"
+
+            second_broadcast_octet_color = "broadcast"
+            third_broadcast_octet_color = "broadcast"
+            fourth_broadcast_octet_color = "broadcast"
+
+            second_mask_octet_color = "magic"
+            third_mask_octet_color = "mask_zeroes"
+            fourth_mask_octet_color = "mask_zeroes"
+
+            {first_address_octet_color, second_address_octet_color, third_address_octet_color,
+             fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
+             third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
+             second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
+             first_broadcast_octet_color, second_broadcast_octet_color,
+             third_broadcast_octet_color, fourth_broadcast_octet_color, first_mask_octet_color,
+             second_mask_octet_color, third_mask_octet_color, fourth_mask_octet_color}
+        end
 
       _ ->
-        "magic"
+        # If the first octet is the magic octet
+        first_address_octet_color = "magic"
+        second_address_octet_color = "host"
+        third_address_octet_color = "host"
+        fourth_address_octet_color = "host"
+
+        first_host_octet_color = "host"
+        second_host_octet_color = "host"
+        third_host_octet_color = "host"
+        fourth_host_octet_color = "host"
+
+        first_subnet_octet_color = "subnet"
+        second_subnet_octet_color = "subnet"
+        third_subnet_octet_color = "subnet"
+        fourth_subnet_octet_color = "subnet"
+
+        first_broadcast_octet_color = "broadcast"
+        second_broadcast_octet_color = "broadcast"
+        third_broadcast_octet_color = "broadcast"
+        fourth_broadcast_octet_color = "broadcast"
+
+        first_mask_octet_color = "magic"
+        second_mask_octet_color = "mask_zeroes"
+        third_mask_octet_color = "mask_zeroes"
+        fourth_mask_octet_color = "mask_zeroes"
+
+        {first_address_octet_color, second_address_octet_color, third_address_octet_color,
+         fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
+         third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
+         second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
+         first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
+         fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
+         third_mask_octet_color, fourth_mask_octet_color}
     end
   end
 
-  defp mask_color_decider(binary_octet) do
-    case binary_octet do
-      "11111111" ->
-        "mask_ones"
-
-      "00000000" ->
-        "mask_zeroes"
-
-      _ ->
-        "magic"
-    end
+  defp divide_magic_octet(mask_octet_binary) do
+    number_of_ones_in_magic_octet =
+      mask_octet_binary
+      |> String.graphemes()
+      |> Enum.count(&(&1 == "1"))
   end
 end
