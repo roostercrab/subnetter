@@ -358,4 +358,12 @@ defmodule SubnetCalc do
          third_mask_octet_color, fourth_mask_octet_color}
     end
   end
+
+  defp divide_magic_octet(binary_mask, magic_octet) do
+    number_of_ones_in_magic_octet =
+      binary_mask
+      |> String.graphemes()
+      |> Enum.count(&(&1 == "1"))
+    
+  end
 end
