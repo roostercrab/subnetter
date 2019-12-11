@@ -475,10 +475,22 @@ defmodule SubnetCalc do
     end
   end
 
-  defp divide_magic_octet(mask_octet_binary) do
-    number_of_ones_in_magic_octet =
-      mask_octet_binary
-      |> String.graphemes()
-      |> Enum.count(&(&1 == "1"))
+  defp divide_magic_octet(mask_octet, number_of_ones_in_mask) do
+      magic_octet = div(number_of_ones_in_mask, 8)
+      number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
+      case magic_octet do
+        1 ->
+          magic_first_octet_address_msd = String.slice(first_mask_octet_binary, 0, number_of_bits_into_magic_octet)
+          magic_first_octet_address_lsd = String.slice(first_mask_octet_binary, number_of_bits_into_magic_octet - 8, 8 - number_of_bits_into_magic_octet)
+          {magic_first_octet_address_msd, magic_first_octet_address_lsd}
+        
+        2 ->
+          second_mask_octet_binary
+        3 ->
+          third_mask_octet_binary
+        4 ->
+          fourth_mask_octet_binary
+          
+      end
   end
 end
