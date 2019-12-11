@@ -120,5 +120,13 @@ defmodule IPStruct do
             magic_fourth_octet_broadcast_msd_color: nil,
             magic_fourth_octet_broadcast_lsd_color: nil,
             magic_fourth_octet_mask_msd_color: nil,
-            magic_fourth_octet_mask_lsd_color: nil
+            magic_fourth_octet_mask_lsd_color: nil,
+            magic_first_octet_address_msd: nil, 
+            magic_first_octet_address_lsd: nil,
+            magic_second_octet_address_msd: nil,
+            magic_second_octet_address_lsd: nil,
+            magic_third_octet_address_msd: nil, 
+            magic_third_octet_address_lsd: nil,
+            magic_fourth_octet_address_msd: nil, 
+            magic_fourth_octet_address_lsd: nil
 end
