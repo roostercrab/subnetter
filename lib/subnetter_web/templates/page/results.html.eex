@@ -98,7 +98,9 @@
         <p>
             <h3 align=center>
                 <span class=<%= @first_address_octet_color %>>
-                    <%= @original_ip_address_first_octet %>
+                    <%= @original_ip_address_first_octet %> 
+                    <span class=<%= @magic_first_octet_address_msd_color %>><%= @magic_first_octet_address_msd %> 
+                    <span class=<%= @magic_first_octet_address_lsd_color %>><%= @magic_first_octet_address_lsd %> 
                 </span>
             </h3>
         </p>
