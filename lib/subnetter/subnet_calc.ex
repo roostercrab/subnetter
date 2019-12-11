@@ -143,24 +143,14 @@ defmodule SubnetCalc do
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
-    colorized_octets =
-      colorizer(
+    colorized_and_divided_octets =
+      colorize_and_divide(
+        ip_struct,
         first_mask_octet_binary,
         second_mask_octet_binary,
         third_mask_octet_binary,
         fourth_mask_octet_binary
       )
-
-    {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-     fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
-     third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
-     second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
-     first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
-     fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
-     third_mask_octet_color, fourth_mask_octet_color, magic_first_octet_address_msd,
-     magic_first_octet_address_lsd, magic_second_octet_address_msd,
-     magic_second_octet_address_lsd, magic_third_octet_address_msd, magic_third_octet_address_lsd,
-     magic_fourth_octet_address_msd, magic_fourth_octet_address_lsd} = colorized_octets
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
 
@@ -260,35 +250,7 @@ defmodule SubnetCalc do
         bin_host_portion_of_ip: bin_host_portion_of_ip,
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
-        ones_for_broadcast_address: ones_for_broadcast_address,
-        first_address_octet_color: first_address_octet_color,
-        second_address_octet_color: second_address_octet_color,
-        third_address_octet_color: third_address_octet_color,
-        fourth_address_octet_color: fourth_address_octet_color,
-        first_mask_octet_color: first_mask_octet_color,
-        second_mask_octet_color: second_mask_octet_color,
-        third_mask_octet_color: third_mask_octet_color,
-        fourth_mask_octet_color: fourth_mask_octet_color,
-        first_host_octet_color: first_host_octet_color,
-        second_host_octet_color: second_host_octet_color,
-        third_host_octet_color: third_host_octet_color,
-        fourth_host_octet_color: fourth_host_octet_color,
-        first_subnet_octet_color: first_subnet_octet_color,
-        second_subnet_octet_color: second_subnet_octet_color,
-        third_subnet_octet_color: third_subnet_octet_color,
-        fourth_subnet_octet_color: fourth_subnet_octet_color,
-        first_broadcast_octet_color: first_broadcast_octet_color,
-        second_broadcast_octet_color: second_broadcast_octet_color,
-        third_broadcast_octet_color: third_broadcast_octet_color,
-        fourth_broadcast_octet_color: fourth_broadcast_octet_color,
-        magic_first_octet_address_msd: magic_first_octet_address_msd,
-        magic_first_octet_address_lsd: magic_first_octet_address_lsd,
-        magic_second_octet_address_msd: magic_second_octet_address_msd,
-        magic_second_octet_address_lsd: magic_second_octet_address_lsd,
-        magic_third_octet_address_msd: magic_third_octet_address_msd,
-        magic_third_octet_address_lsd: magic_third_octet_address_lsd,
-        magic_fourth_octet_address_msd: magic_fourth_octet_address_msd,
-        magic_fourth_octet_address_lsd: magic_fourth_octet_address_lsd
+        ones_for_broadcast_address: ones_for_broadcast_address
     }
   end
 
@@ -305,7 +267,8 @@ defmodule SubnetCalc do
     end
   end
 
-  defp colorizer(
+  defp colorize_and_divide(
+         ip_struct,
          first_mask_octet_binary,
          second_mask_octet_binary,
          third_mask_octet_binary,
@@ -343,15 +306,25 @@ defmodule SubnetCalc do
                     fourth_subnet_octet_color = "ip"
                     fourth_broadcast_octet_color = "ip"
 
-                    {first_address_octet_color, second_address_octet_color,
-                     third_address_octet_color, fourth_address_octet_color,
-                     first_host_octet_color, second_host_octet_color, third_host_octet_color,
-                     fourth_host_octet_color, first_subnet_octet_color, second_subnet_octet_color,
-                     third_subnet_octet_color, fourth_subnet_octet_color,
-                     first_broadcast_octet_color, second_broadcast_octet_color,
-                     third_broadcast_octet_color, fourth_broadcast_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
+                    %{
+                      ip_struct
+                      | first_address_octet_color: first_address_octet_color,
+                        second_address_octet_color: second_address_octet_color,
+                        third_address_octet_color: third_address_octet_color,
+                        fourth_address_octet_color: fourth_address_octet_color,
+                        first_subnet_octet_color: first_subnet_octet_color,
+                        second_subnet_octet_color: second_subnet_octet_color,
+                        third_subnet_octet_color: third_subnet_octet_color,
+                        fourth_subnet_octet_color: fourth_subnet_octet_color,
+                        first_broadcast_octet_color: first_broadcast_octet_color,
+                        second_broadcast_octet_color: second_broadcast_octet_color,
+                        third_broadcast_octet_color: third_broadcast_octet_color,
+                        fourth_broadcast_octet_color: fourth_broadcast_octet_color,
+                        first_mask_octet_color: first_mask_octet_color,
+                        second_mask_octet_color: second_mask_octet_color,
+                        third_mask_octet_color: third_mask_octet_color,
+                        fourth_mask_octet_color: fourth_mask_octet_color
+                    }
 
                   _ ->
                     # If the fourth octet is the magic octet
@@ -364,18 +337,33 @@ defmodule SubnetCalc do
                     magic_fourth_octet_mask_msd_color = "mask_ones"
                     magic_fourth_octet_mask_lsd_color = "mask_zeroes"
 
-                    {first_address_octet_color, second_address_octet_color,
-                     third_address_octet_color,
-                     first_subnet_octet_color, second_subnet_octet_color,
-                     third_subnet_octet_color,
-                     first_broadcast_octet_color, second_broadcast_octet_color,
-                     third_broadcast_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     magic_fourth_octet_address_msd_color,
-                     magic_fourth_octet_address_lsd_color, magic_fourth_octet_subnet_msd_color,
-                     magic_fourth_octet_subnet_lsd_color, magic_fourth_octet_broadcast_msd_color,
-                     magic_fourth_octet_broadcast_lsd_color, magic_fourth_octet_mask_msd_color,
-                     magic_fourth_octet_mask_lsd_color}
+                    %{
+                      ip_struct
+                      | first_address_octet_color: first_address_octet_color,
+                        second_address_octet_color: second_address_octet_color,
+                        third_address_octet_color: third_address_octet_color,
+                        first_subnet_octet_color: first_subnet_octet_color,
+                        second_subnet_octet_color: second_subnet_octet_color,
+                        third_subnet_octet_color: third_subnet_octet_color,
+                        first_broadcast_octet_color: first_broadcast_octet_color,
+                        second_broadcast_octet_color: second_broadcast_octet_color,
+                        third_broadcast_octet_color: third_broadcast_octet_color,
+                        first_mask_octet_color: first_mask_octet_color,
+                        second_mask_octet_color: second_mask_octet_color,
+                        third_mask_octet_color: third_mask_octet_color,
+                        magic_fourth_octet_address_msd_color:
+                          magic_fourth_octet_address_msd_color,
+                        magic_fourth_octet_address_lsd_color:
+                          magic_fourth_octet_address_lsd_color,
+                        magic_fourth_octet_subnet_msd_color: magic_fourth_octet_subnet_msd_color,
+                        magic_fourth_octet_subnet_lsd_color: magic_fourth_octet_subnet_lsd_color,
+                        magic_fourth_octet_broadcast_msd_color:
+                          magic_fourth_octet_broadcast_msd_color,
+                        magic_fourth_octet_broadcast_lsd_color:
+                          magic_fourth_octet_broadcast_lsd_color,
+                        magic_fourth_octet_mask_msd_color: magic_fourth_octet_mask_msd_color,
+                        magic_fourth_octet_mask_lsd_color: magic_fourth_octet_mask_lsd_color
+                    }
                 end
 
               _ ->
@@ -396,17 +384,29 @@ defmodule SubnetCalc do
                 magic_third_octet_mask_lsd_color = "mask_zeroes"
                 fourth_mask_octet_color = "mask_zeroes"
 
-                {first_address_octet_color, second_address_octet_color,
-                 fourth_address_octet_color, first_subnet_octet_color,
-                 second_subnet_octet_color, fourth_subnet_octet_color,
-                 first_broadcast_octet_color, second_broadcast_octet_color,
-                 fourth_broadcast_octet_color,
-                 first_mask_octet_color, second_mask_octet_color,
-                 fourth_mask_octet_color, magic_third_octet_address_msd_color,
-                 magic_third_octet_address_lsd_color, magic_third_octet_subnet_msd_color,
-                 magic_third_octet_subnet_lsd_color, magic_third_octet_broadcast_msd_color,
-                 magic_third_octet_broadcast_lsd_color, magic_third_octet_mask_msd_color,
-                 magic_third_octet_mask_lsd_color}
+                %{
+                  ip_struct
+                  | first_address_octet_color: first_address_octet_color,
+                    second_address_octet_color: second_address_octet_color,
+                    fourth_address_octet_color: fourth_address_octet_color,
+                    first_subnet_octet_color: first_subnet_octet_color,
+                    second_subnet_octet_color: second_subnet_octet_color,
+                    fourth_subnet_octet_color: fourth_subnet_octet_color,
+                    first_broadcast_octet_color: first_broadcast_octet_color,
+                    second_broadcast_octet_color: second_broadcast_octet_color,
+                    fourth_broadcast_octet_color: fourth_broadcast_octet_color,
+                    first_mask_octet_color: first_mask_octet_color,
+                    second_mask_octet_color: second_mask_octet_color,
+                    fourth_mask_octet_color: fourth_mask_octet_color,
+                    magic_third_octet_address_msd_color: magic_third_octet_address_msd_color,
+                    magic_third_octet_address_lsd_color: magic_third_octet_address_lsd_color,
+                    magic_third_octet_subnet_msd_color: magic_third_octet_subnet_msd_color,
+                    magic_third_octet_subnet_lsd_color: magic_third_octet_subnet_lsd_color,
+                    magic_third_octet_broadcast_msd_color: magic_third_octet_broadcast_msd_color,
+                    magic_third_octet_broadcast_lsd_color: magic_third_octet_broadcast_lsd_color,
+                    magic_third_octet_mask_msd_color: magic_third_octet_mask_msd_color,
+                    magic_third_octet_mask_lsd_color: magic_third_octet_mask_lsd_color
+                }
             end
 
           _ ->
@@ -425,35 +425,41 @@ defmodule SubnetCalc do
             magic_second_octet_broadcast_lsd_color = "broadcast"
             third_broadcast_octet_color = "broadcast"
             fourth_broadcast_octet_color = "broadcast"
-            
+
             magic_second_octet_mask_msd_color = "mask_ones"
             magic_second_octet_mask_lsd_color = "mask_zeroes"
             third_mask_octet_color = "mask_zeroes"
             fourth_mask_octet_color = "mask_zeroes"
 
-            {first_address_octet_color, third_address_octet_color,
-             fourth_address_octet_color, first_subnet_octet_color,
-              third_subnet_octet_color, fourth_subnet_octet_color,
-             first_broadcast_octet_color,
-             third_broadcast_octet_color, fourth_broadcast_octet_color, first_mask_octet_color,
-              third_mask_octet_color, fourth_mask_octet_color,
-             magic_second_octet_address_msd_color, magic_second_octet_address_lsd_color,
-             magic_second_octet_subnet_msd_color, magic_second_octet_subnet_lsd_color,
-             magic_second_octet_broadcast_msd_color, magic_second_octet_broadcast_lsd_color,
-             magic_second_octet_mask_msd_color, magic_second_octet_mask_lsd_color}
+            %{
+              ip_struct
+              | first_address_octet_color: first_address_octet_color,
+                third_address_octet_color: third_address_octet_color,
+                fourth_address_octet_color: fourth_address_octet_color,
+                first_subnet_octet_color: first_subnet_octet_color,
+                third_subnet_octet_color: third_subnet_octet_color,
+                fourth_subnet_octet_color: fourth_subnet_octet_color,
+                first_broadcast_octet_color: first_broadcast_octet_color,
+                third_broadcast_octet_color: third_broadcast_octet_color,
+                fourth_broadcast_octet_color: fourth_broadcast_octet_color,
+                first_mask_octet_color: first_mask_octet_color,
+                third_mask_octet_color: third_mask_octet_color,
+                fourth_mask_octet_color: fourth_mask_octet_color,
+                magic_second_octet_address_msd_color: magic_second_octet_address_msd_color,
+                magic_second_octet_address_lsd_color: magic_second_octet_address_lsd_color,
+                magic_second_octet_subnet_msd_color: magic_second_octet_subnet_msd_color,
+                magic_second_octet_subnet_lsd_color: magic_second_octet_subnet_lsd_color,
+                magic_second_octet_broadcast_msd_color: magic_second_octet_broadcast_msd_color,
+                magic_second_octet_broadcast_lsd_color: magic_second_octet_broadcast_lsd_color,
+                magic_second_octet_mask_msd_color: magic_second_octet_mask_msd_color,
+                magic_second_octet_mask_lsd_color: magic_second_octet_mask_lsd_color
+            }
         end
 
       _ ->
         # If the first octet is the magic octet
         divided_magic_octet = divide_magic_octet(first_mask_octet_binary, 1)
         {magic_first_octet_address_msd, magic_first_octet_address_lsd} = divided_magic_octet
-
-        magic_second_octet_address_msd = nil
-        magic_second_octet_address_lsd = nil
-        magic_third_octet_address_msd = nil
-        magic_third_octet_address_lsd = nil
-        magic_fourth_octet_address_msd = nil
-        magic_fourth_octet_address_lsd = nil
 
         magic_first_octet_address_msd_color = "ip"
         magic_first_octet_address_lsd_color = "host"
@@ -479,19 +485,29 @@ defmodule SubnetCalc do
         third_mask_octet_color = "mask_zeroes"
         fourth_mask_octet_color = "mask_zeroes"
 
-        {second_address_octet_color, third_address_octet_color,
-         fourth_address_octet_color,
-         second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
-         second_broadcast_octet_color, third_broadcast_octet_color,
-         fourth_broadcast_octet_color, second_mask_octet_color,
-         third_mask_octet_color, fourth_mask_octet_color, magic_first_octet_address_msd_color,
-         magic_first_octet_address_lsd_color, magic_first_octet_subnet_msd_color,
-         magic_first_octet_subnet_lsd_color, magic_first_octet_broadcast_msd_color,
-         magic_first_octet_broadcast_lsd_color, magic_first_octet_mask_msd_color,
-         magic_first_octet_mask_lsd_color, magic_second_octet_address_msd,
-         magic_second_octet_address_lsd, magic_third_octet_address_msd,
-         magic_third_octet_address_lsd, magic_fourth_octet_address_msd,
-         magic_fourth_octet_address_lsd}
+        %{
+          ip_struct
+          | second_address_octet_color: second_address_octet_color,
+            third_address_octet_color: third_address_octet_color,
+            fourth_address_octet_color: fourth_address_octet_color,
+            second_subnet_octet_color: second_subnet_octet_color,
+            third_subnet_octet_color: third_subnet_octet_color,
+            fourth_subnet_octet_color: fourth_subnet_octet_color,
+            second_broadcast_octet_color: second_broadcast_octet_color,
+            third_broadcast_octet_color: third_broadcast_octet_color,
+            fourth_broadcast_octet_color: fourth_broadcast_octet_color,
+            second_mask_octet_color: second_mask_octet_color,
+            third_mask_octet_color: third_mask_octet_color,
+            fourth_mask_octet_color: fourth_mask_octet_color,
+            magic_first_octet_address_msd_color: magic_first_octet_address_msd_color,
+            magic_first_octet_address_lsd_color: magic_first_octet_address_lsd_color,
+            magic_first_octet_subnet_msd_color: magic_first_octet_subnet_msd_color,
+            magic_first_octet_subnet_lsd_color: magic_first_octet_subnet_lsd_color,
+            magic_first_octet_broadcast_msd_color: magic_first_octet_broadcast_msd_color,
+            magic_first_octet_broadcast_lsd_color: magic_first_octet_broadcast_lsd_color,
+            magic_first_octet_mask_msd_color: magic_first_octet_mask_msd_color,
+            magic_first_octet_mask_lsd_color: magic_first_octet_mask_lsd_color,
+        }
     end
   end
 
