@@ -344,11 +344,14 @@ defmodule SubnetCalc do
 
                   _ ->
                     # If the fourth octet is the magic octet
-                    fourth_address_octet_color = "host"
-                    fourth_host_octet_color = "host"
-                    fourth_subnet_octet_color = "subnet"
-                    fourth_broadcast_octet_color = "broadcast"
-                    fourth_mask_octet_color = "magic"
+                    magic_fourth_octet_address_msd = "ip"
+                    magic_fourth_octet_address_lsd = "host"
+                    magic_fourth_octet_subnet_msd = "ip"
+                    magic_fourth_octet_subnet_lsd = "subnet"
+                    magic_fourth_octet_broadcast_msd = "ip"
+                    magic_fourth_octet_broadcast_lsd = "broadcast"
+                    magic_fourth_octet_mask_msd = "mask_ones"
+                    magic_fourth_octet_mask_lsd = "mask_zeroes"
 
                     {first_address_octet_color, second_address_octet_color,
                      third_address_octet_color, fourth_address_octet_color,
@@ -358,24 +361,29 @@ defmodule SubnetCalc do
                      first_broadcast_octet_color, second_broadcast_octet_color,
                      third_broadcast_octet_color, fourth_broadcast_octet_color,
                      first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
+                     fourth_mask_octet_color, magic_fourth_octet_address_msd,
+                     magic_fourth_octet_address_lsd, magic_fourth_octet_subnet_msd,
+                     magic_fourth_octet_subnet_lsd, magic_fourth_octet_broadcast_msd,
+                     magic_fourth_octet_broadcast_lsd, magic_fourth_octet_mask_msd,
+                     magic_fourth_octet_mask_lsd}
                 end
 
               _ ->
                 # If the third octet is the magic octet
-                third_address_octet_color = "magic"
+                magic_third_octet_address_msd = "ip"
+                magic_third_octet_address_lsd = "host"
                 fourth_address_octet_color = "host"
 
-                third_host_octet_color = "host"
-                fourth_host_octet_color = "host"
-
-                third_subnet_octet_color = "subnet"
+                magic_third_octet_subnet_msd = "ip"
+                magic_third_octet_subnet_lsd = "subnet"
                 fourth_subnet_octet_color = "subnet"
 
-                third_broadcast_octet_color = "broadcast"
+                magic_third_octet_broadcast_msd = "ip"
+                magic_third_octet_broadcast_lsd = "broadcast"
                 fourth_broadcast_octet_color = "broadcast"
 
-                third_mask_octet_color = "magic"
+                magic_third_octet_mask_msd = "mask_ones"
+                magic_third_octet_mask_lsd = "mask_zeroes"
                 fourth_mask_octet_color = "mask_zeroes"
 
                 {first_address_octet_color, second_address_octet_color, third_address_octet_color,
@@ -385,28 +393,32 @@ defmodule SubnetCalc do
                  first_broadcast_octet_color, second_broadcast_octet_color,
                  third_broadcast_octet_color, fourth_broadcast_octet_color,
                  first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                 fourth_mask_octet_color}
+                 fourth_mask_octet_color, magic_third_octet_address_msd,
+                 magic_third_octet_address_lsd, magic_third_octet_subnet_msd,
+                 magic_third_octet_subnet_lsd, magic_third_octet_broadcast_msd,
+                 magic_third_octet_broadcast_lsd, magic_third_octet_mask_msd,
+                 magic_third_octet_mask_lsd}
             end
 
           _ ->
             # If the second octet is the magic octet
-            second_address_octet_color = "magic"
+            magic_second_octet_address_msd = "ip"
+            magic_second_octet_address_lsd = "host"
             third_address_octet_color = "host"
             fourth_address_octet_color = "host"
 
-            second_host_octet_color = "host"
-            third_host_octet_color = "host"
-            fourth_host_octet_color = "host"
-
-            second_subnet_octet_color = "subnet"
+            magic_second_octet_subnet_msd = "ip"
+            magic_second_octet_subnet_lsd = "subnet"
             third_subnet_octet_color = "subnet"
             fourth_subnet_octet_color = "subnet"
 
-            second_broadcast_octet_color = "broadcast"
+            magic_second_octet_broadcast_msd = "ip"
+            magic_second_octet_broadcast_lsd = "broadcast"
             third_broadcast_octet_color = "broadcast"
             fourth_broadcast_octet_color = "broadcast"
 
-            second_mask_octet_color = "magic"
+            magic_second_octet_broadcast_msd = "mask_ones"
+            magic_second_octet_broadcast_lsd = "mask_zeroes"
             third_mask_octet_color = "mask_zeroes"
             fourth_mask_octet_color = "mask_zeroes"
 
@@ -416,32 +428,35 @@ defmodule SubnetCalc do
              second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
              first_broadcast_octet_color, second_broadcast_octet_color,
              third_broadcast_octet_color, fourth_broadcast_octet_color, first_mask_octet_color,
-             second_mask_octet_color, third_mask_octet_color, fourth_mask_octet_color}
+             second_mask_octet_color, third_mask_octet_color, fourth_mask_octet_color,
+             magic_second_octet_address_msd, magic_second_octet_address_lsd,
+             magic_second_octet_subnet_msd, magic_second_octet_subnet_lsd,
+             magic_second_octet_broadcast_msd, magic_second_octet_broadcast_lsd,
+             magic_second_octet_mask_msd, magic_second_octet_mask_lsd}
         end
 
       _ ->
         # If the first octet is the magic octet
-        first_address_octet_color = "magic"
+        magic_first_octet_address_msd = "ip"
+        magic_first_octet_address_lsd = "host"
         second_address_octet_color = "host"
         third_address_octet_color = "host"
         fourth_address_octet_color = "host"
 
-        first_host_octet_color = "host"
-        second_host_octet_color = "host"
-        third_host_octet_color = "host"
-        fourth_host_octet_color = "host"
-
-        first_subnet_octet_color = "subnet"
+        magic_first_octet_subnet_msd = "ip"
+        magic_first_octet_subnet_lsd = "subnet"
         second_subnet_octet_color = "subnet"
         third_subnet_octet_color = "subnet"
         fourth_subnet_octet_color = "subnet"
 
-        first_broadcast_octet_color = "broadcast"
+        magic_first_octet_broadcast_msd = "ip"
+        magic_first_octet_broadcast_lsd = "broadcast"
         second_broadcast_octet_color = "broadcast"
         third_broadcast_octet_color = "broadcast"
         fourth_broadcast_octet_color = "broadcast"
 
-        first_mask_octet_color = "magic"
+        magic_first_octet_mask_msd = "mask_ones"
+        magic_first_octet_mask_lsd = "mask_zeroes"
         second_mask_octet_color = "mask_zeroes"
         third_mask_octet_color = "mask_zeroes"
         fourth_mask_octet_color = "mask_zeroes"
@@ -452,7 +467,10 @@ defmodule SubnetCalc do
          second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
          first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
          fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
-         third_mask_octet_color, fourth_mask_octet_color}
+         third_mask_octet_color, fourth_mask_octet_color, magic_first_octet_address_msd,
+         magic_first_octet_address_lsd, magic_first_octet_subnet_msd,
+         magic_first_octet_subnet_lsd, magic_first_octet_broadcast_msd,
+         magic_first_octet_broadcast_lsd, magic_first_octet_mask_msd, magic_first_octet_mask_lsd}
     end
   end
 

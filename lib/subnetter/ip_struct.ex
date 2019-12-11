@@ -88,5 +88,7 @@ defmodule IPStruct do
             first_mask_octet_color: nil,
             second_mask_octet_color: nil,
             third_mask_octet_color: nil,
-            fourth_mask_octet_color: nil
+            fourth_mask_octet_color: nil,
+            magic_first_octet_address_msd: nil,
+            magic_first_octet_address_lsd: nil
 end
