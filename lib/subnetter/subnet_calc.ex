@@ -157,7 +157,10 @@ defmodule SubnetCalc do
      second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
      first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
      fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
-     third_mask_octet_color, fourth_mask_octet_color} = colorized_octets
+     third_mask_octet_color, fourth_mask_octet_color, magic_first_octet_address_msd,
+     magic_first_octet_address_lsd, magic_second_octet_address_msd,
+     magic_second_octet_address_lsd, magic_third_octet_address_msd, magic_third_octet_address_lsd,
+     magic_fourth_octet_address_msd, magic_fourth_octet_address_lsd} = colorized_octets
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
 
@@ -277,7 +280,15 @@ defmodule SubnetCalc do
         first_broadcast_octet_color: first_broadcast_octet_color,
         second_broadcast_octet_color: second_broadcast_octet_color,
         third_broadcast_octet_color: third_broadcast_octet_color,
-        fourth_broadcast_octet_color: fourth_broadcast_octet_color
+        fourth_broadcast_octet_color: fourth_broadcast_octet_color,
+        magic_first_octet_address_msd: magic_first_octet_address_msd,
+        magic_first_octet_address_lsd: magic_first_octet_address_lsd,
+        magic_second_octet_address_msd: magic_second_octet_address_msd,
+        magic_second_octet_address_lsd: magic_second_octet_address_lsd,
+        magic_third_octet_address_msd: magic_third_octet_address_msd,
+        magic_third_octet_address_lsd: magic_third_octet_address_lsd,
+        magic_fourth_octet_address_msd: magic_fourth_octet_address_msd,
+        magic_fourth_octet_address_lsd: magic_fourth_octet_address_lsd
     }
   end
 
@@ -437,7 +448,16 @@ defmodule SubnetCalc do
 
       _ ->
         # If the first octet is the magic octet
-        divide_magic_octet()
+        divided_magic_octet = divide_magic_octet(first_mask_octet_binary, 1)
+        {magic_first_octet_address_msd, magic_first_octet_address_lsd} = divided_magic_octet
+
+        magic_second_octet_address_msd = nil
+        magic_second_octet_address_lsd = nil
+        magic_third_octet_address_msd = nil
+        magic_third_octet_address_lsd = nil
+        magic_fourth_octet_address_msd = nil
+        magic_fourth_octet_address_lsd = nil
+
         magic_first_octet_address_msd_color = "ip"
         magic_first_octet_address_lsd_color = "host"
         second_address_octet_color = "host"
@@ -472,34 +492,71 @@ defmodule SubnetCalc do
          magic_first_octet_address_lsd_color, magic_first_octet_subnet_msd_color,
          magic_first_octet_subnet_lsd_color, magic_first_octet_broadcast_msd_color,
          magic_first_octet_broadcast_lsd_color, magic_first_octet_mask_msd_color,
-         magic_first_octet_mask_lsd_color}
+         magic_first_octet_mask_lsd_color, magic_second_octet_address_msd,
+         magic_second_octet_address_lsd, magic_third_octet_address_msd,
+         magic_third_octet_address_lsd, magic_fourth_octet_address_msd,
+         magic_fourth_octet_address_lsd}
     end
   end
 
   defp divide_magic_octet(magic_mask_octet, which_octet_is_magic) do
-      number_of_bits_into_magic_octet = 
+    number_of_bits_into_magic_octet =
       magic_mask_octet
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
-      case which_octet_is_magic do
-        1 ->
-          magic_first_octet_address_msd = String.slice(first_mask_octet_binary, 0, number_of_bits_into_magic_octet)
-          magic_first_octet_address_lsd = String.slice(first_mask_octet_binary, number_of_bits_into_magic_octet - 8, 8 - number_of_bits_into_magic_octet)
-          {magic_first_octet_address_msd, magic_first_octet_address_lsd}
-        
-        2 ->
-          magic_second_octet_address_msd = String.slice(second_mask_octet_binary, 0, number_of_bits_into_magic_octet)
-          magic_second_octet_address_lsd = String.slice(second_mask_octet_binary, number_of_bits_into_magic_octet - 8, 8 - number_of_bits_into_magic_octet)
-          {magic_second_octet_address_msd, magic_second_octet_address_lsd}
-        3 ->
-          magic_third_octet_address_msd = String.slice(third_mask_octet_binary, 0, number_of_bits_into_magic_octet)
-          magic_third_octet_address_lsd = String.slice(third_mask_octet_binary, number_of_bits_into_magic_octet - 8, 8 - number_of_bits_into_magic_octet)
-          {magic_third_octet_address_msd, magic_third_octet_address_lsd}
-        4 ->
-          magic_fourth_octet_address_msd = String.slice(fourth_mask_octet_binary, 0, number_of_bits_into_magic_octet)
-          magic_fourth_octet_address_lsd = String.slice(fourth_mask_octet_binary, number_of_bits_into_magic_octet - 8, 8 - number_of_bits_into_magic_octet)
-          {magic_fourth_octet_address_msd, magic_fourth_octet_address_lsd}
-          
-      end
+
+    case which_octet_is_magic do
+      1 ->
+        magic_first_octet_address_msd =
+          String.slice(first_mask_octet_binary, 0, number_of_bits_into_magic_octet)
+
+        magic_first_octet_address_lsd =
+          String.slice(
+            first_mask_octet_binary,
+            number_of_bits_into_magic_octet - 8,
+            8 - number_of_bits_into_magic_octet
+          )
+
+        {magic_first_octet_address_msd, magic_first_octet_address_lsd}
+
+      2 ->
+        magic_second_octet_address_msd =
+          String.slice(second_mask_octet_binary, 0, number_of_bits_into_magic_octet)
+
+        magic_second_octet_address_lsd =
+          String.slice(
+            second_mask_octet_binary,
+            number_of_bits_into_magic_octet - 8,
+            8 - number_of_bits_into_magic_octet
+          )
+
+        {magic_second_octet_address_msd, magic_second_octet_address_lsd}
+
+      3 ->
+        magic_third_octet_address_msd =
+          String.slice(third_mask_octet_binary, 0, number_of_bits_into_magic_octet)
+
+        magic_third_octet_address_lsd =
+          String.slice(
+            third_mask_octet_binary,
+            number_of_bits_into_magic_octet - 8,
+            8 - number_of_bits_into_magic_octet
+          )
+
+        {magic_third_octet_address_msd, magic_third_octet_address_lsd}
+
+      4 ->
+        magic_fourth_octet_address_msd =
+          String.slice(fourth_mask_octet_binary, 0, number_of_bits_into_magic_octet)
+
+        magic_fourth_octet_address_lsd =
+          String.slice(
+            fourth_mask_octet_binary,
+            number_of_bits_into_magic_octet - 8,
+            8 - number_of_bits_into_magic_octet
+          )
+
+        {magic_fourth_octet_address_msd, magic_fourth_octet_address_lsd}
+    end
   end
 end
