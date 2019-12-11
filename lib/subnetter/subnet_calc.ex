@@ -6,6 +6,7 @@ defmodule SubnetCalc do
     break_up_dotted_decimal(original_ip_address, original_subnet_mask, ip_struct = %IPStruct{})
     |> convert_decimal_to_binary
     |> measure_network_range
+    |> colorize_and_divide
   end
 
   def break_up_dotted_decimal(original_ip_address, original_subnet_mask, ip_struct = %IPStruct{}) do
@@ -143,14 +144,14 @@ defmodule SubnetCalc do
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
-    colorized_and_divided_octets =
-      colorize_and_divide(
-        ip_struct,
-        first_mask_octet_binary,
-        second_mask_octet_binary,
-        third_mask_octet_binary,
-        fourth_mask_octet_binary
-      )
+    # colorized_and_divided_octets =
+    #   colorize_and_divide(
+    #     ip_struct,
+    #     first_mask_octet_binary,
+    #     second_mask_octet_binary,
+    #     third_mask_octet_binary,
+    #     fourth_mask_octet_binary
+    #   )
 
     bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
 
@@ -267,18 +268,22 @@ defmodule SubnetCalc do
     end
   end
 
-  defp colorize_and_divide(
-         ip_struct,
-         first_mask_octet_binary,
-         second_mask_octet_binary,
-         third_mask_octet_binary,
-         fourth_mask_octet_binary
-       ) do
+  def colorize_and_divide(ip_struct = %IPStruct{}) do
+    
+    first_address_octet_binary = ip_struct.original_ip_binary_first_octet
+    second_address_octet_binary = ip_struct.original_ip_binary_second_octet
+    third_address_octet_binary = ip_struct.original_ip_binary_third_octet
+    fourth_address_octet_binary = ip_struct.original_ip_binary_fourth_octet
+    
+    first_mask_octet_binary = ip_struct.original_mask_binary_first_octet
+    second_mask_octet_binary = ip_struct.original_mask_binary_second_octet
+    third_mask_octet_binary = ip_struct.original_mask_binary_third_octet
+    fourth_mask_octet_binary = ip_struct.original_mask_binary_fourth_octet
+
     case first_mask_octet_binary do
       "11111111" ->
         first_address_octet_color = "ip"
         first_mask_octet_color = "mask_ones"
-        first_host_octet_color = "ip"
         first_subnet_octet_color = "ip"
         first_broadcast_octet_color = "ip"
 
@@ -286,7 +291,6 @@ defmodule SubnetCalc do
           "11111111" ->
             second_address_octet_color = "ip"
             second_mask_octet_color = "mask_ones"
-            second_host_octet_color = "ip"
             second_subnet_octet_color = "ip"
             second_broadcast_octet_color = "ip"
 
@@ -294,7 +298,6 @@ defmodule SubnetCalc do
               "11111111" ->
                 third_address_octet_color = "ip"
                 third_mask_octet_color = "mask_ones"
-                third_host_octet_color = "ip"
                 third_subnet_octet_color = "ip"
                 third_broadcast_octet_color = "ip"
 
@@ -302,7 +305,6 @@ defmodule SubnetCalc do
                   "11111111" ->
                     fourth_address_octet_color = "ip"
                     fourth_mask_octet_color = "mask_ones"
-                    fourth_host_octet_color = "ip"
                     fourth_subnet_octet_color = "ip"
                     fourth_broadcast_octet_color = "ip"
 
@@ -460,12 +462,18 @@ defmodule SubnetCalc do
         # If the first octet is the magic octet
         divided_magic_octet = divide_magic_octet(first_mask_octet_binary, 1)
         {magic_first_octet_address_msd, magic_first_octet_address_lsd} = divided_magic_octet
-
+        IO.inspect(magic_first_octet_address_msd,
+          label: "@*@*@*@*@*@ magic_first_octet_address_msd"
+        )
         magic_first_octet_address_msd_color = "ip"
         magic_first_octet_address_lsd_color = "host"
         second_address_octet_color = "host"
         third_address_octet_color = "host"
         fourth_address_octet_color = "host"
+
+        IO.inspect(magic_first_octet_address_msd_color,
+          label: "@*@*@*@*@*@ magic_first_octet_address_msd_color"
+        )
 
         magic_first_octet_subnet_msd_color = "ip"
         magic_first_octet_subnet_lsd_color = "subnet"
@@ -507,7 +515,11 @@ defmodule SubnetCalc do
             magic_first_octet_broadcast_lsd_color: magic_first_octet_broadcast_lsd_color,
             magic_first_octet_mask_msd_color: magic_first_octet_mask_msd_color,
             magic_first_octet_mask_lsd_color: magic_first_octet_mask_lsd_color,
+            magic_first_octet_address_msd: magic_first_octet_address_msd,
+            magic_first_octet_address_lsd: magic_first_octet_address_lsd
         }
+
+        IO.inspect(ip_struct, label: "*!*!*!*!*!ip_map inspect first_magic_octet!!!")
     end
   end
 
