@@ -106,8 +106,8 @@
             <h3 align=center>
                 <span class=<%= @first_address_octet_color %>>
                     <%= @original_ip_binary_first_octet %><span class=<%= @first_address_octet_color %>>
-                    <%= @magic_first_octet_address_msd %><span class=<%= @first_host_octet_color %>>
-                    <%= @magic_first_octet_address_lsd %>
+                    <%= @magic_first_octet_address_msd_color %><span class=<%= @first_host_octet_color %>>
+                    <%= @magic_first_octet_address_lsd_color %>
                 </span>
             </h3>
         </p>
