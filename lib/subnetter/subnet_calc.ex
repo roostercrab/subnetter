@@ -18,12 +18,6 @@ defmodule SubnetFigurin do
     ] = original_subnet_mask_list
   end
 
-  # Take in octet, a value between 255 and 0
-
-  # Successively subtract each number from this list 
-  # [128, 64, 32, 16, 8, 4, 2, 1] 
-  # and return the value to be subtracted from the next item
-
   def change_decimal_to_binary(value, binary, [head | tail]) do
     new_value = value - head
 
@@ -50,6 +44,30 @@ defmodule SubnetFigurin do
     IO.inspect(value, label: "VALUE")
     IO.inspect(binary, label: "BINARY")
   end
+
+
+
+  def change_binary_to_decimal(binary) do
+    format_binary(binary)
+    |> combine_values([128, 64, 32, 16, 8, 4, 2, 1], 0)
+  end
+
+  defp format_binary(binary) do
+    binary_list = String.graphemes(binary)
+    Enum.map(binary_list, &String.to_integer/1)
+  end
+  
+  defp combine_values([binary_head | binary_tail], [value_head | value_tail], value) do
+    new_value = (binary_head * value_head) + value
+    combine_values(binary_tail, value_tail, new_value)
+  end
+    
+  defp combine_values([], [], value) do
+    IO.inspect(value, label: "VALUE")
+  end
+
+
+
 end
 
 # def change_decimal_to_binary(octet) do 
