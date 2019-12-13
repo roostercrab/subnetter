@@ -72,7 +72,7 @@ defmodule SubnetCalc do
     binary_mask_second_octet = String.slice(binary_mask_address, 8..15)
     binary_mask_third_octet = String.slice(binary_mask_address, 16..23)
     binary_mask_fourth_octet = String.slice(binary_mask_address, 24..31)
-    
+
     binary_subnet_first_octet = String.slice(binary_subnet_address, 0..7)
     binary_subnet_second_octet = String.slice(binary_subnet_address, 8..15)
     binary_subnet_third_octet = String.slice(binary_subnet_address, 16..23)
@@ -151,8 +151,8 @@ defmodule SubnetCalc do
         calc_magic_third_octet_ip_msd: calc_magic_third_octet_ip_msd,
         calc_magic_third_octet_ip_lsd: calc_magic_third_octet_ip_lsd,
         calc_magic_fourth_octet_ip_msd: calc_magic_fourth_octet_ip_msd,
-        calc_magic_fourth_octet_ip_lsd: calc_magic_fourth_octet_ip_lsd
-      | number_of_ones_in_mask: number_of_ones_in_mask,
+        calc_magic_fourth_octet_ip_lsd: calc_magic_fourth_octet_ip_lsd,
+        number_of_ones_in_mask: number_of_ones_in_mask,
         binary_ip_network_portion: binary_ip_network_portion,
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
