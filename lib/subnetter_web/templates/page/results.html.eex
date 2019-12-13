@@ -1,23 +1,24 @@
 <%= form_tag("/", method: :post) %> </p>
-<input type="text" placeholder="IP Address" name="original_ip_address">
+<input type="text" placeholder="IP Address" name="original_ip">
 <input type="text" placeholder="Subnet Mask" name="original_subnet_mask">
 <input type="submit" value="Submit">
 </form>
 
-           <p>original_decimal_ip_address_list: <%= @original_decimal_ip_address_list %> </p>
-           <p>original_decimal_mask_list:<%= @original_decimal_mask_list %> </p>
-           <p> <%# <%= @original_binary_ip_address_list %> </p> 
-           <p> <%# <%= @original_binary_mask_list %> </p> 
-           <p>number_of_ones_in_mask: <%= @number_of_ones_in_mask %> </p>
-           <p>magic_octet: <%= @magic_octet %> </p>
-           <p>binary_ip_network_portion: <%= @binary_ip_network_portion %> </p>
-           <p>ones_for_subnet_mask: <%= @ones_for_subnet_mask %> </p>
-           <p>zeroes_for_subnet_address_and_mask: <%= @zeroes_for_subnet_address_and_mask %> </p>
-           <p>binary_host_portion_of_ip: <%= @binary_host_portion_of_ip %> </p>
-           <p>ones_for_broadcast_address: <%= @ones_for_broadcast_address %> </p>
-           <p>magic_octet_ip_msd: <%= @magic_octet_ip_msd %> </p>
-           <p>magic_octet_ip_lsd: <%= @magic_octet_ip_lsd %> </p>
-           <p>magic_octet_subnet_lsd: <%= @magic_octet_subnet_lsd %> </p>
-           <p>magic_octet_broadcast_lsd: <%= @magic_octet_broadcast_lsd %> </p>
+
+<p>original_decimal_ip_list: <%= @original_decimal_ip_list %> </p>
+<p>original_decimal_mask_list:<%= @original_decimal_mask_list %> </p>
+<p> <%# <%= @original_binary_ip_list %> </p>
+<p> <%# <%= @original_binary_mask_list %> </p>
+<p>number_of_ones_in_mask: <%= @number_of_ones_in_mask %> </p>
+<p>magic_octet: <%= @magic_octet %> </p>
+<p>binary_ip_network_portion: <%= @binary_ip_network_portion %> </p>
+<p>ones_for_subnet_mask: <%= @ones_for_subnet_mask %> </p>
+<p>zeroes_for_subnet_address_and_mask: <%= @zeroes_for_subnet_address_and_mask %> </p>
+<p>binary_host_portion_of_ip: <%= @binary_host_portion_of_ip %> </p>
+<p>ones_for_broadcast_address: <%= @ones_for_broadcast_address %> </p>
+<p>magic_octet_ip_msd: <%= @magic_octet_ip_msd %> </p>
+<p>magic_octet_ip_lsd: <%= @magic_octet_ip_lsd %> </p>
+<p>magic_octet_subnet_lsd: <%= @magic_octet_subnet_lsd %> </p>
+<p>magic_octet_broadcast_lsd: <%= @magic_octet_broadcast_lsd %> </p>
 
 </div>

@@ -1,14 +1,14 @@
 defmodule SubnetCalc do
-  def main(original_ip_address, original_mask) do
+  def main(original_ip, original_mask) do
     ip_struct = %IPStruct{}
-    original_decimal_ip_address_list = String.split(original_ip_address, ".")
-    IO.inspect(original_decimal_ip_address_list, label: "^@^@^@^original_decimal_ip_address_list")
-    
+    original_decimal_ip_list = String.split(original_ip, ".")
+    IO.inspect(original_decimal_ip_list, label: "^@^@^@^original_decimal_ip_list")
+
     original_decimal_mask_list = String.split(original_mask, ".")
     IO.inspect(original_decimal_mask_list, label: "^@^@^@^original_decimal_mask_list")
-    
-    original_decimal_ip_address_numbers =
-      for octet <- original_decimal_ip_address_list do
+
+    original_decimal_ip_numbers =
+      for octet <- original_decimal_ip_list do
         String.to_integer(octet)
       end
 
@@ -17,31 +17,34 @@ defmodule SubnetCalc do
         String.to_integer(octet)
       end
 
-    original_binary_ip_address_list =
-      for octet <- original_decimal_ip_address_numbers do
+    original_binary_ip_list =
+      for octet <- original_decimal_ip_numbers do
         decimal_to_binary(octet, "", [128, 64, 32, 16, 8, 4, 2, 1])
       end
-    IO.inspect(original_binary_ip_address_list, label: "^@^@^@^original_binary_ip_address_list")
-    
+
+    IO.inspect(original_binary_ip_list, label: "^@^@^@^original_binary_ip_list")
+
     original_binary_mask_list =
       for octet <- original_decimal_mask_numbers do
         decimal_to_binary(octet, "", [128, 64, 32, 16, 8, 4, 2, 1])
       end
+
     IO.inspect(original_binary_mask_list, label: "^@^@^@^original_binary_mask_list")
 
-    joined_binary_ip = Enum.join(original_binary_ip_address_list)
+    joined_binary_ip = Enum.join(original_binary_ip_list)
     joined_binary_mask = Enum.join(original_binary_mask_list)
 
     number_of_ones_in_mask =
       joined_binary_mask
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
+
     IO.inspect(number_of_ones_in_mask, label: "^@^@^@^number_of_ones_in_mask")
 
     num_of_masked_octets = div(number_of_ones_in_mask, 8)
     magic_octet = num_of_masked_octets + 1
     IO.inspect(magic_octet, label: "^@^@^@^magic_octet")
-    
+
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
     binary_ip_network_portion = String.slice(joined_binary_ip, 0..(number_of_ones_in_mask - 1))
@@ -54,7 +57,10 @@ defmodule SubnetCalc do
 
     zeroes_for_subnet_address_and_mask =
       Enum.join(List.duplicate("0", 32 - number_of_ones_in_mask))
-    IO.inspect(zeroes_for_subnet_address_and_mask, label: "^@^@^@^zeroes_for_subnet_address_and_mask")
+
+    IO.inspect(zeroes_for_subnet_address_and_mask,
+      label: "^@^@^@^zeroes_for_subnet_address_and_mask"
+    )
 
     ones_for_broadcast_address = Enum.join(List.duplicate("1", 32 - number_of_ones_in_mask))
     IO.inspect(ones_for_broadcast_address, label: "^@^@^@^ones_for_broadcast_address")
@@ -67,25 +73,43 @@ defmodule SubnetCalc do
 
     magic_octet_ip_msd =
       get_magic_octet_msd(joined_binary_ip, num_of_masked_octets, number_of_ones_in_mask)
+
     IO.inspect(magic_octet_ip_msd, label: "^@^@^@^magic_octet_ip_msd")
 
     magic_octet_ip_lsd =
       get_magic_octet_lsd(joined_binary_ip, num_of_masked_octets, number_of_ones_in_mask)
+
     IO.inspect(magic_octet_ip_lsd, label: "^@^@^@^magic_octet_ip_lsd")
 
     magic_octet_subnet_lsd =
       get_magic_octet_lsd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
+
     IO.inspect(magic_octet_subnet_lsd, label: "^@^@^@^magic_octet_subnet_lsd")
 
     magic_octet_broadcast_lsd =
       get_magic_octet_lsd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
+
     IO.inspect(magic_octet_broadcast_lsd, label: "^@^@^@^magic_octet_broadcast_lsd")
+
+    [
+      original_ip_first_octet,
+      original_ip_second_octet,
+      original_ip_third_octet,
+      original_ip_fourth_octet
+    ] = original_decimal_ip_list
+
+    [
+      original_mask_first_octet,
+      original_mask_second_octet,
+      original_mask_third_octet,
+      original_mask_fourth_octet
+    ] = original_decimal_mask_list
 
     %{
       ip_struct
-      | original_decimal_ip_address_list: original_decimal_ip_address_list,
+      | original_decimal_ip_list: original_decimal_ip_list,
         original_decimal_mask_list: original_decimal_mask_list,
-        original_binary_ip_address_list: original_binary_ip_address_list,
+        original_binary_ip_list: original_binary_ip_list,
         original_binary_mask_list: original_binary_mask_list,
         number_of_ones_in_mask: number_of_ones_in_mask,
         magic_octet: magic_octet,
