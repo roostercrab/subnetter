@@ -2,10 +2,7 @@ defmodule SubnetCalc do
   def main(ip, mask) do
     ip_struct = %IPStruct{}
     original_decimal_ip_list = String.split(ip, ".")
-    IO.inspect(original_decimal_ip_list, label: "^@^@^@^original_decimal_ip_list")
-
     original_decimal_mask_list = String.split(mask, ".")
-    IO.inspect(original_decimal_mask_list, label: "^@^@^@^original_decimal_mask_list")
 
     [
       ip_first_octet,
@@ -36,88 +33,54 @@ defmodule SubnetCalc do
         decimal_to_binary(octet, "", [128, 64, 32, 16, 8, 4, 2, 1])
       end
 
-    IO.inspect(original_binary_ip_list, label: "^@^@^@^original_binary_ip_list")
-
     original_binary_mask_list =
       for octet <- original_decimal_mask_numbers do
         decimal_to_binary(octet, "", [128, 64, 32, 16, 8, 4, 2, 1])
       end
 
-    IO.inspect(original_binary_mask_list, label: "^@^@^@^original_binary_mask_list")
-
     binary_ip_address = Enum.join(original_binary_ip_list)
-    IO.inspect(binary_ip_address, label: "^@^@^@^binary_ip_address")
     binary_mask_address = Enum.join(original_binary_mask_list)
-    IO.inspect(binary_mask_address, label: "^@^@^@^binary_mask_address")
 
     number_of_ones_in_mask =
       binary_mask_address
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
-    IO.inspect(number_of_ones_in_mask, label: "^@^@^@^number_of_ones_in_mask")
-
     num_of_masked_octets = div(number_of_ones_in_mask, 8)
     magic_octet = num_of_masked_octets + 1
-    IO.inspect(magic_octet, label: "^@^@^@^magic_octet")
 
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
     binary_ip_network_portion = String.slice(binary_ip_address, 0..(number_of_ones_in_mask - 1))
     binary_host_portion_of_ip = String.slice(binary_ip_address, (number_of_ones_in_mask - 32)..31)
-    IO.inspect(binary_ip_network_portion, label: "^@^@^@^binary_ip_network_portion")
-    IO.inspect(binary_host_portion_of_ip, label: "^@^@^@^binary_host_portion_of_ip")
 
     ones_for_subnet_mask = Enum.join(List.duplicate("1", number_of_ones_in_mask))
-    IO.inspect(ones_for_subnet_mask, label: "^@^@^@^ones_for_subnet_mask")
 
     zeroes_for_subnet_address_and_mask =
       Enum.join(List.duplicate("0", 32 - number_of_ones_in_mask))
 
-    IO.inspect(zeroes_for_subnet_address_and_mask,
-      label: "^@^@^@^zeroes_for_subnet_address_and_mask"
-    )
-
     ones_for_broadcast_address = Enum.join(List.duplicate("1", 32 - number_of_ones_in_mask))
-    IO.inspect(ones_for_broadcast_address, label: "^@^@^@^ones_for_broadcast_address")
 
     binary_subnet_address = binary_ip_network_portion <> zeroes_for_subnet_address_and_mask
-    IO.inspect(binary_subnet_address, label: "^@^@^@^binary_subnet_address")
 
     binary_broadcast_address = binary_ip_network_portion <> ones_for_broadcast_address
-    IO.inspect(binary_broadcast_address, label: "^@^@^@^binary_broadcast_address")
 
     binary_ip_as_32_bit_number = binary_to_decimal_32(binary_ip_address)
-    IO.inspect(binary_ip_as_32_bit_number, label: "^@^@^@^binary_ip_as_32_bit_number")
     binary_mask_as_32_bit_number = binary_to_decimal_32(binary_mask_address)
-    IO.inspect(binary_mask_as_32_bit_number, label: "^@^@^@^binary_mask_as_32_bit_number")
     binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
-    IO.inspect(binary_subnet_as_32_bit_number, label: "^@^@^@^binary_subnet_as_32_bit_number")
     binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
-
-    IO.inspect(binary_broadcast_as_32_bit_number,
-      label: "^@^@^@^binary_broadcast_as_32_bit_number"
-    )
 
     magic_octet_ip_msd =
       get_magic_octet_msd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
 
-    IO.inspect(magic_octet_ip_msd, label: "^@^@^@^magic_octet_ip_msd")
-
     magic_octet_ip_lsd =
       get_magic_octet_lsd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
-
-    IO.inspect(magic_octet_ip_lsd, label: "^@^@^@^magic_octet_ip_lsd")
 
     magic_octet_subnet_lsd =
       get_magic_octet_lsd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
 
-    IO.inspect(magic_octet_subnet_lsd, label: "^@^@^@^magic_octet_subnet_lsd")
-
     magic_octet_broadcast_lsd =
       get_magic_octet_lsd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
-
-    IO.inspect(magic_octet_broadcast_lsd, label: "^@^@^@^magic_octet_broadcast_lsd")
 
     %{
       ip_struct
