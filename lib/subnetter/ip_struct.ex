@@ -1,8 +1,8 @@
 defmodule IPStruct do
-  defstruct original_decimal_ip_list: nil,
-            original_decimal_mask_list: nil,
-            original_binary_ip_list: nil,
-            original_binary_mask_list: nil,
+  defstruct decimal_ip_list: nil,
+            decimal_mask_list: nil,
+            binary_ip_list: nil,
+            binary_mask_list: nil,
             number_of_ones_in_mask: nil,
             magic_octet: nil,
             binary_ip_network_portion: nil,

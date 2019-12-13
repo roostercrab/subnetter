@@ -5,10 +5,10 @@
 </form>
 
 
-<p>original_decimal_ip_list: <%= @original_decimal_ip_list %> </p>
-<p>original_decimal_mask_list:<%= @original_decimal_mask_list %> </p>
-<p>original_binary_ip_list: <%= @original_binary_ip_list %> </p>
-<p>original_binary_mask_list: <%= @original_binary_mask_list %> </p>
+<p>decimal_ip_list: <%= @decimal_ip_list %> </p>
+<p>decimal_mask_list:<%= @decimal_mask_list %> </p>
+<p>binary_ip_list: <%= @binary_ip_list %> </p>
+<p>binary_mask_list: <%= @binary_mask_list %> </p>
 <p>number_of_ones_in_mask: <%= @number_of_ones_in_mask %> </p>
 <p>magic_octet: <%= @magic_octet %> </p>
 <p>binary_ip_network_portion: <%= @binary_ip_network_portion %> </p>
