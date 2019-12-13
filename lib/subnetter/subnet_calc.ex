@@ -93,10 +93,10 @@ defmodule SubnetCalc do
     broadcast_third_octet = binary_to_decimal(binary_broadcast_third_octet)
     broadcast_fourth_octet = binary_to_decimal(binary_broadcast_fourth_octet)
 
-    magic_octet_ip_msd =
+    magic_octet_binary_ip_msd =
       get_magic_octet_msd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
 
-    magic_octet_ip_lsd =
+    magic_octet_binary_ip_lsd =
       get_magic_octet_lsd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
 
     magic_octet_subnet_lsd =
@@ -110,24 +110,75 @@ defmodule SubnetCalc do
     binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
     binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
 
+    case magic_octet do
+      1 ->
+        calc_magic_first_octet_binary_ip_msd = magic_first_octet_binary_ip_msd
+        calc_magic_first_octet_binary_ip_lsd = magic_first_octet_binary_ip_lsd
+        calc_binary_subnet_second_octet = binary_subnet_second_octet,
+        calc_binary_subnet_third_octet = binary_subnet_third_octet,
+        calc_binary_subnet_fourth_octet = binary_subnet_fourth_octet,
+        calc_broadcast_second_octet = broadcast_second_octet,
+        calc_broadcast_third_octet = broadcast_third_octet,
+        calc_broadcast_fourth_octet = broadcast_fourth_octet,
+        calc_binary_broadcast_second_octet = binary_broadcast_second_octet,
+        calc_binary_broadcast_third_octet = binary_broadcast_third_octet,
+        calc_binary_broadcast_fourth_octet = binary_broadcast_fourth_octet
+      2 ->
+        calc_magic_second_octet_binary_ip_msd = magic_second_octet_binary_ip_msd
+        calc_magic_second_octet_binary_ip_lsd = magic_second_octet_binary_ip_lsd
+        calc_binary_subnet_first_octet = binary_subnet_first_octet,
+        calc_binary_subnet_third_octet = binary_subnet_third_octet,
+        calc_binary_subnet_fourth_octet = binary_subnet_fourth_octet,
+        calc_broadcast_first_octet = broadcast_first_octet,
+        calc_broadcast_third_octet = broadcast_third_octet,
+        calc_broadcast_fourth_octet = broadcast_fourth_octet,
+        calc_binary_broadcast_first_octet = binary_broadcast_first_octet,
+        calc_binary_broadcast_third_octet = binary_broadcast_third_octet,
+        calc_binary_broadcast_fourth_octet = binary_broadcast_fourth_octet      
+      3 ->
+        calc_magic_third_octet_binary_ip_msd = magic_third_octet_binary_ip_msd
+        calc_magic_third_octet_binary_ip_lsd = magic_third_octet_binary_ip_lsd
+        calc_binary_subnet_first_octet = binary_subnet_first_octet,
+        calc_binary_subnet_second_octet = binary_subnet_second_octet,
+        calc_binary_subnet_fourth_octet = binary_subnet_fourth_octet,
+        calc_broadcast_first_octet = broadcast_first_octet,
+        calc_broadcast_second_octet = broadcast_second_octet,
+        calc_broadcast_fourth_octet = broadcast_fourth_octet,
+        calc_binary_broadcast_first_octet = binary_broadcast_first_octet,
+        calc_binary_broadcast_second_octet = binary_broadcast_second_octet,
+        calc_binary_broadcast_fourth_octet = binary_broadcast_fourth_octet      
+      4 ->
+        calc_magic_fourth_octet_binary_ip_msd = magic_fourth_octet_binary_ip_msd
+        calc_magic_fourth_octet_binary_ip_lsd = magic_fourth_octet_binary_ip_lsd
+        calc_binary_subnet_first_octet = binary_subnet_first_octet,
+        calc_binary_subnet_second_octet = binary_subnet_second_octet,
+        calc_binary_subnet_third_octet = binary_subnet_third_octet,
+        calc_broadcast_first_octet = broadcast_first_octet,
+        calc_broadcast_second_octet = broadcast_second_octet,
+        calc_broadcast_third_octet = broadcast_third_octet,
+        calc_binary_broadcast_first_octet = binary_broadcast_first_octet,
+        calc_binary_broadcast_second_octet = binary_broadcast_second_octet,
+        calc_binary_broadcast_third_octet = binary_broadcast_third_octet
+    end
+
     %{
       ip_struct
-      | calc_ip_first_octet: calc_ip_first_octet,
-        calc_ip_second_octet: calc_ip_second_octet,
-        calc_ip_third_octet: calc_ip_third_octet,
-        calc_ip_fourth_octet: calc_ip_fourth_octet,
-        calc_binary_ip_first_octet: calc_binary_ip_first_octet,
-        calc_binary_ip_second_octet: calc_binary_ip_second_octet,
-        calc_binary_ip_third_octet: calc_binary_ip_third_octet,
-        calc_binary_ip_fourth_octet: calc_binary_ip_fourth_octet,
-        calc_mask_first_octet: calc_mask_first_octet,
-        calc_mask_second_octet: calc_mask_second_octet,
-        calc_mask_third_octet: calc_mask_third_octet,
-        calc_mask_fourth_octet: calc_mask_fourth_octet,
-        calc_binary_mask_first_octet: calc_binary_mask_first_octet,
-        calc_binary_mask_second_octet: calc_binary_mask_second_octet,
-        calc_binary_mask_third_octet: calc_binary_mask_third_octet,
-        calc_binary_mask_fourth_octet: calc_binary_mask_fourth_octet,
+      | ip_first_octet: ip_first_octet,
+        ip_second_octet: ip_second_octet,
+        ip_third_octet: ip_third_octet,
+        ip_fourth_octet: ip_fourth_octet,
+        binary_ip_first_octet: binary_ip_first_octet,
+        binary_ip_second_octet: binary_ip_second_octet,
+        binary_ip_third_octet: binary_ip_third_octet,
+        binary_ip_fourth_octet: binary_ip_fourth_octet,
+        mask_first_octet: mask_first_octet,
+        mask_second_octet: mask_second_octet,
+        mask_third_octet: mask_third_octet,
+        mask_fourth_octet: mask_fourth_octet,
+        binary_mask_first_octet: binary_mask__first_octet,
+        binary_mask_second_octet: binary_mask__second_octet,
+        binary_mask_third_octet: binary_mask__third_octet,
+        binary_mask_fourth_octet: binary_mask__fourth_octet,
         calc_subnet_first_octet: calc_subnet_first_octet,
         calc_subnet_second_octet: calc_subnet_second_octet,
         calc_subnet_third_octet: calc_subnet_third_octet,
@@ -144,14 +195,14 @@ defmodule SubnetCalc do
         calc_binary_broadcast_second_octet: calc_binary_broadcast_second_octet,
         calc_binary_broadcast_third_octet: calc_binary_broadcast_third_octet,
         calc_binary_broadcast_fourth_octet: calc_binary_broadcast_fourth_octet,
-        calc_magic_first_octet_ip_msd: calc_magic_first_octet_ip_msd,
-        calc_magic_first_octet_ip_lsd: calc_magic_first_octet_ip_lsd,
-        calc_magic_second_octet_ip_msd: calc_magic_second_octet_ip_msd,
-        calc_magic_second_octet_ip_lsd: calc_magic_second_octet_ip_lsd,
-        calc_magic_third_octet_ip_msd: calc_magic_third_octet_ip_msd,
-        calc_magic_third_octet_ip_lsd: calc_magic_third_octet_ip_lsd,
-        calc_magic_fourth_octet_ip_msd: calc_magic_fourth_octet_ip_msd,
-        calc_magic_fourth_octet_ip_lsd: calc_magic_fourth_octet_ip_lsd,
+        calc_magic_first_octet_binary_ip_msd: calc_magic_first_octet_binary_ip_msd,
+        calc_magic_first_octet_binary_ip_lsd: calc_magic_first_octet_binary_ip_lsd,
+        calc_magic_second_octet_binary_ip_msd: calc_magic_second_octet_binary_ip_msd,
+        calc_magic_second_octet_binary_ip_lsd: calc_magic_second_octet_binary_ip_lsd,
+        calc_magic_third_octet_binary_ip_msd: calc_magic_third_octet_binary_ip_msd,
+        calc_magic_third_octet_binary_ip_lsd: calc_magic_third_octet_binary_ip_lsd,
+        calc_magic_fourth_octet_binary_ip_msd: calc_magic_fourth_octet_binary_ip_msd,
+        calc_magic_fourth_octet_binary_ip_lsd: calc_magic_fourth_octet_binary_ip_lsd,
         number_of_ones_in_mask: number_of_ones_in_mask,
         binary_ip_network_portion: binary_ip_network_portion,
         ones_for_subnet_mask: ones_for_subnet_mask,
