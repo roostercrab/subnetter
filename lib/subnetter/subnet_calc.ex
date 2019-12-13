@@ -7,6 +7,20 @@ defmodule SubnetCalc do
     original_decimal_mask_list = String.split(original_mask, ".")
     IO.inspect(original_decimal_mask_list, label: "^@^@^@^original_decimal_mask_list")
 
+    [
+      original_ip_first_octet,
+      original_ip_second_octet,
+      original_ip_third_octet,
+      original_ip_fourth_octet
+    ] = original_decimal_ip_list
+
+    [
+      original_mask_first_octet,
+      original_mask_second_octet,
+      original_mask_third_octet,
+      original_mask_fourth_octet
+    ] = original_decimal_mask_list
+
     original_decimal_ip_numbers =
       for octet <- original_decimal_ip_list do
         String.to_integer(octet)
@@ -31,11 +45,13 @@ defmodule SubnetCalc do
 
     IO.inspect(original_binary_mask_list, label: "^@^@^@^original_binary_mask_list")
 
-    joined_binary_ip = Enum.join(original_binary_ip_list)
-    joined_binary_mask = Enum.join(original_binary_mask_list)
+    binary_ip_address = Enum.join(original_binary_ip_list)
+    IO.inspect(binary_ip_address, label: "^@^@^@^binary_ip_address")
+    binary_mask_address = Enum.join(original_binary_mask_list)
+    IO.inspect(binary_mask_address, label: "^@^@^@^binary_mask_address")
 
     number_of_ones_in_mask =
-      joined_binary_mask
+      binary_mask_address
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
@@ -47,8 +63,8 @@ defmodule SubnetCalc do
 
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
-    binary_ip_network_portion = String.slice(joined_binary_ip, 0..(number_of_ones_in_mask - 1))
-    binary_host_portion_of_ip = String.slice(joined_binary_ip, (number_of_ones_in_mask - 32)..31)
+    binary_ip_network_portion = String.slice(binary_ip_address, 0..(number_of_ones_in_mask - 1))
+    binary_host_portion_of_ip = String.slice(binary_ip_address, (number_of_ones_in_mask - 32)..31)
     IO.inspect(binary_ip_network_portion, label: "^@^@^@^binary_ip_network_portion")
     IO.inspect(binary_host_portion_of_ip, label: "^@^@^@^binary_host_portion_of_ip")
 
@@ -71,13 +87,24 @@ defmodule SubnetCalc do
     binary_broadcast_address = binary_ip_network_portion <> ones_for_broadcast_address
     IO.inspect(binary_broadcast_address, label: "^@^@^@^binary_broadcast_address")
 
+    binary_ip_as_32_bit_number = binary_to_decimal_32(binary_ip_address)
+    IO.inspect(binary_ip_as_32_bit_number, label: "^@^@^@^binary_ip_as_32_bit_number")
+    binary_mask_as_32_bit_number = binary_to_decimal_32(binary_mask_address)
+    IO.inspect(binary_mask_as_32_bit_number, label: "^@^@^@^binary_mask_as_32_bit_number")
+    binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
+    IO.inspect(binary_subnet_as_32_bit_number, label: "^@^@^@^binary_subnet_as_32_bit_number")
+    binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
+    IO.inspect(binary_broadcast_as_32_bit_number,
+      label: "^@^@^@^binary_broadcast_as_32_bit_number"
+    )
+
     magic_octet_ip_msd =
-      get_magic_octet_msd(joined_binary_ip, num_of_masked_octets, number_of_ones_in_mask)
+      get_magic_octet_msd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
 
     IO.inspect(magic_octet_ip_msd, label: "^@^@^@^magic_octet_ip_msd")
 
     magic_octet_ip_lsd =
-      get_magic_octet_lsd(joined_binary_ip, num_of_masked_octets, number_of_ones_in_mask)
+      get_magic_octet_lsd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
 
     IO.inspect(magic_octet_ip_lsd, label: "^@^@^@^magic_octet_ip_lsd")
 
@@ -90,20 +117,6 @@ defmodule SubnetCalc do
       get_magic_octet_lsd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
 
     IO.inspect(magic_octet_broadcast_lsd, label: "^@^@^@^magic_octet_broadcast_lsd")
-
-    [
-      original_ip_first_octet,
-      original_ip_second_octet,
-      original_ip_third_octet,
-      original_ip_fourth_octet
-    ] = original_decimal_ip_list
-
-    [
-      original_mask_first_octet,
-      original_mask_second_octet,
-      original_mask_third_octet,
-      original_mask_fourth_octet
-    ] = original_decimal_mask_list
 
     %{
       ip_struct
@@ -121,7 +134,19 @@ defmodule SubnetCalc do
         magic_octet_ip_msd: magic_octet_ip_msd,
         magic_octet_ip_lsd: magic_octet_ip_lsd,
         magic_octet_subnet_lsd: magic_octet_subnet_lsd,
-        magic_octet_broadcast_lsd: magic_octet_broadcast_lsd
+        magic_octet_broadcast_lsd: magic_octet_broadcast_lsd,
+        original_ip_first_octet: original_ip_first_octet,
+        original_ip_second_octet: original_ip_second_octet,
+        original_ip_third_octet: original_ip_third_octet,
+        original_ip_fourth_octet: original_ip_fourth_octet,
+        original_mask_first_octet: original_mask_first_octet,
+        original_mask_second_octet: original_mask_second_octet,
+        original_mask_third_octet: original_mask_third_octet,
+        original_mask_fourth_octet: original_mask_fourth_octet,
+        binary_ip_as_32_bit_number: binary_ip_as_32_bit_number,
+        binary_mask_as_32_bit_number: binary_mask_as_32_bit_number,
+        binary_subnet_as_32_bit_number: binary_subnet_as_32_bit_number,
+        binary_broadcast_as_32_bit_number: binary_broadcast_as_32_bit_number
     }
   end
 
@@ -168,6 +193,61 @@ defmodule SubnetCalc do
   end
 
   defp add_bits_base_2([], [], value) do
+    value
+  end
+
+  def binary_to_decimal_32(binary) do
+    format_binary_32(binary)
+    |> add_bits_base_2_32(
+      [
+        2_147_483_648,
+        1_073_741_824,
+        536_870_912,
+        268_435_456,
+        134_217_728,
+        67_108_864,
+        33_554_432,
+        16_777_216,
+        8_388_608,
+        4_194_304,
+        2_097_152,
+        1_048_576,
+        524_288,
+        262_144,
+        131_072,
+        65536,
+        32768,
+        16384,
+        8192,
+        4096,
+        2048,
+        1024,
+        512,
+        256,
+        128,
+        64,
+        32,
+        16,
+        8,
+        4,
+        2,
+        1
+      ],
+      0
+    )
+  end
+
+  defp format_binary_32(binary) do
+    binary_list = String.graphemes(binary)
+    Enum.map(binary_list, &String.to_integer/1)
+  end
+
+  defp add_bits_base_2_32([binary_head | binary_tail], [value_head | value_tail], value) do
+    new_value = binary_head * value_head + value
+    add_bits_base_2_32(binary_tail, value_tail, new_value)
+  end
+
+  defp add_bits_base_2_32([], [], value) do
     value
   end
 end

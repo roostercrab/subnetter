@@ -13,5 +13,17 @@ defmodule IPStruct do
             magic_octet_ip_msd: nil,
             magic_octet_ip_lsd: nil,
             magic_octet_subnet_lsd: nil,
-            magic_octet_broadcast_lsd: nil
+            magic_octet_broadcast_lsd: nil,
+            original_ip_first_octet: nil,
+            original_ip_second_octet: nil,
+            original_ip_third_octet: nil,
+            original_ip_fourth_octet: nil,
+            original_mask_first_octet: nil,
+            original_mask_second_octet: nil,
+            original_mask_third_octet: nil,
+            original_mask_fourth_octet: nil,
+            binary_ip_as_32_bit_number: nil,
+            binary_mask_as_32_bit_number: nil,
+            binary_subnet_as_32_bit_number: nil,
+            binary_broadcast_as_32_bit_number: nil
 end
