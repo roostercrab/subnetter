@@ -1,6 +1,6 @@
 <%= form_tag("/", method: :post) %> </p>
-<input type="text" placeholder="IP Address" name="original_ip">
-<input type="text" placeholder="Subnet Mask" name="original_subnet_mask">
+<input type="text" placeholder="IP Address" name="ip">
+<input type="text" placeholder="Subnet Mask" name="mask">
 <input type="submit" value="Submit">
 </form>
 

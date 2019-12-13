@@ -1,24 +1,24 @@
 defmodule SubnetCalc do
-  def main(original_ip, original_mask) do
+  def main(ip, mask) do
     ip_struct = %IPStruct{}
-    original_decimal_ip_list = String.split(original_ip, ".")
+    original_decimal_ip_list = String.split(ip, ".")
     IO.inspect(original_decimal_ip_list, label: "^@^@^@^original_decimal_ip_list")
 
-    original_decimal_mask_list = String.split(original_mask, ".")
+    original_decimal_mask_list = String.split(mask, ".")
     IO.inspect(original_decimal_mask_list, label: "^@^@^@^original_decimal_mask_list")
 
     [
-      original_ip_first_octet,
-      original_ip_second_octet,
-      original_ip_third_octet,
-      original_ip_fourth_octet
+      ip_first_octet,
+      ip_second_octet,
+      ip_third_octet,
+      ip_fourth_octet
     ] = original_decimal_ip_list
 
     [
-      original_mask_first_octet,
-      original_mask_second_octet,
-      original_mask_third_octet,
-      original_mask_fourth_octet
+      mask_first_octet,
+      mask_second_octet,
+      mask_third_octet,
+      mask_fourth_octet
     ] = original_decimal_mask_list
 
     original_decimal_ip_numbers =
@@ -94,6 +94,7 @@ defmodule SubnetCalc do
     binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
     IO.inspect(binary_subnet_as_32_bit_number, label: "^@^@^@^binary_subnet_as_32_bit_number")
     binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
+
     IO.inspect(binary_broadcast_as_32_bit_number,
       label: "^@^@^@^binary_broadcast_as_32_bit_number"
     )
@@ -135,14 +136,31 @@ defmodule SubnetCalc do
         magic_octet_ip_lsd: magic_octet_ip_lsd,
         magic_octet_subnet_lsd: magic_octet_subnet_lsd,
         magic_octet_broadcast_lsd: magic_octet_broadcast_lsd,
-        original_ip_first_octet: original_ip_first_octet,
-        original_ip_second_octet: original_ip_second_octet,
-        original_ip_third_octet: original_ip_third_octet,
-        original_ip_fourth_octet: original_ip_fourth_octet,
-        original_mask_first_octet: original_mask_first_octet,
-        original_mask_second_octet: original_mask_second_octet,
-        original_mask_third_octet: original_mask_third_octet,
-        original_mask_fourth_octet: original_mask_fourth_octet,
+        ip_first_octet: ip_first_octet,
+        ip_second_octet: ip_second_octet,
+        ip_third_octet: ip_third_octet,
+        ip_fourth_octet: ip_fourth_octet,
+        mask_first_octet: mask_first_octet,
+        mask_second_octet: mask_second_octet,
+        mask_third_octet: mask_third_octet,
+        mask_fourth_octet: mask_fourth_octet,
+        binary_ip_first_octet: binary_ip_first_octet,
+        binary_ip_second_octet: binary_ip_second_octet,
+        binary_ip_third_octet: binary_ip_third_octet,
+        binary_ip_fourth_octet: binary_ip_fourth_octet,
+        binary_mask_first_octet: binary_mask_first_octet,
+        binary_mask_second_octet: binary_mask_second_octet,
+        binary_mask_third_octet: binary_mask_third_octet,
+        binary_mask_fourth_octet: binary_mask_fourth_octet,
+        binary_subnet_first_octet: binary_subnet_first_octet,
+        binary_subnet_second_octet: binary_subnet_second_octet,
+        binary_subnet_third_octet: binary_subnet_third_octet,
+        binary_subnet_fourth_octet: binary_subnet_fourth_octet,
+        binary_broadcast_first_octet: binary_broadcast_first_octet,
+        binary_broadcast_second_octet: binary_broadcast_second_octet,
+        binary_broadcast_third_octet: binary_broadcast_third_octet,
+        binary_broadcast_fourth_octet: binary_broadcast_fourth_octet,
+
         binary_ip_as_32_bit_number: binary_ip_as_32_bit_number,
         binary_mask_as_32_bit_number: binary_mask_as_32_bit_number,
         binary_subnet_as_32_bit_number: binary_subnet_as_32_bit_number,

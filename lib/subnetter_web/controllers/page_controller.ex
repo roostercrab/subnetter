@@ -9,11 +9,11 @@ defmodule SubnetterWeb.PageController do
   def subnetter(
         conn,
         %{
-          "original_ip" => original_ip,
-          "original_subnet_mask" => original_subnet_mask
+          "ip" => ip,
+          "mask" => mask
         } = params
       ) do
-    ip_struct = SubnetCalc.main(original_ip, original_subnet_mask)
+    ip_struct = SubnetCalc.main(ip, mask)
     ip_map = Map.from_struct(ip_struct)
     IO.inspect(ip_map, label: "*!*!*!*!*!ip_map inspect")
     render(conn, "results.html", ip_map)
