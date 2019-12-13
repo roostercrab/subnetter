@@ -137,7 +137,21 @@ defmodule SubnetCalc do
         binary_ip_as_32_bit_number: binary_ip_as_32_bit_number,
         binary_mask_as_32_bit_number: binary_mask_as_32_bit_number,
         binary_subnet_as_32_bit_number: binary_subnet_as_32_bit_number,
-        binary_broadcast_as_32_bit_number: binary_broadcast_as_32_bit_number
+        binary_broadcast_as_32_bit_number: binary_broadcast_as_32_bit_number,
+        binary_subnet_first_octet: binary_subnet_first_octet,
+        binary_subnet_second_octet: binary_subnet_second_octet,
+        binary_subnet_third_octet: binary_subnet_third_octet,
+        binary_subnet_fourth_octet: binary_subnet_fourth_octet,
+        binary_broadcast_first_octet: binary_broadcast_first_octet,
+        binary_broadcast_second_octet: binary_broadcast_second_octet,
+        binary_broadcast_third_octet: binary_broadcast_third_octet,
+        binary_broadcast_fourth_octet: binary_broadcast_fourth_octet,
+        subnet_first_octet: subnet_first_octet,
+        subnet_third_octet: subnet_third_octet,
+        broadcast_first_octet: broadcast_first_octet,
+        broadcast_second_octet: broadcast_second_octet,
+        broadcast_third_octet: broadcast_third_octet,
+        broadcast_fourth_octet: broadcast_fourth_octet
     }
   end
 

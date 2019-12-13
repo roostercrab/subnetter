@@ -25,5 +25,19 @@ defmodule IPStruct do
             binary_ip_as_32_bit_number: nil,
             binary_mask_as_32_bit_number: nil,
             binary_subnet_as_32_bit_number: nil,
-            binary_broadcast_as_32_bit_number: nil
+            binary_broadcast_as_32_bit_number: nil,
+            binary_subnet_first_octet: nil,
+            binary_subnet_second_octet: nil,
+            binary_subnet_third_octet: nil,
+            binary_subnet_fourth_octet: nil,
+            binary_broadcast_first_octet: nil,
+            binary_broadcast_second_octet: nil,
+            binary_broadcast_third_octet: nil,
+            binary_broadcast_fourth_octet: nil,
+            subnet_first_octet: nil,
+            subnet_third_octet: nil,
+            broadcast_first_octet: nil,
+            broadcast_second_octet: nil,
+            broadcast_third_octet: nil,
+            broadcast_fourth_octet: nil
 end
