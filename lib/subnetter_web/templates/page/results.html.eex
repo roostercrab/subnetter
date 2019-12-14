@@ -4,8 +4,6 @@
 <input type="submit" value="Submit">
 </form>
 
-<p><%= @binary_subnet_first_octet %>.<%= @binary_subnet_second_octet %>.<%= @binary_subnet_third_octet %>.<%= @binary_subnet_fourth_octet %> </p>
+<p><%= @calc_binary_subnet_first_octet %>.<%= @calc_binary_subnet_second_octet %>.<%= @calc_binary_subnet_third_octet %>.<%= @calc_binary_subnet_fourth_octet %> </p>
 
-<p><%= @magic_octet_binary_ip_msd %><%= @magic_octet_binary_ip_lsd %></p>
-<p><%= @magic_octet_binary_ip_msd %><%= @magic_octet_subnet_lsd %></p>
-<p><%= @magic_octet_binary_ip_msd %><%= @magic_octet_broadcast_lsd %></p>
+<p><%= @calc_magic_third_octet_binary_ip_msd %><%= @calc_magic_third_octet_binary_ip_lsd %></p>
