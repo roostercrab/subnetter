@@ -1,9 +1,56 @@
-<%= form_tag("/", method: :post) %> </p> </p>
+<%= form_tag("/", method: :post) %> </p>
 <input type="text" placeholder="IP Address" name="ip">
 <input type="text" placeholder="Subnet Mask" name="mask">
 <input type="submit" value="Submit">
 </form>
 
-<p><%= @calc_binary_subnet_first_octet %>.<%= @calc_binary_subnet_second_octet %>.<%= @calc_binary_subnet_third_octet %>.<%= @calc_binary_subnet_fourth_octet %> </p>
-
-<p><%= @calc_magic_third_octet_binary_ip_msd %><%= @calc_magic_third_octet_binary_ip_lsd %></p>
+  <p>calc_binary_broadcast_second_octet: <%= @calc_binary_broadcast_second_octet %> </p>
+  <p>binary_ip_as_32_bit_number: <%= @binary_ip_as_32_bit_number %> </p>
+  <p>binary_mask_as_32_bit_number: <%= @binary_mask_as_32_bit_number %> </p>
+  <p>binary_ip_third_octet: <%= @binary_ip_third_octet %> </p>
+  <p>magic_octet_subnet_lsd: <%= @magic_octet_subnet_lsd %> </p>
+  <p>mask_first_octet: <%= @mask_first_octet %> </p>
+  <p>calc_magic_first_octet_binary_ip_lsd: <%= @calc_magic_first_octet_binary_ip_lsd %> </p>
+  <p>ones_for_subnet_mask: <%= @ones_for_subnet_mask %> </p>
+  <p>broadcast_third_octet: <%= @broadcast_third_octet %> </p> 7 %> </p>
+  <p>calc_binary_subnet_third_octet: <%= @calc_binary_subnet_third_octet %> </p>
+  <p>ones_for_broadcast_address: <%= @ones_for_broadcast_address %> </p>
+  <p>ip_fourth_octet: <%= @ip_fourth_octet %> </p>
+  <p>binary_ip_second_octet: <%= @binary_ip_second_octet %> </p>
+  <p>binary_mask_third_octet: <%= @binary_mask_third_octet %> </p>
+  <p>mask_fourth_octet: <%= @mask_fourth_octet %> </p>
+  <p>binary_mask_fourth_octet: <%= @binary_mask_fourth_octet %> </p>
+  <p>broadcast_fourth_octet: <%= @broadcast_fourth_octet %> </p>
+  <p>ip_second_octet: <%= @ip_second_octet %> </p>
+  <p>calc_magic_first_octet_binary_ip_msd: <%= @calc_magic_first_octet_binary_ip_msd %> </p>
+  <p>calc_binary_subnet_second_octet: <%= @calc_binary_subnet_second_octet %> </p>
+  <p>subnet_third_octet: <%= @subnet_third_octet %> </p>
+  <p>calc_binary_broadcast_fourth_octet: <%= @calc_binary_broadcast_fourth_octet %> </p>
+  <p>calc_magic_second_octet_binary_ip_msd: <%= @calc_magic_second_octet_binary_ip_msd %> </p>
+  <p>calc_binary_broadcast_third_octet: <%= @calc_binary_broadcast_third_octet %> </p>
+  <p>calc_magic_third_octet_binary_ip_msd: <%= @calc_magic_third_octet_binary_ip_msd %> </p>
+  <p>calc_magic_third_octet_binary_ip_lsd: <%= @calc_magic_third_octet_binary_ip_lsd %> </p>
+  <p>calc_binary_subnet_first_octet: <%= @calc_binary_subnet_first_octet %> </p>
+  <p>calc_magic_second_octet_binary_ip_lsd: <%= @calc_magic_second_octet_binary_ip_lsd %> </p>
+  <p>binary_mask_second_octet <%= @binary_mask_second_octet %> </p>
+  <p>calc_binary_broadcast_first_octet: <%= @calc_binary_broadcast_first_octet %> </p>
+  <p>ip_third_octet: <%= @ip_third_octet %> </p>
+  <p>number_of_ones_in_mask: <%= @number_of_ones_in_mask %> </p>
+  <p>binary_subnet_as_32_bit_number: <%= @binary_subnet_as_32_bit_number %> </p>
+  <p>magic_octet_broadcast_lsd: <%= @magic_octet_broadcast_lsd %> </p>
+  <p>subnet_first_octet: <%= @subnet_first_octet %> </p>
+  <p>broadcast_second_octet: <%= @broadcast_second_octet %> </p>
+  <p>mask_third_octet: <%= @mask_third_octet %> </p>
+  <p>ip_first_octet: <%= @ip_first_octet %> </p>
+  <p>binary_host_portion_of_ip: <%= @binary_host_portion_of_ip %> </p>
+  <p>subnet_fourth_octet: <%= @subnet_fourth_octet %> </p> 
+  <p>calc_magic_fourth_octet_binary_ip_lsd: <%= @calc_magic_fourth_octet_binary_ip_lsd %> </p>
+  <p>calc_binary_subnet_fourth_octet <%= @calc_binary_subnet_fourth_octet %> </p>
+  <p>broadcast_first_octet <%= @broadcast_first_octet %> </p>
+  <p>binary_mask_first_octet <%= @binary_mask_first_octet %> </p>
+  <p>mask_second_octet <%= @mask_second_octet %> </p>
+  <p>binary_ip_fourth_octet <%= @binary_ip_fourth_octet %> </p>
+  <p>subnet_second_octet <%= @subnet_second_octet %> </p>
+  <p>binary_ip_first_octet <%= @binary_ip_first_octet %> </p>
+  <p>zeroes_for_subnet_address_and_mask <%= @zeroes_for_subnet_address_and_mask %> </p>
+  <p>calc_magic_fourth_octet_binary_ip_msd <%= @calc_magic_fourth_octet_binary_ip_msd %> </p>
