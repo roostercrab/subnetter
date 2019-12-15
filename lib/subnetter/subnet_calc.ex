@@ -126,6 +126,10 @@ defmodule SubnetCalc do
             calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet
         }
 
+        IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
+        IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
+        IO.inspect(calc_magic_octet_binary_ip_msd, label: "calc_magic_octet_binary_ip_msd")
+        IO.inspect(calc_magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
       2 ->
         IO.puts("******** Made it to 2")
 
