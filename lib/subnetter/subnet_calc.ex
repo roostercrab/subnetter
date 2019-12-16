@@ -110,39 +110,32 @@ defmodule SubnetCalc do
     binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
     binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
 
-    ip_struct_after_parse = parse_magic_octet(
-      magic_octet,
-      ip_struct,
-      magic_octet_binary_ip_msd,
-      magic_octet_binary_ip_lsd,
-      binary_subnet_1st_octet,
-      binary_subnet_2nd_octet,
-      binary_subnet_3rd_octet,
-      binary_subnet_4th_octet,
-      binary_broadcast_1st_octet,
-      binary_broadcast_2nd_octet,
-      binary_broadcast_3rd_octet,
-      binary_broadcast_4th_octet
-    )
+    ip_struct_after_parse =
+      parse_magic_octet(
+        magic_octet,
+        ip_struct,
+        magic_octet_binary_ip_msd,
+        magic_octet_binary_ip_lsd,
+        binary_subnet_1st_octet,
+        binary_subnet_2nd_octet,
+        binary_subnet_3rd_octet,
+        binary_subnet_4th_octet,
+        binary_broadcast_1st_octet,
+        binary_broadcast_2nd_octet,
+        binary_broadcast_3rd_octet,
+        binary_broadcast_4th_octet
+      )
 
-   %{
+    %{
       ip_struct_after_parse
       | ip_1st_octet: ip_1st_octet,
         ip_2nd_octet: ip_2nd_octet,
         ip_3rd_octet: ip_3rd_octet,
         ip_4th_octet: ip_4th_octet,
-        binary_ip_1st_octet: binary_ip_1st_octet,
-        binary_ip_2nd_octet: binary_ip_2nd_octet,
-        binary_ip_3rd_octet: binary_ip_3rd_octet,
-        binary_ip_4th_octet: binary_ip_4th_octet,
         mask_1st_octet: mask_1st_octet,
         mask_2nd_octet: mask_2nd_octet,
         mask_3rd_octet: mask_3rd_octet,
         mask_4th_octet: mask_4th_octet,
-        binary_mask_1st_octet: binary_mask_1st_octet,
-        binary_mask_2nd_octet: binary_mask_2nd_octet,
-        binary_mask_3rd_octet: binary_mask_3rd_octet,
-        binary_mask_4th_octet: binary_mask_4th_octet,
         subnet_1st_octet: subnet_1st_octet,
         subnet_2nd_octet: subnet_2nd_octet,
         subnet_3rd_octet: subnet_3rd_octet,
@@ -169,6 +162,14 @@ defmodule SubnetCalc do
         ip_struct,
         magic_octet_binary_ip_msd,
         magic_octet_binary_ip_lsd,
+        binary_ip_1st_octet,
+        binary_ip_2nd_octet,
+        binary_ip_3rd_octet,
+        binary_ip_4th_octet,
+        binary_mask_1st_octet,
+        binary_mask_2nd_octet,
+        binary_mask_3rd_octet,
+        binary_mask_4th_octet,
         binary_subnet_1st_octet,
         binary_subnet_2nd_octet,
         binary_subnet_3rd_octet,
@@ -186,6 +187,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_1st_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_1st_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
+            calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
+            calc_binary_ip_4th_octet: binary_ip_4th_octet,
+            calc_binary_mask_2nd_octet: binary_mask_2nd_octet,
+            calc_binary_mask_3rd_octet: binary_mask_3rd_octet,
+            calc_binary_mask_4th_octet: binary_mask_4th_octet,
             calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
             calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
             calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
@@ -208,6 +215,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_2nd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_2nd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_binary_ip_1st_octet: binary_ip_1st_octet,
+            calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
+            calc_binary_ip_4th_octet: binary_ip_4th_octet,
+            calc_binary_mask_1st_octet: binary_mask_1st_octet,
+            calc_binary_mask_3rd_octet: binary_mask_3rd_octet,
+            calc_binary_mask_4th_octet: binary_mask_4th_octet,
             calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
             calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
             calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
@@ -230,6 +243,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_3rd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_3rd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_binary_ip_1st_octet: binary_ip_1st_octet,
+            calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
+            calc_binary_ip_4th_octet: binary_ip_4th_octet,
+            calc_binary_mask_1st_octet: binary_mask_1st_octet,
+            calc_binary_mask_2nd_octet: binary_mask_2nd_octet,
+            calc_binary_mask_4th_octet: binary_mask_4th_octet,
             calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
             calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
             calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
@@ -252,6 +271,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_4th_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_4th_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_binary_ip_1st_octet: binary_ip_1st_octet,
+            calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
+            calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
+            calc_binary_mask_1st_octet: binary_mask_1st_octet,
+            calc_binary_mask_2nd_octet: binary_mask_2nd_octet,
+            calc_binary_mask_3rd_octet: binary_mask_3rd_octet,
             calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
             calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
             calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,

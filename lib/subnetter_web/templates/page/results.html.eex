@@ -14,8 +14,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   <p>mask: </p>
   <p> <%= @mask_1st_octet %>.<%= @mask_2nd_octet %>.<%= @mask_3rd_octet %>.<%= @mask_4th_octet %> </p>
+
+
+
+
+  <p>subnet_1st_octet: <%= @subnet_1st_octet %> </p>
+  <p>subnet_2nd_octet: <%= @subnet_2nd_octet %> </p>
+  <p>subnet_3rd_octet: <%= @subnet_3rd_octet %> </p>
+  <p>subnet_4th_octet: <%= @subnet_4th_octet %> </p> 
+
+
 
 
   <p>broadcast: </p>
@@ -27,16 +46,9 @@
   <p>calc broadcast: </p>
   <p><%= @calc_binary_broadcast_1st_octet %>.<%= @calc_binary_broadcast_2nd_octet %>.<%= @calc_binary_broadcast_3rd_octet %>.<%= @calc_binary_broadcast_4th_octet %></p>
 
-  <p>calc subnet: </p>
-  <p><%= @calc_binary_subnet_1st_octet %>.<%= @calc_binary_subnet_2nd_octet %>.<%= @calc_binary_subnet_3rd_octet %>.<%= @calc_binary_subnet_4th_octet %> </p>
-
 
   <p>number_of_ones_in_mask: <%= @number_of_ones_in_mask %> </p>
   <p>ones_for_broadcast_address: <%= @ones_for_broadcast_address %> </p>
-  <p>subnet_1st_octet: <%= @subnet_1st_octet %> </p>
-  <p>subnet_2nd_octet: <%= @subnet_2nd_octet %> </p>
-  <p>subnet_3rd_octet: <%= @subnet_3rd_octet %> </p>
-  <p>subnet_4th_octet: <%= @subnet_4th_octet %> </p> 
   <p>zeroes_for_subnet_address_and_mask: <%= @zeroes_for_subnet_address_and_mask %> </p>
 
   <p>binary_ip_as_32_bit_number: <%= @binary_ip_as_32_bit_number %> </p>
