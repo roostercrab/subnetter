@@ -7,14 +7,22 @@
   <p>ip:  </p>
   <p><%= @ip_1st_octet %>.<%= @ip_2nd_octet %>.<%= @ip_3rd_octet %>.<%= @ip_4th_octet %> </p>
 
-  <p>1st: <%= @calc_magic_1st_octet_binary_ip_msd %><%= @calc_magic_1st_octet_binary_ip_lsd %> </p>
-  <p>2nd: <%= @calc_magic_2nd_octet_binary_ip_msd %><%= @calc_magic_2nd_octet_binary_ip_lsd %> </p>
-  <p>3rd: <%= @calc_magic_3rd_octet_binary_ip_msd %><%= @calc_magic_3rd_octet_binary_ip_lsd %> </p>
-  <p>4th: <%= @calc_magic_4th_octet_binary_ip_msd %><%= @calc_magic_4th_octet_binary_ip_lsd %> </p>
+  <p>1st: <span class=ip><%= @calc_binary_ip_1st_octet %><%= @calc_magic_1st_octet_binary_ip_msd %></span><span class=host><%= @calc_magic_1st_octet_binary_ip_lsd %></span> </p>
+  <p>2nd: <span class=ip><%= @calc_binary_ip_2nd_octet %><%= @calc_magic_2nd_octet_binary_ip_msd %></span><span class=host><%= @calc_magic_2nd_octet_binary_ip_lsd %></span> </p>
+  <p>3rd: <span class=ip><%= @calc_binary_ip_3rd_octet %><%= @calc_magic_3rd_octet_binary_ip_msd %></span><span class=host><%= @calc_magic_3rd_octet_binary_ip_lsd %></span> </p>
+  <p>4th: <span class=ip><%= @calc_binary_ip_4th_octet %><%= @calc_magic_4th_octet_binary_ip_msd %></span><span class=host><%= @calc_magic_4th_octet_binary_ip_lsd %></span> </p>
 
 
+Stuff:
+            <p>1st: 
+            <p>2nd: 
+            <p>3rd: 
+            <p>4th: 
 
-
+            <p>1st: <%= @calc_binary_mask_1st_octet %>
+            <p>2nd: <%= @calc_binary_mask_2nd_octet %>
+            <p>3rd: <%= @calc_binary_mask_3rd_octet %>
+            <p>4th: <%= @calc_binary_mask_4th_octet %>
 
 
 

@@ -112,18 +112,26 @@ defmodule SubnetCalc do
 
     ip_struct_after_parse =
       parse_magic_octet(
-        magic_octet,
-        ip_struct,
-        magic_octet_binary_ip_msd,
-        magic_octet_binary_ip_lsd,
+        binary_broadcast_1st_octet,
+        binary_broadcast_2nd_octet,
+        binary_broadcast_3rd_octet,
+        binary_broadcast_4th_octet,
+        binary_ip_1st_octet,
+        binary_ip_2nd_octet,
+        binary_ip_3rd_octet,
+        binary_ip_4th_octet,
+        binary_mask_1st_octet,
+        binary_mask_2nd_octet,
+        binary_mask_3rd_octet,
+        binary_mask_4th_octet,
         binary_subnet_1st_octet,
         binary_subnet_2nd_octet,
         binary_subnet_3rd_octet,
         binary_subnet_4th_octet,
-        binary_broadcast_1st_octet,
-        binary_broadcast_2nd_octet,
-        binary_broadcast_3rd_octet,
-        binary_broadcast_4th_octet
+        ip_struct,
+        magic_octet_binary_ip_lsd,
+        magic_octet_binary_ip_msd,
+        magic_octet
       )
 
     %{
@@ -158,10 +166,10 @@ defmodule SubnetCalc do
   end
 
   def parse_magic_octet(
-        magic_octet,
-        ip_struct,
-        magic_octet_binary_ip_msd,
-        magic_octet_binary_ip_lsd,
+        binary_broadcast_1st_octet,
+        binary_broadcast_2nd_octet,
+        binary_broadcast_3rd_octet,
+        binary_broadcast_4th_octet,
         binary_ip_1st_octet,
         binary_ip_2nd_octet,
         binary_ip_3rd_octet,
@@ -174,10 +182,10 @@ defmodule SubnetCalc do
         binary_subnet_2nd_octet,
         binary_subnet_3rd_octet,
         binary_subnet_4th_octet,
-        binary_broadcast_1st_octet,
-        binary_broadcast_2nd_octet,
-        binary_broadcast_3rd_octet,
-        binary_broadcast_4th_octet
+        ip_struct,
+        magic_octet_binary_ip_lsd,
+        magic_octet_binary_ip_msd,
+        magic_octet
       ) do
     case magic_octet do
       1 ->
