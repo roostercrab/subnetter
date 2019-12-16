@@ -8,6 +8,7 @@ html {
   font-size: 62.5%;
 }
 body {
+  background-color: tan;
   color: #000000;
   font-family: "Helvetica", "Arial", sans-serif;
   font-size: 1.6em;
@@ -612,6 +613,7 @@ select {
 header {
   width: 100%;
   background: #fdfdfd;
+  background-color: tan;
   border-bottom: 1px solid #eaeaea;
   margin-bottom: 2rem;
 }
