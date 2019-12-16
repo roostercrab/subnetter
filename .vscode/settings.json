@@ -1,8 +1,5 @@
 {
     "workbench.colorCustomizations": {
-        "tab.unfocusedActiveBorder": "#fff0",
-        "activityBar.background": "#2A0E8B",
-        "titleBar.activeBackground": "#3B14C3",
-        "titleBar.activeForeground": "#FBFAFF"
+        "tab.unfocusedActiveBorder": "#fff0"
     }
 }

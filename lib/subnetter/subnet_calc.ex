@@ -110,7 +110,7 @@ defmodule SubnetCalc do
     binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
     binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
 
-    parse_magic_octet(
+    ip_struct_after_parse = parse_magic_octet(
       magic_octet,
       ip_struct,
       magic_octet_binary_ip_msd,
@@ -125,8 +125,8 @@ defmodule SubnetCalc do
       binary_broadcast_4th_octet
     )
 
-    %{
-      ip_struct
+   %{
+      ip_struct_after_parse
       | ip_1st_octet: ip_1st_octet,
         ip_2nd_octet: ip_2nd_octet,
         ip_3rd_octet: ip_3rd_octet,
@@ -165,24 +165,24 @@ defmodule SubnetCalc do
   end
 
   def parse_magic_octet(
-         magic_octet,
-         ip_struct,
-         magic_octet_binary_ip_msd,
-         magic_octet_binary_ip_lsd,
-         binary_subnet_1st_octet,
-         binary_subnet_2nd_octet,
-         binary_subnet_3rd_octet,
-         binary_subnet_4th_octet,
-         binary_broadcast_1st_octet,
-         binary_broadcast_2nd_octet,
-         binary_broadcast_3rd_octet,
-         binary_broadcast_4th_octet
-       ) do
+        magic_octet,
+        ip_struct,
+        magic_octet_binary_ip_msd,
+        magic_octet_binary_ip_lsd,
+        binary_subnet_1st_octet,
+        binary_subnet_2nd_octet,
+        binary_subnet_3rd_octet,
+        binary_subnet_4th_octet,
+        binary_broadcast_1st_octet,
+        binary_broadcast_2nd_octet,
+        binary_broadcast_3rd_octet,
+        binary_broadcast_4th_octet
+      ) do
     case magic_octet do
       1 ->
         IO.puts("******** Made it to 1")
 
-        %{
+        ip_struct = %{
           ip_struct
           | calc_magic_1st_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_1st_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
@@ -196,13 +196,15 @@ defmodule SubnetCalc do
 
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
         IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
+
         # IO.inspect(calc_magic_1st_octet_binary_ip_msd, label: "calc_magic_1st_octet_binary_ip_msd")
         # IO.inspect(calc_magic_1st_octet_binary_ip_lsd, label: "calc_magic_1st_octet_binary_ip_lsd")
+        ip_struct
 
       2 ->
         IO.puts("******** Made it to 2")
 
-        %{
+        ip_struct = %{
           ip_struct
           | calc_magic_2nd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_2nd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
@@ -216,13 +218,15 @@ defmodule SubnetCalc do
 
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
         IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
+
         # IO.inspect(calc_magic_2nd_octet_binary_ip_msd, label: "calc_magic_2nd_octet_binary_ip_msd")
         # IO.inspect(calc_magic_2nd_octet_binary_ip_lsd, label: "calc_magic_2nd_octet_binary_ip_lsd")
+        ip_struct
 
       3 ->
         IO.puts("******** Made it to 3")
 
-        %{
+        ip_struct = %{
           ip_struct
           | calc_magic_3rd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_3rd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
@@ -236,13 +240,15 @@ defmodule SubnetCalc do
 
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
         IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
+
         # IO.inspect(calc_magic_3rd_octet_binary_ip_msd, label: "calc_magic_3rd_octet_binary_ip_msd")
         # IO.inspect(calc_magic_3rd_octet_binary_ip_lsd, label: "calc_magic_3rd_octet_binary_ip_lsd")
+        ip_struct
 
       4 ->
         IO.puts("******** Made it to 4")
 
-        %{
+        ip_struct = %{
           ip_struct
           | calc_magic_4th_octet_binary_ip_msd: "There should be something here...",
             calc_magic_4th_octet_binary_ip_lsd: "There should be something here...",
@@ -257,11 +263,12 @@ defmodule SubnetCalc do
         IO.inspect(ip_struct, label: "IP struct after update in octet")
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
         IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
+
         # IO.inspect(calc_magic_4th_octet_binary_ip_msd, label: "calc_magic_4th_octet_binary_ip_msd")
         # IO.inspect(calc_magic_4th_octet_binary_ip_lsd, label: "calc_magic_4th_octet_binary_ip_lsd")
+        ip_struct
     end
   end
-
 
   defp get_magic_octet_msd(bits, num_of_masked_octets, number_of_ones_in_mask) do
     magic_octet_msd = String.slice(bits, (8 * num_of_masked_octets)..(number_of_ones_in_mask - 1))
