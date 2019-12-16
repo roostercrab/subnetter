@@ -1,465 +1,561 @@
 defmodule SubnetCalc do
-  @moduledoc """
-  Documentation for Subnetter.
-  """
-  def main(original_ip_address, original_subnet_mask) do
-    break_up_dotted_decimal(original_ip_address, original_subnet_mask, ip_struct = %IPStruct{})
-    |> convert_decimal_to_binary
-    |> measure_network_range
-  end
-
-  def break_up_dotted_decimal(original_ip_address, original_subnet_mask, ip_struct = %IPStruct{}) do
-    original_ip_address_list = String.split(original_ip_address, ".")
-    original_subnet_mask_list = String.split(original_subnet_mask, ".")
+  def main(ip, mask) do
+    ip_struct = %IPStruct{}
+    decimal_ip_list = String.split(ip, ".")
+    decimal_mask_list = String.split(mask, ".")
 
     [
-      original_ip_address_first_octet,
-      original_ip_address_second_octet,
-      original_ip_address_third_octet,
-      original_ip_address_fourth_octet
-    ] = original_ip_address_list
+      ip_1st_octet,
+      ip_2nd_octet,
+      ip_3rd_octet,
+      ip_4th_octet
+    ] = decimal_ip_list
 
     [
-      original_subnet_mask_first_octet,
-      original_subnet_mask_second_octet,
-      original_subnet_mask_third_octet,
-      original_subnet_mask_fourth_octet
-    ] = original_subnet_mask_list
+      mask_1st_octet,
+      mask_2nd_octet,
+      mask_3rd_octet,
+      mask_4th_octet
+    ] = decimal_mask_list
 
-    %{
-      ip_struct
-      | original_ip_address: original_ip_address,
-        original_ip_address_list: original_ip_address_list,
-        original_ip_address_first_octet: original_ip_address_first_octet,
-        original_ip_address_second_octet: original_ip_address_second_octet,
-        original_ip_address_third_octet: original_ip_address_third_octet,
-        original_ip_address_fourth_octet: original_ip_address_fourth_octet,
-        original_subnet_mask: original_subnet_mask,
-        original_subnet_mask_list: original_subnet_mask_list,
-        original_subnet_mask_first_octet: original_subnet_mask_first_octet,
-        original_subnet_mask_second_octet: original_subnet_mask_second_octet,
-        original_subnet_mask_third_octet: original_subnet_mask_third_octet,
-        original_subnet_mask_fourth_octet: original_subnet_mask_fourth_octet
-    }
-  end
-
-  def convert_decimal_to_binary(ip_struct = %IPStruct{}) do
-    original_ip_integer_list =
-      for octet <- ip_struct.original_ip_address_list do
-        String.to_integer(octet, 10)
+    decimal_ip_numbers =
+      for octet <- decimal_ip_list do
+        String.to_integer(octet)
       end
 
-    original_ip_binary_list_maybe_not_32_bits =
-      for octet <- original_ip_integer_list do
-        Integer.to_string(octet, 2)
+    decimal_mask_numbers =
+      for octet <- decimal_mask_list do
+        String.to_integer(octet)
       end
 
-    original_ip_binary_list = ensure_8_bit_length(original_ip_binary_list_maybe_not_32_bits)
-
-    [
-      original_ip_binary_first_octet,
-      original_ip_binary_second_octet,
-      original_ip_binary_third_octet,
-      original_ip_binary_fourth_octet
-    ] = original_ip_binary_list
-
-    original_mask_integer_list =
-      for octet <- ip_struct.original_subnet_mask_list do
-        String.to_integer(octet, 10)
+    binary_ip_list =
+      for octet <- decimal_ip_numbers do
+        decimal_to_binary(octet, "", [128, 64, 32, 16, 8, 4, 2, 1])
       end
 
-    original_mask_binary_list_maybe_not_32_bits =
-      for octet <- original_mask_integer_list do
-        Integer.to_string(octet, 2)
+    binary_mask_list =
+      for octet <- decimal_mask_numbers do
+        decimal_to_binary(octet, "", [128, 64, 32, 16, 8, 4, 2, 1])
       end
 
-    original_mask_binary_list = ensure_8_bit_length(original_mask_binary_list_maybe_not_32_bits)
-
-    [
-      original_mask_binary_first_octet,
-      original_mask_binary_second_octet,
-      original_mask_binary_third_octet,
-      original_mask_binary_fourth_octet
-    ] = original_mask_binary_list
-
-    %{
-      ip_struct
-      | original_ip_binary_list: original_ip_binary_list,
-        original_ip_binary_first_octet: original_ip_binary_first_octet,
-        original_ip_binary_second_octet: original_ip_binary_second_octet,
-        original_ip_binary_third_octet: original_ip_binary_third_octet,
-        original_ip_binary_fourth_octet: original_ip_binary_fourth_octet,
-        original_mask_binary_list: original_mask_binary_list,
-        original_mask_binary_first_octet: original_mask_binary_first_octet,
-        original_mask_binary_second_octet: original_mask_binary_second_octet,
-        original_mask_binary_third_octet: original_mask_binary_third_octet,
-        original_mask_binary_fourth_octet: original_mask_binary_fourth_octet
-    }
-  end
-
-  defp ensure_8_bit_length(binary_list) do
-    for octet <- binary_list do
-      number_of_bits = String.length(octet)
-      needed_zeroes = 8 - number_of_bits
-
-      cond do
-        needed_zeroes == 0 ->
-          octet
-
-        needed_zeroes >= 1 ->
-          zeroes = List.duplicate("0", needed_zeroes)
-          "#{zeroes ++ octet}"
-      end
-    end
-  end
-
-  def measure_network_range(ip_struct = %IPStruct{}) do
-    [
-      first_ip_octet_binary,
-      second_ip_octet_binary,
-      third_ip_octet_binary,
-      fourth_ip_octet_binary
-    ] = ip_struct.original_ip_binary_list
-
-    [
-      first_mask_octet_binary,
-      second_mask_octet_binary,
-      third_mask_octet_binary,
-      fourth_mask_octet_binary
-    ] = ip_struct.original_mask_binary_list
-
-    combined_bin_ip =
-      "#{first_ip_octet_binary}#{second_ip_octet_binary}#{third_ip_octet_binary}#{
-        fourth_ip_octet_binary
-      }"
-
-    combined_bin_mask =
-      "#{first_mask_octet_binary}#{second_mask_octet_binary}#{third_mask_octet_binary}#{
-        fourth_mask_octet_binary
-      }"
+    binary_ip_address = Enum.join(binary_ip_list)
+    binary_mask_address = Enum.join(binary_mask_list)
 
     number_of_ones_in_mask =
-      combined_bin_mask
+      binary_mask_address
       |> String.graphemes()
       |> Enum.count(&(&1 == "1"))
 
-    colorized_octets =
-      colorizer(
-        first_mask_octet_binary,
-        second_mask_octet_binary,
-        third_mask_octet_binary,
-        fourth_mask_octet_binary
+    num_of_masked_octets = div(number_of_ones_in_mask, 8)
+    magic_octet = num_of_masked_octets + 1
+    number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
+
+    binary_ip_network_portion = String.slice(binary_ip_address, 0..(number_of_ones_in_mask - 1))
+    binary_ip_host_portion = String.slice(binary_ip_address, (number_of_ones_in_mask - 32)..31)
+    ones_for_subnet_mask = Enum.join(List.duplicate("1", number_of_ones_in_mask))
+
+    zeroes_for_subnet_address_and_mask =
+      Enum.join(List.duplicate("0", 32 - number_of_ones_in_mask))
+
+    ones_for_broadcast_address = Enum.join(List.duplicate("1", 32 - number_of_ones_in_mask))
+    binary_ip_address = binary_ip_network_portion <> binary_ip_host_portion
+    binary_mask_address = ones_for_subnet_mask <> zeroes_for_subnet_address_and_mask
+    binary_subnet_address = binary_ip_network_portion <> zeroes_for_subnet_address_and_mask
+    binary_broadcast_address = binary_ip_network_portion <> ones_for_broadcast_address
+
+    binary_ip_1st_octet = String.slice(binary_ip_address, 0..7)
+    binary_ip_2nd_octet = String.slice(binary_ip_address, 8..15)
+    binary_ip_3rd_octet = String.slice(binary_ip_address, 16..23)
+    binary_ip_4th_octet = String.slice(binary_ip_address, 24..31)
+
+    binary_mask_1st_octet = String.slice(binary_mask_address, 0..7)
+    binary_mask_2nd_octet = String.slice(binary_mask_address, 8..15)
+    binary_mask_3rd_octet = String.slice(binary_mask_address, 16..23)
+    binary_mask_4th_octet = String.slice(binary_mask_address, 24..31)
+
+    binary_subnet_1st_octet = String.slice(binary_subnet_address, 0..7)
+    binary_subnet_2nd_octet = String.slice(binary_subnet_address, 8..15)
+    binary_subnet_3rd_octet = String.slice(binary_subnet_address, 16..23)
+    binary_subnet_4th_octet = String.slice(binary_subnet_address, 24..31)
+
+    binary_broadcast_1st_octet = String.slice(binary_broadcast_address, 0..7)
+    binary_broadcast_2nd_octet = String.slice(binary_broadcast_address, 8..15)
+    binary_broadcast_3rd_octet = String.slice(binary_broadcast_address, 16..23)
+    binary_broadcast_4th_octet = String.slice(binary_broadcast_address, 24..31)
+
+    subnet_1st_octet = binary_to_decimal(binary_subnet_1st_octet)
+    subnet_2nd_octet = binary_to_decimal(binary_subnet_2nd_octet)
+    subnet_3rd_octet = binary_to_decimal(binary_subnet_3rd_octet)
+    subnet_4th_octet = binary_to_decimal(binary_subnet_4th_octet)
+
+    broadcast_1st_octet = binary_to_decimal(binary_broadcast_1st_octet)
+    broadcast_2nd_octet = binary_to_decimal(binary_broadcast_2nd_octet)
+    broadcast_3rd_octet = binary_to_decimal(binary_broadcast_3rd_octet)
+    broadcast_4th_octet = binary_to_decimal(binary_broadcast_4th_octet)
+
+    magic_octet_binary_ip_msd =
+      get_magic_octet_msd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_ip_lsd =
+      get_magic_octet_lsd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_mask_msd =
+      get_magic_octet_msd(binary_mask_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_mask_lsd =
+      get_magic_octet_lsd(binary_mask_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_subnet_msd =
+      get_magic_octet_msd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
+    
+    magic_octet_binary_subnet_lsd =
+      get_magic_octet_lsd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_broadcast_msd =
+      get_magic_octet_msd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_broadcast_lsd =
+      get_magic_octet_lsd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    binary_ip_as_32_bit_number = binary_to_decimal_32(binary_ip_address)
+    binary_mask_as_32_bit_number = binary_to_decimal_32(binary_mask_address)
+    binary_subnet_as_32_bit_number = binary_to_decimal_32(binary_subnet_address)
+    binary_broadcast_as_32_bit_number = binary_to_decimal_32(binary_broadcast_address)
+
+    ip_struct_after_parse =
+      parse_magic_octet(
+        binary_broadcast_1st_octet,
+        binary_broadcast_2nd_octet,
+        binary_broadcast_3rd_octet,
+        binary_broadcast_4th_octet,
+        binary_ip_1st_octet,
+        binary_ip_2nd_octet,
+        binary_ip_3rd_octet,
+        binary_ip_4th_octet,
+        binary_mask_1st_octet,
+        binary_mask_2nd_octet,
+        binary_mask_3rd_octet,
+        binary_mask_4th_octet,
+        binary_subnet_1st_octet,
+        binary_subnet_2nd_octet,
+        binary_subnet_3rd_octet,
+        binary_subnet_4th_octet,
+        ip_struct,
+        magic_octet_binary_ip_lsd,
+        magic_octet_binary_ip_msd,
+        magic_octet_binary_mask_lsd,
+        magic_octet_binary_mask_msd,
+        magic_octet_binary_subnet_lsd,
+        magic_octet_binary_subnet_msd,
+        magic_octet_binary_broadcast_lsd,
+        magic_octet_binary_broadcast_msd,
+        magic_octet
       )
 
-    {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-     fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
-     third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
-     second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
-     first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
-     fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
-     third_mask_octet_color, fourth_mask_octet_color} = colorized_octets
-
-    bin_network_portion_of_ip = String.slice(combined_bin_ip, 0..(number_of_ones_in_mask - 1))
-
-    bin_host_portion_of_ip = String.slice(combined_bin_ip, (number_of_ones_in_mask - 32)..31)
-    zeroes_for_subnet_address_and_mask = List.duplicate("0", 32 - number_of_ones_in_mask)
-    ones_for_broadcast_address = List.duplicate("1", 32 - number_of_ones_in_mask)
-    ones_for_subnet_mask = List.duplicate("1", number_of_ones_in_mask)
-
-    bin_str_network_portion_of_ip = "#{bin_network_portion_of_ip}"
-    bin_str_host_portion_of_ip = "#{bin_host_portion_of_ip}"
-
-    binary_subnet_address = "#{bin_network_portion_of_ip}#{zeroes_for_subnet_address_and_mask}"
-    binary_subnet_address_list = binary_string_to_octet(binary_subnet_address)
-
-    binary_broadcast_address = "#{bin_network_portion_of_ip}#{ones_for_broadcast_address}"
-    binary_broadcast_address_list = binary_string_to_octet(binary_broadcast_address)
-
-    [
-      binary_subnet_address_first_octet,
-      binary_subnet_address_second_octet,
-      binary_subnet_address_third_octet,
-      binary_subnet_address_fourth_octet
-    ] = binary_subnet_address_list
-
-    [
-      binary_broadcast_address_first_octet,
-      binary_broadcast_address_second_octet,
-      binary_broadcast_address_third_octet,
-      binary_broadcast_address_fourth_octet
-    ] = binary_broadcast_address_list
-
-    dotted_decimal_subnet_address_list = binary_string_to_dotted_decimal(binary_subnet_address)
-
-    dotted_decimal_broadcast_address_list =
-      binary_string_to_dotted_decimal(binary_broadcast_address)
-
-    [
-      dotted_decimal_subnet_address_first_octet,
-      dotted_decimal_subnet_address_second_octet,
-      dotted_decimal_subnet_address_third_octet,
-      dotted_decimal_subnet_address_fourth_octet
-    ] = dotted_decimal_subnet_address_list
-
-    dotted_decimal_subnet_address =
-      "#{dotted_decimal_subnet_address_first_octet}.#{dotted_decimal_subnet_address_second_octet}.#{
-        dotted_decimal_subnet_address_third_octet
-      }.#{dotted_decimal_subnet_address_fourth_octet}"
-
-    [
-      dotted_decimal_broadcast_address_first_octet,
-      dotted_decimal_broadcast_address_second_octet,
-      dotted_decimal_broadcast_address_third_octet,
-      dotted_decimal_broadcast_address_fourth_octet
-    ] = dotted_decimal_broadcast_address_list
-
-    dotted_decimal_broadcast_address =
-      "#{dotted_decimal_broadcast_address_first_octet}.#{
-        dotted_decimal_broadcast_address_second_octet
-      }.#{dotted_decimal_broadcast_address_third_octet}.#{
-        dotted_decimal_broadcast_address_fourth_octet
-      }"
-
     %{
-      ip_struct
-      | binary_subnet_address: binary_subnet_address,
-        binary_subnet_address_list: binary_subnet_address_list,
-        binary_subnet_address_first_octet: binary_subnet_address_first_octet,
-        binary_subnet_address_second_octet: binary_subnet_address_second_octet,
-        binary_subnet_address_third_octet: binary_subnet_address_third_octet,
-        binary_subnet_address_fourth_octet: binary_subnet_address_fourth_octet,
-        dotted_decimal_subnet_address: dotted_decimal_subnet_address,
-        dotted_decimal_subnet_address_list: dotted_decimal_subnet_address,
-        dotted_decimal_subnet_address_first_octet: dotted_decimal_subnet_address_first_octet,
-        dotted_decimal_subnet_address_second_octet: dotted_decimal_subnet_address_second_octet,
-        dotted_decimal_subnet_address_third_octet: dotted_decimal_subnet_address_third_octet,
-        dotted_decimal_subnet_address_fourth_octet: dotted_decimal_subnet_address_fourth_octet,
-        binary_broadcast_address: binary_broadcast_address,
-        binary_broadcast_address_list: binary_broadcast_address_list,
-        binary_broadcast_address_first_octet: binary_broadcast_address_first_octet,
-        binary_broadcast_address_second_octet: binary_broadcast_address_second_octet,
-        binary_broadcast_address_third_octet: binary_broadcast_address_third_octet,
-        binary_broadcast_address_fourth_octet: binary_broadcast_address_fourth_octet,
-        dotted_decimal_broadcast_address: dotted_decimal_broadcast_address,
-        dotted_decimal_broadcast_address_list: dotted_decimal_broadcast_address,
-        dotted_decimal_broadcast_address_first_octet:
-          dotted_decimal_broadcast_address_first_octet,
-        dotted_decimal_broadcast_address_second_octet:
-          dotted_decimal_broadcast_address_second_octet,
-        dotted_decimal_broadcast_address_third_octet:
-          dotted_decimal_broadcast_address_third_octet,
-        dotted_decimal_broadcast_address_fourth_octet:
-          dotted_decimal_broadcast_address_fourth_octet,
+      ip_struct_after_parse
+      | ip_1st_octet: ip_1st_octet,
+        ip_2nd_octet: ip_2nd_octet,
+        ip_3rd_octet: ip_3rd_octet,
+        ip_4th_octet: ip_4th_octet,
+        mask_1st_octet: mask_1st_octet,
+        mask_2nd_octet: mask_2nd_octet,
+        mask_3rd_octet: mask_3rd_octet,
+        mask_4th_octet: mask_4th_octet,
+        subnet_1st_octet: subnet_1st_octet,
+        subnet_2nd_octet: subnet_2nd_octet,
+        subnet_3rd_octet: subnet_3rd_octet,
+        subnet_4th_octet: subnet_4th_octet,
+        broadcast_1st_octet: broadcast_1st_octet,
+        broadcast_2nd_octet: broadcast_2nd_octet,
+        broadcast_3rd_octet: broadcast_3rd_octet,
+        broadcast_4th_octet: broadcast_4th_octet,
         number_of_ones_in_mask: number_of_ones_in_mask,
-        bin_network_portion_of_ip: bin_network_portion_of_ip,
-        bin_str_network_portion_of_ip: bin_str_network_portion_of_ip,
-        bin_str_host_portion_of_ip: bin_str_host_portion_of_ip,
-        bin_host_portion_of_ip: bin_host_portion_of_ip,
+        binary_ip_network_portion: binary_ip_network_portion,
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
+        binary_ip_host_portion: binary_ip_host_portion,
         ones_for_broadcast_address: ones_for_broadcast_address,
-        first_address_octet_color: first_address_octet_color,
-        second_address_octet_color: second_address_octet_color,
-        third_address_octet_color: third_address_octet_color,
-        fourth_address_octet_color: fourth_address_octet_color,
-        first_mask_octet_color: first_mask_octet_color,
-        second_mask_octet_color: second_mask_octet_color,
-        third_mask_octet_color: third_mask_octet_color,
-        fourth_mask_octet_color: fourth_mask_octet_color,
-        first_host_octet_color: first_host_octet_color,
-        second_host_octet_color: second_host_octet_color,
-        third_host_octet_color: third_host_octet_color,
-        fourth_host_octet_color: fourth_host_octet_color,
-        first_subnet_octet_color: first_subnet_octet_color,
-        second_subnet_octet_color: second_subnet_octet_color,
-        third_subnet_octet_color: third_subnet_octet_color,
-        fourth_subnet_octet_color: fourth_subnet_octet_color,
-        first_broadcast_octet_color: first_broadcast_octet_color,
-        second_broadcast_octet_color: second_broadcast_octet_color,
-        third_broadcast_octet_color: third_broadcast_octet_color,
-        fourth_broadcast_octet_color: fourth_broadcast_octet_color
+        binary_ip_as_32_bit_number: binary_ip_as_32_bit_number,
+        binary_mask_as_32_bit_number: binary_mask_as_32_bit_number,
+        binary_subnet_as_32_bit_number: binary_subnet_as_32_bit_number,
+        binary_broadcast_as_32_bit_number: binary_broadcast_as_32_bit_number
     }
   end
 
-  defp binary_string_to_octet(binary_string) do
-    for <<chunk::binary-size(8) <- binary_string>> do
-      chunk
+  def parse_magic_octet(
+        binary_broadcast_1st_octet,
+        binary_broadcast_2nd_octet,
+        binary_broadcast_3rd_octet,
+        binary_broadcast_4th_octet,
+        binary_ip_1st_octet,
+        binary_ip_2nd_octet,
+        binary_ip_3rd_octet,
+        binary_ip_4th_octet,
+        binary_mask_1st_octet,
+        binary_mask_2nd_octet,
+        binary_mask_3rd_octet,
+        binary_mask_4th_octet,
+        binary_subnet_1st_octet,
+        binary_subnet_2nd_octet,
+        binary_subnet_3rd_octet,
+        binary_subnet_4th_octet,
+        ip_struct,
+        magic_octet_binary_ip_lsd,
+        magic_octet_binary_ip_msd,
+        magic_octet_binary_mask_lsd,
+        magic_octet_binary_mask_msd,
+        magic_octet_binary_subnet_lsd,
+        magic_octet_binary_subnet_msd,
+        magic_octet_binary_broadcast_lsd,
+        magic_octet_binary_broadcast_msd,
+        magic_octet
+      ) do
+    case magic_octet do
+      1 ->
+        IO.puts("******** Made it to 1")
+
+        ip_struct = %{
+          ip_struct
+          | calc_magic_1st_octet_binary_ip_msd: magic_octet_binary_ip_msd,
+            calc_magic_1st_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_1st_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_1st_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_1st_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_1st_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_1st_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_1st_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
+            calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
+            calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
+            calc_binary_ip_4th_octet: binary_ip_4th_octet,
+            calc_binary_mask_2nd_octet: binary_mask_2nd_octet,
+            calc_binary_mask_3rd_octet: binary_mask_3rd_octet,
+            calc_binary_mask_4th_octet: binary_mask_4th_octet,
+            calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
+            calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
+            calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
+            calc_binary_broadcast_2nd_octet: binary_broadcast_2nd_octet,
+            calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet,
+            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "host",
+            second_ip_msd_color: "host",
+            second_ip_lsd_color: "host",
+            third_ip_msd_color: "host",
+            third_ip_lsd_color: "host",
+            fourth_ip_msd_color: "host",
+            fourth_ip_lsd_color: "host",
+            first_mask_msd_color: "mask_ones",
+            first_mask_lsd_color: "mask_zeroes",
+            second_mask_msd_color: "mask_zeroes",
+            second_mask_lsd_color: "mask_zeroes",
+            third_mask_msd_color: "mask_zeroes",
+            third_mask_lsd_color: "mask_zeroes",
+            fourth_mask_msd_color: "mask_zeroes",
+            fourth_mask_lsd_color: "mask_zeroes",
+            first_subnet_msd_color: "ip",
+            first_subnet_lsd_color: "subnet",
+            second_subnet_msd_color: "subnet",
+            second_subnet_lsd_color: "subnet",
+            third_subnet_msd_color: "subnet",
+            third_subnet_lsd_color: "subnet",
+            fourth_subnet_msd_color: "subnet",
+            fourth_subnet_lsd_color: "subnet",
+            first_broadcast_msd_color: "ip",
+            first_broadcast_lsd_color: "broadcast",
+            second_broadcast_msd_color: "broadcast",
+            second_broadcast_lsd_color: "broadcast",
+            third_broadcast_msd_color: "broadcast",
+            third_broadcast_lsd_color: "broadcast",
+            fourth_broadcast_msd_color: "broadcast",
+            fourth_broadcast_lsd_color: "broadcast"
+        }
+
+        ip_struct
+
+      2 ->
+        IO.puts("******** Made it to 2")
+
+        ip_struct = %{
+          ip_struct
+          | calc_magic_2nd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
+            calc_magic_2nd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_2nd_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_2nd_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_2nd_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_2nd_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_2nd_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_2nd_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
+            calc_binary_ip_1st_octet: binary_ip_1st_octet,
+            calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
+            calc_binary_ip_4th_octet: binary_ip_4th_octet,
+            calc_binary_mask_1st_octet: binary_mask_1st_octet,
+            calc_binary_mask_3rd_octet: binary_mask_3rd_octet,
+            calc_binary_mask_4th_octet: binary_mask_4th_octet,
+            calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
+            calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
+            calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
+            calc_binary_broadcast_1st_octet: binary_broadcast_1st_octet,
+            calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet,
+            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "ip",
+            second_ip_msd_color: "ip",
+            second_ip_lsd_color: "host",
+            third_ip_msd_color: "host",
+            third_ip_lsd_color: "host",
+            fourth_ip_msd_color: "host",
+            fourth_ip_lsd_color: "host",
+            first_mask_msd_color: "mask_ones",
+            first_mask_lsd_color: "mask_ones",
+            second_mask_msd_color: "mask_ones",
+            second_mask_lsd_color: "mask_zeroes",
+            third_mask_msd_color: "mask_zeroes",
+            third_mask_lsd_color: "mask_zeroes",
+            fourth_mask_msd_color: "mask_zeroes",
+            fourth_mask_lsd_color: "mask_zeroes",
+            first_subnet_msd_color: "ip",
+            first_subnet_lsd_color: "ip",
+            second_subnet_msd_color: "ip",
+            second_subnet_lsd_color: "subnet",
+            third_subnet_msd_color: "subnet",
+            third_subnet_lsd_color: "subnet",
+            fourth_subnet_msd_color: "subnet",
+            fourth_subnet_lsd_color: "subnet",
+            first_broadcast_msd_color: "ip",
+            first_broadcast_lsd_color: "ip",
+            second_broadcast_msd_color: "ip",
+            second_broadcast_lsd_color: "broadcast",
+            third_broadcast_msd_color: "broadcast",
+            third_broadcast_lsd_color: "broadcast",
+            fourth_broadcast_msd_color: "broadcast",
+            fourth_broadcast_lsd_color: "broadcast"
+        }
+
+        ip_struct
+
+      3 ->
+        IO.puts("******** Made it to 3")
+
+        ip_struct = %{
+          ip_struct
+          | calc_magic_3rd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
+            calc_magic_3rd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_3rd_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_3rd_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_3rd_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_3rd_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_3rd_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_3rd_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
+            calc_binary_ip_1st_octet: binary_ip_1st_octet,
+            calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
+            calc_binary_ip_4th_octet: binary_ip_4th_octet,
+            calc_binary_mask_1st_octet: binary_mask_1st_octet,
+            calc_binary_mask_2nd_octet: binary_mask_2nd_octet,
+            calc_binary_mask_4th_octet: binary_mask_4th_octet,
+            calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
+            calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
+            calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
+            calc_binary_broadcast_1st_octet: binary_broadcast_1st_octet,
+            calc_binary_broadcast_2nd_octet: binary_broadcast_2nd_octet,
+            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "ip",
+            second_ip_msd_color: "ip",
+            second_ip_lsd_color: "ip",
+            third_ip_msd_color: "ip",
+            third_ip_lsd_color: "host",
+            fourth_ip_msd_color: "host",
+            fourth_ip_lsd_color: "host",
+            first_mask_msd_color: "mask_ones",
+            first_mask_lsd_color: "mask_ones",
+            second_mask_msd_color: "mask_ones",
+            second_mask_lsd_color: "mask_ones",
+            third_mask_msd_color: "mask_ones",
+            third_mask_lsd_color: "mask_zeroes",
+            fourth_mask_msd_color: "mask_zeroes",
+            fourth_mask_lsd_color: "mask_zeroes",
+            first_subnet_msd_color: "ip",
+            first_subnet_lsd_color: "ip",
+            second_subnet_msd_color: "ip",
+            second_subnet_lsd_color: "ip",
+            third_subnet_msd_color: "ip",
+            third_subnet_lsd_color: "subnet",
+            fourth_subnet_msd_color: "subnet",
+            fourth_subnet_lsd_color: "subnet",
+            first_broadcast_msd_color: "ip",
+            first_broadcast_lsd_color: "ip",
+            second_broadcast_msd_color: "ip",
+            second_broadcast_lsd_color: "ip",
+            third_broadcast_msd_color: "ip",
+            third_broadcast_lsd_color: "broadcast",
+            fourth_broadcast_msd_color: "broadcast",
+            fourth_broadcast_lsd_color: "broadcast"
+        }
+
+        ip_struct
+
+      4 ->
+        IO.puts("******** Made it to 4")
+
+        ip_struct = %{
+          ip_struct
+          | calc_magic_4th_octet_binary_ip_msd: magic_octet_binary_ip_msd,
+            calc_magic_4th_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_4th_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_4th_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_4th_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_4th_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_4th_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_4th_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
+            calc_binary_ip_1st_octet: binary_ip_1st_octet,
+            calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
+            calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
+            calc_binary_mask_1st_octet: binary_mask_1st_octet,
+            calc_binary_mask_2nd_octet: binary_mask_2nd_octet,
+            calc_binary_mask_3rd_octet: binary_mask_3rd_octet,
+            calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
+            calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
+            calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
+            calc_binary_broadcast_1st_octet: binary_broadcast_1st_octet,
+            calc_binary_broadcast_2nd_octet: binary_broadcast_2nd_octet,
+            calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "ip",
+            second_ip_msd_color: "ip",
+            second_ip_lsd_color: "ip",
+            third_ip_msd_color: "ip",
+            third_ip_lsd_color: "ip",
+            fourth_ip_msd_color: "ip",
+            fourth_ip_lsd_color: "host",
+            first_mask_msd_color: "mask_ones",
+            first_mask_lsd_color: "mask_ones",
+            second_mask_msd_color: "mask_ones",
+            second_mask_lsd_color: "mask_ones",
+            third_mask_msd_color: "mask_ones",
+            third_mask_lsd_color: "mask_ones",
+            fourth_mask_msd_color: "mask_ones",
+            fourth_mask_lsd_color: "mask_zeroes",
+            first_subnet_msd_color: "ip",
+            first_subnet_lsd_color: "ip",
+            second_subnet_msd_color: "ip",
+            second_subnet_lsd_color: "ip",
+            third_subnet_msd_color: "ip",
+            third_subnet_lsd_color: "ip",
+            fourth_subnet_msd_color: "ip",
+            fourth_subnet_lsd_color: "subnet",
+            first_broadcast_msd_color: "ip",
+            first_broadcast_lsd_color: "ip",
+            second_broadcast_msd_color: "ip",
+            second_broadcast_lsd_color: "ip",
+            third_broadcast_msd_color: "ip",
+            third_broadcast_lsd_color: "ip",
+            fourth_broadcast_msd_color: "ip",
+            fourth_broadcast_lsd_color: "broadcast"
+        }
+
+        ip_struct
     end
   end
 
-  defp binary_string_to_dotted_decimal(binary_string) do
-    for <<chunk::binary-size(8) <- binary_string>> do
-      octet = String.to_integer(chunk, 2)
-      Integer.to_string(octet)
+  defp get_magic_octet_msd(bits, num_of_masked_octets, number_of_ones_in_mask) do
+    magic_octet_msd = String.slice(bits, (8 * num_of_masked_octets)..(number_of_ones_in_mask - 1))
+  end
+
+  defp get_magic_octet_lsd(bits, num_of_masked_octets, number_of_ones_in_mask) do
+    magic_octet_lsd =
+      String.slice(bits, number_of_ones_in_mask..(8 * (num_of_masked_octets + 1) - 1))
+  end
+
+  def decimal_to_binary(value, binary, [head | tail]) do
+    new_value = value - head
+
+    cond do
+      new_value >= 0 ->
+        new_binary = "#{binary}" <> "1"
+        decimal_to_binary(new_value, new_binary, tail)
+
+      new_value < 0 ->
+        new_binary = "#{binary}" <> "0"
+        decimal_to_binary(value, new_binary, tail)
     end
   end
 
-  defp colorizer(
-         first_mask_octet_binary,
-         second_mask_octet_binary,
-         third_mask_octet_binary,
-         fourth_mask_octet_binary
-       ) do
-    case first_mask_octet_binary do
-      "11111111" ->
-        first_address_octet_color = "ip"
-        first_mask_octet_color = "mask_ones"
-        first_host_octet_color = "ip"
-        first_subnet_octet_color = "ip"
-        first_broadcast_octet_color = "ip"
-
-        case second_mask_octet_binary do
-          "11111111" ->
-            second_address_octet_color = "ip"
-            second_mask_octet_color = "mask_ones"
-            second_host_octet_color = "ip"
-            second_subnet_octet_color = "ip"
-            second_broadcast_octet_color = "ip"
-
-            case third_mask_octet_binary do
-              "11111111" ->
-                third_address_octet_color = "ip"
-                third_mask_octet_color = "mask_ones"
-                third_host_octet_color = "ip"
-                third_subnet_octet_color = "ip"
-                third_broadcast_octet_color = "ip"
-
-                case fourth_mask_octet_binary do
-                  "11111111" ->
-                    fourth_address_octet_color = "ip"
-                    fourth_mask_octet_color = "mask_ones"
-                    fourth_host_octet_color = "ip"
-                    fourth_subnet_octet_color = "ip"
-                    fourth_broadcast_octet_color = "ip"
-
-                    {first_address_octet_color, second_address_octet_color,
-                     third_address_octet_color, fourth_address_octet_color,
-                     first_host_octet_color, second_host_octet_color, third_host_octet_color,
-                     fourth_host_octet_color, first_subnet_octet_color, second_subnet_octet_color,
-                     third_subnet_octet_color, fourth_subnet_octet_color,
-                     first_broadcast_octet_color, second_broadcast_octet_color,
-                     third_broadcast_octet_color, fourth_broadcast_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
-
-                  _ ->
-                    # If the fourth octet is the magic octet
-                    fourth_address_octet_color = "host"
-                    fourth_host_octet_color = "host"
-                    fourth_subnet_octet_color = "subnet"
-                    fourth_broadcast_octet_color = "broadcast"
-                    fourth_mask_octet_color = "magic"
-
-                    {first_address_octet_color, second_address_octet_color,
-                     third_address_octet_color, fourth_address_octet_color,
-                     first_host_octet_color, second_host_octet_color, third_host_octet_color,
-                     fourth_host_octet_color, first_subnet_octet_color, second_subnet_octet_color,
-                     third_subnet_octet_color, fourth_subnet_octet_color,
-                     first_broadcast_octet_color, second_broadcast_octet_color,
-                     third_broadcast_octet_color, fourth_broadcast_octet_color,
-                     first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                     fourth_mask_octet_color}
-                end
-
-              _ ->
-                # If the third octet is the magic octet
-                third_address_octet_color = "magic"
-                fourth_address_octet_color = "host"
-
-                third_host_octet_color = "host"
-                fourth_host_octet_color = "host"
-
-                third_subnet_octet_color = "subnet"
-                fourth_subnet_octet_color = "subnet"
-
-                third_broadcast_octet_color = "broadcast"
-                fourth_broadcast_octet_color = "broadcast"
-
-                third_mask_octet_color = "magic"
-                fourth_mask_octet_color = "mask_zeroes"
-
-                {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-                 fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
-                 third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
-                 second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
-                 first_broadcast_octet_color, second_broadcast_octet_color,
-                 third_broadcast_octet_color, fourth_broadcast_octet_color,
-                 first_mask_octet_color, second_mask_octet_color, third_mask_octet_color,
-                 fourth_mask_octet_color}
-            end
-
-          _ ->
-            # If the second octet is the magic octet
-            second_address_octet_color = "magic"
-            third_address_octet_color = "host"
-            fourth_address_octet_color = "host"
-
-            second_host_octet_color = "host"
-            third_host_octet_color = "host"
-            fourth_host_octet_color = "host"
-
-            second_subnet_octet_color = "subnet"
-            third_subnet_octet_color = "subnet"
-            fourth_subnet_octet_color = "subnet"
-
-            second_broadcast_octet_color = "broadcast"
-            third_broadcast_octet_color = "broadcast"
-            fourth_broadcast_octet_color = "broadcast"
-
-            second_mask_octet_color = "magic"
-            third_mask_octet_color = "mask_zeroes"
-            fourth_mask_octet_color = "mask_zeroes"
-
-            {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-             fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
-             third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
-             second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
-             first_broadcast_octet_color, second_broadcast_octet_color,
-             third_broadcast_octet_color, fourth_broadcast_octet_color, first_mask_octet_color,
-             second_mask_octet_color, third_mask_octet_color, fourth_mask_octet_color}
-        end
-
-      _ ->
-        # If the first octet is the magic octet
-        first_address_octet_color = "magic"
-        second_address_octet_color = "host"
-        third_address_octet_color = "host"
-        fourth_address_octet_color = "host"
-
-        first_host_octet_color = "host"
-        second_host_octet_color = "host"
-        third_host_octet_color = "host"
-        fourth_host_octet_color = "host"
-
-        first_subnet_octet_color = "subnet"
-        second_subnet_octet_color = "subnet"
-        third_subnet_octet_color = "subnet"
-        fourth_subnet_octet_color = "subnet"
-
-        first_broadcast_octet_color = "broadcast"
-        second_broadcast_octet_color = "broadcast"
-        third_broadcast_octet_color = "broadcast"
-        fourth_broadcast_octet_color = "broadcast"
-
-        first_mask_octet_color = "magic"
-        second_mask_octet_color = "mask_zeroes"
-        third_mask_octet_color = "mask_zeroes"
-        fourth_mask_octet_color = "mask_zeroes"
-
-        {first_address_octet_color, second_address_octet_color, third_address_octet_color,
-         fourth_address_octet_color, first_host_octet_color, second_host_octet_color,
-         third_host_octet_color, fourth_host_octet_color, first_subnet_octet_color,
-         second_subnet_octet_color, third_subnet_octet_color, fourth_subnet_octet_color,
-         first_broadcast_octet_color, second_broadcast_octet_color, third_broadcast_octet_color,
-         fourth_broadcast_octet_color, first_mask_octet_color, second_mask_octet_color,
-         third_mask_octet_color, fourth_mask_octet_color}
-    end
+  def decimal_to_binary(value, binary, []) do
+    binary
   end
 
-  defp divide_magic_octet(mask_octet_binary) do
-    number_of_ones_in_magic_octet =
-      mask_octet_binary
-      |> String.graphemes()
-      |> Enum.count(&(&1 == "1"))
+  def binary_to_decimal(binary) do
+    format_binary(binary)
+    |> add_bits_base_2([128, 64, 32, 16, 8, 4, 2, 1], 0)
+  end
+
+  defp format_binary(binary) do
+    binary_list = String.graphemes(binary)
+    Enum.map(binary_list, &String.to_integer/1)
+  end
+
+  defp add_bits_base_2([binary_head | binary_tail], [value_head | value_tail], value) do
+    new_value = binary_head * value_head + value
+    add_bits_base_2(binary_tail, value_tail, new_value)
+  end
+
+  defp add_bits_base_2([], [], value) do
+    value
+  end
+
+  def binary_to_decimal_32(binary) do
+    format_binary_32(binary)
+    |> add_bits_base_2_32(
+      [
+        2_147_483_648,
+        1_073_741_824,
+        536_870_912,
+        268_435_456,
+        134_217_728,
+        67_108_864,
+        33_554_432,
+        16_777_216,
+        8_388_608,
+        4_194_304,
+        2_097_152,
+        1_048_576,
+        524_288,
+        262_144,
+        131_072,
+        65536,
+        32768,
+        16384,
+        8192,
+        4096,
+        2048,
+        1024,
+        512,
+        256,
+        128,
+        64,
+        32,
+        16,
+        8,
+        4,
+        2,
+        1
+      ],
+      0
+    )
+  end
+
+  defp format_binary_32(binary) do
+    binary_list = String.graphemes(binary)
+    Enum.map(binary_list, &String.to_integer/1)
+  end
+
+  defp add_bits_base_2_32([binary_head | binary_tail], [value_head | value_tail], value) do
+    new_value = binary_head * value_head + value
+    add_bits_base_2_32(binary_tail, value_tail, new_value)
+  end
+
+  defp add_bits_base_2_32([], [], value) do
+    value
   end
 end
