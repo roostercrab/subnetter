@@ -250,8 +250,8 @@ defmodule SubnetCalc do
 
         ip_struct = %{
           ip_struct
-          | calc_magic_4th_octet_binary_ip_msd: "There should be something here...",
-            calc_magic_4th_octet_binary_ip_lsd: "There should be something here...",
+          | calc_magic_4th_octet_binary_ip_msd: magic_octet_binary_ip_msd,
+            calc_magic_4th_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
             calc_binary_subnet_1st_octet: binary_subnet_1st_octet,
             calc_binary_subnet_2nd_octet: binary_subnet_2nd_octet,
             calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
