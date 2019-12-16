@@ -72,6 +72,83 @@
       </h3>
     </p>
   </div>
+
+    <div class="title_octets">
+      <p>
+        <h3 align=right>IP|</h3>
+      </p>
+      <p>
+        <h3 align=right>IP|</h3>
+      </p>
+      <p>
+        <h3 align=right>Mask|</h3>
+      </p>
+      <p>
+        <h3 align=right>Mask|</h3>
+      </p>
+      <p>
+        <h3 align=right>Subnet|</h3>
+      </p>
+      <p>
+        <h3 align=right>Subnet|</h3>
+      </p>
+      <p>
+        <h3 align=right>Broadcast|</h3>
+      </p>
+      <p>
+        <h3 align=right>Broadcast|</h3>
+      </p>
+    </div>
+    
+    <div class="first_octet">
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_ip_msd_color %>>
+            <%= @ip_1st_octet %>
+              </span>
+        </h3>
+      </p>
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_ip_msd_color %>><%= @calc_binary_ip_1st_octet %><%= @calc_magic_1st_octet_binary_ip_msd %></span><span class=<%= @first_ip_lsd_color %>><%= @calc_magic_1st_octet_binary_ip_lsd %></span>
+        </h3>
+      </p>
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_mask_msd_color %>>
+            <%= @mask_1st_octet %>
+              </span>
+        </h3>
+      </p>
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_mask_msd_color %>><%= @calc_binary_mask_1st_octet %><%= @calc_magic_1st_octet_binary_mask_msd %></span><span class=<%= @first_mask_lsd_color %>><%= @calc_magic_1st_octet_binary_mask_lsd %></span>
+        </h3>
+      </p>
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_subnet_msd_color %>>
+            <%= @subnet_1st_octet %>
+              </span>
+        </h3>
+      </p>      <p>
+        <h3 align=center>
+          <span class=<%= @first_subnet_msd_color %>><%= @calc_binary_subnet_1st_octet %><%= @calc_magic_1st_octet_binary_subnet_msd %></span><span class=<%= @first_subnet_lsd_color %>><%= @calc_magic_1st_octet_binary_subnet_lsd %></span>
+        </h3>
+      </p>
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_broadcast_msd_color %>>
+            <%= @broadcast_1st_octet %>
+              </span>
+        </h3>
+      </p>      
+      <p>
+        <h3 align=center>
+          <span class=<%= @first_broadcast_msd_color %>><%= @calc_binary_broadcast_1st_octet %><%= @calc_magic_1st_octet_binary_broadcast_msd %></span><span class=<%= @first_broadcast_lsd_color %>><%= @calc_magic_1st_octet_binary_broadcast_lsd %></span>
+        </h3>
+      </p>    
+      </div>
 </div>
 
 <p>ip: </p>
@@ -129,3 +206,5 @@ Stuff:
                 <p>binary_ip_as_32_bit_number: <%= @binary_ip_as_32_bit_number %> </p>
                 <p>binary_mask_as_32_bit_number: <%= @binary_mask_as_32_bit_number %> </p>
                 <p>binary_subnet_as_32_bit_number: <%= @binary_subnet_as_32_bit_number %> </p>
+
+  </div>
