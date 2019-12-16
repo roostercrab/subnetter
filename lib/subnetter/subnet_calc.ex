@@ -51,14 +51,14 @@ defmodule SubnetCalc do
     number_of_bits_into_magic_octet = rem(number_of_ones_in_mask, 8)
 
     binary_ip_network_portion = String.slice(binary_ip_address, 0..(number_of_ones_in_mask - 1))
-    binary_host_portion_of_ip = String.slice(binary_ip_address, (number_of_ones_in_mask - 32)..31)
+    binary_ip_host_portion = String.slice(binary_ip_address, (number_of_ones_in_mask - 32)..31)
     ones_for_subnet_mask = Enum.join(List.duplicate("1", number_of_ones_in_mask))
 
     zeroes_for_subnet_address_and_mask =
       Enum.join(List.duplicate("0", 32 - number_of_ones_in_mask))
 
     ones_for_broadcast_address = Enum.join(List.duplicate("1", 32 - number_of_ones_in_mask))
-    binary_ip_address = binary_ip_network_portion <> binary_host_portion_of_ip
+    binary_ip_address = binary_ip_network_portion <> binary_ip_host_portion
     binary_mask_address = ones_for_subnet_mask <> zeroes_for_subnet_address_and_mask
     binary_subnet_address = binary_ip_network_portion <> zeroes_for_subnet_address_and_mask
     binary_broadcast_address = binary_ip_network_portion <> ones_for_broadcast_address
@@ -156,7 +156,7 @@ defmodule SubnetCalc do
         binary_ip_network_portion: binary_ip_network_portion,
         ones_for_subnet_mask: ones_for_subnet_mask,
         zeroes_for_subnet_address_and_mask: zeroes_for_subnet_address_and_mask,
-        binary_host_portion_of_ip: binary_host_portion_of_ip,
+        binary_ip_host_portion: binary_ip_host_portion,
         ones_for_broadcast_address: ones_for_broadcast_address,
         binary_ip_as_32_bit_number: binary_ip_as_32_bit_number,
         binary_mask_as_32_bit_number: binary_mask_as_32_bit_number,

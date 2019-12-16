@@ -1,11 +1,11 @@
 defmodule IPStruct do
   defstruct binary_broadcast_as_32_bit_number: nil,
-            binary_host_portion_of_ip: nil,
             binary_ip_1st_octet: nil,
             binary_ip_2nd_octet: nil,
             binary_ip_3rd_octet: nil,
             binary_ip_4th_octet: nil,
             binary_ip_as_32_bit_number: nil,
+            binary_ip_host_portion: nil,
             binary_ip_network_portion: nil,
             binary_mask_1st_octet: nil,
             binary_mask_2nd_octet: nil,
