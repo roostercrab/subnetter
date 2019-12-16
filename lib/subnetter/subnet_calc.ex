@@ -206,7 +206,15 @@ defmodule SubnetCalc do
             calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
             calc_binary_broadcast_2nd_octet: binary_broadcast_2nd_octet,
             calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet,
-            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet
+            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "host",
+            second_ip_msd_color: "host",
+            second_ip_lsd_color: "host",
+            third_ip_msd_color: "host",
+            third_ip_lsd_color: "host",
+            fourth_ip_msd_color: "host",
+            fourth_ip_lsd_color: "host"
         }
 
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
@@ -234,7 +242,15 @@ defmodule SubnetCalc do
             calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
             calc_binary_broadcast_1st_octet: binary_broadcast_1st_octet,
             calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet,
-            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet
+            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "ip",
+            second_ip_msd_color: "ip",
+            second_ip_lsd_color: "host",
+            third_ip_msd_color: "host",
+            third_ip_lsd_color: "host",
+            fourth_ip_msd_color: "host",
+            fourth_ip_lsd_color: "host"
         }
 
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
@@ -262,7 +278,15 @@ defmodule SubnetCalc do
             calc_binary_subnet_4th_octet: binary_subnet_4th_octet,
             calc_binary_broadcast_1st_octet: binary_broadcast_1st_octet,
             calc_binary_broadcast_2nd_octet: binary_broadcast_2nd_octet,
-            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet
+            calc_binary_broadcast_4th_octet: binary_broadcast_4th_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "ip",
+            second_ip_msd_color: "ip",
+            second_ip_lsd_color: "ip",
+            third_ip_msd_color: "ip",
+            third_ip_lsd_color: "host",
+            fourth_ip_msd_color: "host",
+            fourth_ip_lsd_color: "host"
         }
 
         IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
@@ -290,7 +314,15 @@ defmodule SubnetCalc do
             calc_binary_subnet_3rd_octet: binary_subnet_3rd_octet,
             calc_binary_broadcast_1st_octet: binary_broadcast_1st_octet,
             calc_binary_broadcast_2nd_octet: binary_broadcast_2nd_octet,
-            calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet
+            calc_binary_broadcast_3rd_octet: binary_broadcast_3rd_octet,
+            first_ip_msd_color: "ip",
+            first_ip_lsd_color: "ip",
+            second_ip_msd_color: "ip",
+            second_ip_lsd_color: "ip",
+            third_ip_msd_color: "ip",
+            third_ip_lsd_color: "ip",
+            fourth_ip_msd_color: "ip",
+            fourth_ip_lsd_color: "host"
         }
 
         IO.inspect(ip_struct, label: "IP struct after update in octet")
