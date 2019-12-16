@@ -99,10 +99,22 @@ defmodule SubnetCalc do
     magic_octet_binary_ip_lsd =
       get_magic_octet_lsd(binary_ip_address, num_of_masked_octets, number_of_ones_in_mask)
 
-    magic_octet_subnet_lsd =
+    magic_octet_binary_mask_msd =
+      get_magic_octet_msd(binary_mask_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_mask_lsd =
+      get_magic_octet_lsd(binary_mask_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_subnet_msd =
+      get_magic_octet_msd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
+    
+    magic_octet_binary_subnet_lsd =
       get_magic_octet_lsd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
 
-    magic_octet_broadcast_lsd =
+    magic_octet_binary_broadcast_msd =
+      get_magic_octet_msd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
+
+    magic_octet_binary_broadcast_lsd =
       get_magic_octet_lsd(binary_broadcast_address, num_of_masked_octets, number_of_ones_in_mask)
 
     binary_ip_as_32_bit_number = binary_to_decimal_32(binary_ip_address)
@@ -131,6 +143,12 @@ defmodule SubnetCalc do
         ip_struct,
         magic_octet_binary_ip_lsd,
         magic_octet_binary_ip_msd,
+        magic_octet_binary_mask_lsd,
+        magic_octet_binary_mask_msd,
+        magic_octet_binary_subnet_lsd,
+        magic_octet_binary_subnet_msd,
+        magic_octet_binary_broadcast_lsd,
+        magic_octet_binary_broadcast_msd,
         magic_octet
       )
 
@@ -185,6 +203,12 @@ defmodule SubnetCalc do
         ip_struct,
         magic_octet_binary_ip_lsd,
         magic_octet_binary_ip_msd,
+        magic_octet_binary_mask_lsd,
+        magic_octet_binary_mask_msd,
+        magic_octet_binary_subnet_lsd,
+        magic_octet_binary_subnet_msd,
+        magic_octet_binary_broadcast_lsd,
+        magic_octet_binary_broadcast_msd,
         magic_octet
       ) do
     case magic_octet do
@@ -195,6 +219,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_1st_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_1st_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_1st_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_1st_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_1st_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_1st_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_1st_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_1st_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
             calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
             calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
             calc_binary_ip_4th_octet: binary_ip_4th_octet,
@@ -241,11 +271,6 @@ defmodule SubnetCalc do
             fourth_broadcast_lsd_color: "broadcast"
         }
 
-        IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
-        IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
-
-        # IO.inspect(calc_magic_1st_octet_binary_ip_msd, label: "calc_magic_1st_octet_binary_ip_msd")
-        # IO.inspect(calc_magic_1st_octet_binary_ip_lsd, label: "calc_magic_1st_octet_binary_ip_lsd")
         ip_struct
 
       2 ->
@@ -255,6 +280,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_2nd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_2nd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_2nd_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_2nd_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_2nd_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_2nd_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_2nd_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_2nd_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
             calc_binary_ip_1st_octet: binary_ip_1st_octet,
             calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
             calc_binary_ip_4th_octet: binary_ip_4th_octet,
@@ -301,11 +332,6 @@ defmodule SubnetCalc do
             fourth_broadcast_lsd_color: "broadcast"
         }
 
-        IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
-        IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
-
-        # IO.inspect(calc_magic_2nd_octet_binary_ip_msd, label: "calc_magic_2nd_octet_binary_ip_msd")
-        # IO.inspect(calc_magic_2nd_octet_binary_ip_lsd, label: "calc_magic_2nd_octet_binary_ip_lsd")
         ip_struct
 
       3 ->
@@ -315,6 +341,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_3rd_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_3rd_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_3rd_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_3rd_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_3rd_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_3rd_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_3rd_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_3rd_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
             calc_binary_ip_1st_octet: binary_ip_1st_octet,
             calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
             calc_binary_ip_4th_octet: binary_ip_4th_octet,
@@ -361,11 +393,6 @@ defmodule SubnetCalc do
             fourth_broadcast_lsd_color: "broadcast"
         }
 
-        IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
-        IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
-
-        # IO.inspect(calc_magic_3rd_octet_binary_ip_msd, label: "calc_magic_3rd_octet_binary_ip_msd")
-        # IO.inspect(calc_magic_3rd_octet_binary_ip_lsd, label: "calc_magic_3rd_octet_binary_ip_lsd")
         ip_struct
 
       4 ->
@@ -375,6 +402,12 @@ defmodule SubnetCalc do
           ip_struct
           | calc_magic_4th_octet_binary_ip_msd: magic_octet_binary_ip_msd,
             calc_magic_4th_octet_binary_ip_lsd: magic_octet_binary_ip_lsd,
+            calc_magic_4th_octet_binary_mask_msd: magic_octet_binary_mask_msd,
+            calc_magic_4th_octet_binary_mask_lsd: magic_octet_binary_mask_lsd,
+            calc_magic_4th_octet_binary_subnet_msd: magic_octet_binary_subnet_msd,
+            calc_magic_4th_octet_binary_subnet_lsd: magic_octet_binary_subnet_lsd,
+            calc_magic_4th_octet_binary_broadcast_msd: magic_octet_binary_broadcast_msd,
+            calc_magic_4th_octet_binary_broadcast_lsd: magic_octet_binary_broadcast_lsd,
             calc_binary_ip_1st_octet: binary_ip_1st_octet,
             calc_binary_ip_2nd_octet: binary_ip_2nd_octet,
             calc_binary_ip_3rd_octet: binary_ip_3rd_octet,
@@ -421,12 +454,6 @@ defmodule SubnetCalc do
             fourth_broadcast_lsd_color: "broadcast"
         }
 
-        IO.inspect(ip_struct, label: "IP struct after update in octet")
-        IO.inspect(magic_octet_binary_ip_msd, label: "magic_octet_binary_ip_msd")
-        IO.inspect(magic_octet_binary_ip_lsd, label: "magic_octet_binary_ip_lsd")
-
-        # IO.inspect(calc_magic_4th_octet_binary_ip_msd, label: "calc_magic_4th_octet_binary_ip_msd")
-        # IO.inspect(calc_magic_4th_octet_binary_ip_lsd, label: "calc_magic_4th_octet_binary_ip_lsd")
         ip_struct
     end
   end
