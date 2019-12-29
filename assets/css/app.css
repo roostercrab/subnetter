@@ -660,90 +660,88 @@ header nav a {
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr;
-    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
-    grid-template-areas: 
+  display: grid;
+  grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr;
+  grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+  grid-template-areas:
     "title calculated_dotted_decimal calculated_binary calculated_binary calculated_binary "
     "title_octets first_octet second_octet third_octet fourth_octet";
 }
 
 .title {
-    justify-self: end;
+  justify-self: end;
 }
 
 .calculated_dotted_decimal {
-    justify-self: start;
+  justify-self: start;
 }
 
 .title_binary {
-    justify-self: end;
+  justify-self: end;
 }
 
 .calculated_binary {
-    grid-column: span 3;
-    justify-self: start;
+  grid-column: span 3;
+  justify-self: start;
 }
 
 .title_octets {
-    align-self: 2;    
-    justify-self: end;
+  align-self: 2;
+  justify-self: end;
 }
 
 .first_octet {
-    justify-self: center;
+  justify-self: center;
 }
 
 .second_octet {
-    justify-self: center;
+  justify-self: center;
 }
 
 .third_octet {
-    justify-self: center;
+  justify-self: center;
 }
 
 .fourth_octet {
-    justify-self: center;
+  justify-self: center;
 }
 
 .ip {
-    color: black;
-    background-color: green;
-
+  color: black;
+  background-color: green;
 }
 
 .host {
-    color: green;
-    background-color: black;
-
+  color: green;
+  background-color: black;
 }
 
 .subnet {
-    color: white;
-    background-color: darkblue;
+  color: white;
+  background-color: darkblue;
 }
 
 .broadcast {
-    color: white;
-    background-color: darkorange;
+  color: white;
+  background-color: darkorange;
 }
 
 .mask_ones {
-    color: red;
-    background-color: rgb(226, 7, 7);
+  color: red;
+  background-color: rgb(226, 7, 7);
 }
 
 .mask_zeroes {
-    color: rgb(56, 56, 56);
-    background-color: black;
+  color: rgb(56, 56, 56);
+  background-color: black;
 }
 
 .magic {
-    color: white;
-    background-color: purple;
+  color: white;
+  background-color: purple;
 }

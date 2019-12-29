@@ -7,16 +7,16 @@
 <div class="grid">
   <div class="title">
     <p>
-      <h3 align=right>IP|</h3>
+      <h3 align=right>IP |></h3>
     </p>
     <p>
-      <h3 align=right>Mask|</h3>
+      <h3 align=right>Mask |></h3>
     </p>
     <p>
-      <h3 align=right>Subnet|</h3>
+      <h3 align=right>Subnet |></h3>
     </p>
     <p>
-      <h3 align=right>Broadcast|</h3>
+      <h3 align=right>Broadcast |></h3>
     </p>
   </div>
 
@@ -75,28 +75,28 @@
 
     <div class="title_octets">
       <p>
-        <h3 align=right>IP|</h3>
+        <h3 align=right>IP |></h3>
       </p>
       <p>
-        <h3 align=right>IP|</h3>
+        <h3 align=right>IP |></h3>
       </p>
       <p>
-        <h3 align=right>Mask|</h3>
+        <h3 align=right>Mask |></h3>
       </p>
       <p>
-        <h3 align=right>Mask|</h3>
+        <h3 align=right>Mask |></h3>
       </p>
       <p>
-        <h3 align=right>Subnet|</h3>
+        <h3 align=right>Subnet |></h3>
       </p>
       <p>
-        <h3 align=right>Subnet|</h3>
+        <h3 align=right>Subnet |></h3>
       </p>
       <p>
-        <h3 align=right>Broadcast|</h3>
+        <h3 align=right>Broadcast |></h3>
       </p>
       <p>
-        <h3 align=right>Broadcast|</h3>
+        <h3 align=right>Broadcast |></h3>
       </p>
     </div>
     
