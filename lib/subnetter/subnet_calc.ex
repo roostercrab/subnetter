@@ -2,7 +2,109 @@ defmodule SubnetCalc do
   def main(ip, mask) do
     ip_struct = %IPStruct{}
     decimal_ip_list = String.split(ip, ".")
-    decimal_mask_list = String.split(mask, ".")
+    cond do
+      mask == "/1" ->
+        dotted_decimal_mask = "128.0.0.0"
+
+      mask == "/2" ->
+        dotted_decimal_mask = "192.0.0.0"
+
+      mask == "/3" ->
+        dotted_decimal_mask = "224.0.0.0"
+
+      mask == "/4" ->
+        dotted_decimal_mask = "240.0.0.0"
+
+      mask == "/5" ->
+        dotted_decimal_mask = "248.0.0.0"
+
+      mask == "/6" ->
+        dotted_decimal_mask = "252.0.0.0"
+
+      mask == "/7" ->
+        dotted_decimal_mask = "254.0.0.0"
+
+      mask == "/8" ->
+        dotted_decimal_mask = "255.0.0.0"
+
+      mask == "/9" ->
+        dotted_decimal_mask = "255.128.0.0"
+
+      mask == "/10" ->
+        dotted_decimal_mask = "255.192.0.0"
+
+      mask == "/11" ->
+        dotted_decimal_mask = "255.224.0.0"
+
+      mask == "/12" ->
+        dotted_decimal_mask = "255.240.0.0"
+
+      mask == "/13" ->
+        dotted_decimal_mask = "255.248.0.0"
+
+      mask == "/14" ->
+        dotted_decimal_mask = "255.252.0.0"
+
+      mask == "/15" ->
+        dotted_decimal_mask = "255.254.0.0"
+
+      mask == "/16" ->
+        dotted_decimal_mask = "255.255.0.0"
+
+      mask == "/17" ->
+        dotted_decimal_mask = "255.255.128.0"
+
+      mask == "/18" ->
+        dotted_decimal_mask = "255.255.192.0"
+
+      mask == "/19" ->
+        dotted_decimal_mask = "255.255.224.0"
+
+      mask == "/20" ->
+        dotted_decimal_mask = "255.255.240.0"
+
+      mask == "/21" ->
+        dotted_decimal_mask = "255.255.248.0"
+
+      mask == "/22" ->
+        dotted_decimal_mask = "255.255.252.0"
+
+      mask == "/23" ->
+        dotted_decimal_mask = "255.255.254.0"
+
+      mask == "/24" ->
+        dotted_decimal_mask = "255.255.255.0"
+
+      mask == "/25" ->
+        dotted_decimal_mask = "255.255.255.128"
+
+      mask == "/26" ->
+        dotted_decimal_mask = "255.255.255.192"
+
+      mask == "/27" ->
+        dotted_decimal_mask = "255.255.255.224"
+
+      mask == "/28" ->
+        dotted_decimal_mask = "255.255.255.240"
+
+      mask == "/29" ->
+        dotted_decimal_mask = "255.255.255.248"
+
+      mask == "/30" ->
+        dotted_decimal_mask = "255.255.255.252"
+
+      mask == "/31" ->
+        dotted_decimal_mask = "255.255.255.254"
+
+      mask == "/32" ->
+        dotted_decimal_mask = "255.255.255.255"
+
+      true ->
+        dotted_decimal_mask = mask
+        IO.inspect(dotted_decimal_mask, label: "Dotted Decimal Mask")
+    end
+
+    decimal_mask_list = String.split(dotted_decimal_mask, ".")
 
     [
       ip_1st_octet,
@@ -107,7 +209,7 @@ defmodule SubnetCalc do
 
     magic_octet_binary_subnet_msd =
       get_magic_octet_msd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
-    
+
     magic_octet_binary_subnet_lsd =
       get_magic_octet_lsd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
 
