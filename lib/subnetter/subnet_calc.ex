@@ -2,7 +2,110 @@ defmodule SubnetCalc do
   def main(ip, mask) do
     ip_struct = %IPStruct{}
     decimal_ip_list = String.split(ip, ".")
-    decimal_mask_list = String.split(mask, ".")
+
+    dotted_decimal_mask =
+      cond do
+        mask == "/1" ->
+          "128.0.0.0"
+
+        mask == "/2" ->
+          "192.0.0.0"
+
+        mask == "/3" ->
+          "224.0.0.0"
+
+        mask == "/4" ->
+          "240.0.0.0"
+
+        mask == "/5" ->
+          "248.0.0.0"
+
+        mask == "/6" ->
+          "252.0.0.0"
+
+        mask == "/7" ->
+          "254.0.0.0"
+
+        mask == "/8" ->
+          "255.0.0.0"
+
+        mask == "/9" ->
+          "255.128.0.0"
+
+        mask == "/10" ->
+          "255.192.0.0"
+
+        mask == "/11" ->
+          "255.224.0.0"
+
+        mask == "/12" ->
+          "255.240.0.0"
+
+        mask == "/13" ->
+          "255.248.0.0"
+
+        mask == "/14" ->
+          "255.252.0.0"
+
+        mask == "/15" ->
+          "255.254.0.0"
+
+        mask == "/16" ->
+          "255.255.0.0"
+
+        mask == "/17" ->
+          "255.255.128.0"
+
+        mask == "/18" ->
+          "255.255.192.0"
+
+        mask == "/19" ->
+          "255.255.224.0"
+
+        mask == "/20" ->
+          "255.255.240.0"
+
+        mask == "/21" ->
+          "255.255.248.0"
+
+        mask == "/22" ->
+          "255.255.252.0"
+
+        mask == "/23" ->
+          "255.255.254.0"
+
+        mask == "/24" ->
+          "255.255.255.0"
+
+        mask == "/25" ->
+          "255.255.255.128"
+
+        mask == "/26" ->
+          "255.255.255.192"
+
+        mask == "/27" ->
+          "255.255.255.224"
+
+        mask == "/28" ->
+          "255.255.255.240"
+
+        mask == "/29" ->
+          "255.255.255.248"
+
+        mask == "/30" ->
+          "255.255.255.252"
+
+        mask == "/31" ->
+          "255.255.255.254"
+
+        mask == "/32" ->
+          "255.255.255.255"
+
+        true ->
+          mask
+      end
+
+    decimal_mask_list = String.split(dotted_decimal_mask, ".")
 
     [
       ip_1st_octet,
@@ -107,7 +210,7 @@ defmodule SubnetCalc do
 
     magic_octet_binary_subnet_msd =
       get_magic_octet_msd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
-    
+
     magic_octet_binary_subnet_lsd =
       get_magic_octet_lsd(binary_subnet_address, num_of_masked_octets, number_of_ones_in_mask)
 
